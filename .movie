@@ -1,0 +1,17 @@
+Movie
+
+- Title
+- Year
+- Rated
+- Released
+- Runtime
+- Genre
+- Director
+- Writer
+- Actors
+- Plot
+- Language
+- Country
+- Awards
+- Posrter
+- Type (movie, series, etc)
