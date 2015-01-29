@@ -4,6 +4,8 @@
 
 - simple crud db using azure and pw protected to let me know where my movies are.
 
-- We should try to push as much processing onto the client as possible and load the movie locations out of browser storage if possible.
+- http://www.omdbapi.com/?s=tron&type=movie LOOK AT THIS (Suggestions)
+
+- We should try to push as much processing onto the client as possible and load the movie locations out of browser storage if possible. Caching project.
 
 - future release will have an ios app to locate movies.
