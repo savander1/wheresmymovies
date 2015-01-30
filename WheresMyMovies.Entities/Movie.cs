@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WheresMyMovies.Entities
 {
@@ -22,7 +19,6 @@ namespace WheresMyMovies.Entities
         public byte[] Poster {get; set;}
         public MovieType MovieType {get; set;}
         public Format Format {get; set;}
-
     }
 
 }
