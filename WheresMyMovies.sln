@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.UI", "WheresMyMovies\WheresMyMovies.UI.csproj", "{472015B3-9A17-46AE-BEAA-5FF8748B3F87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{199CF9E0-44D3-4188-A492-319AB77DF332}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{FB23265F-6CAF-448C-BED3-23E660E08185}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\WheresMyMovies-WAWS-dev.json = PublishScripts\Configurations\WheresMyMovies-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.Entities", "WheresMyMovies.Entities\WheresMyMovies.Entities.csproj", "{6771E36C-C474-4F17-90A1-B31DA16683C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB23265F-6CAF-448C-BED3-23E660E08185} = {199CF9E0-44D3-4188-A492-319AB77DF332}
+	EndGlobalSection
+EndGlobal
