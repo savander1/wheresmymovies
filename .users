@@ -3,5 +3,6 @@ Users
 -Name
 -Phone
 
+-> authenticate with api using hash of random auth_code with known encryption key
 
 -> basic contact stuff.
