@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.UI", "WheresMyMovies\WheresMyMovies.UI.csproj", "{472015B3-9A17-46AE-BEAA-5FF8748B3F87}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{199CF9E0-44D3-4188-A492-319AB77DF332}"
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
@@ -18,16 +16,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.Entities", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.Data", "WheresMyMovies.Data\WheresMyMovies.Data.csproj", "{543BE17F-C8C2-4C8F-9E1D-21DC62B82929}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.UI", "WheresMyMovies.UI\WheresMyMovies.UI.csproj", "{472015B3-9A17-46AE-BEAA-5FF8748B3F87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6771E36C-C474-4F17-90A1-B31DA16683C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,6 +32,10 @@ Global
 		{543BE17F-C8C2-4C8F-9E1D-21DC62B82929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{543BE17F-C8C2-4C8F-9E1D-21DC62B82929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{543BE17F-C8C2-4C8F-9E1D-21DC62B82929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472015B3-9A17-46AE-BEAA-5FF8748B3F87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
