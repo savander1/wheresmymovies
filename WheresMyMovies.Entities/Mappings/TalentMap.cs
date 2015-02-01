@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace WheresMyMovies.Entities.Mappings
 {
-    public class UserMap : ClassMap<User>
+    public class TalentMap : ClassMap<Talent>
     {
-        public UserMap()
+        public TalentMap()
         {
             Id(x => x.Id);
-            Map(x => x.Email);
-            Map(x => x.UserName);
-            Map(x => x.Password);
-            Map(x => x.Token);
-            Map(x => x.UserRole);
-        } 
+            Map(x => x.FirstName);
+            Map(x => x.LastName);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace WheresMyMovies.Entities.Mappings
             Map(x => x.Language);
             Map(x => x.Country);
             Map(x => x.Poster);
-
+            Map(x => x.MovieType);
 
         }
     }

@@ -51,6 +51,7 @@
     <Compile Include="Enum\Genre.cs" />
     <Compile Include="Enum\Format.cs" />
     <Compile Include="Mappings\MovieMap.cs" />
+    <Compile Include="Mappings\TalentMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="Enum\MovieType.cs" />
