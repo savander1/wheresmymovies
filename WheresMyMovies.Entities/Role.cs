@@ -1,7 +1,8 @@
 ﻿namespace WheresMyMovies.Entities
 {
-    public class Role
+    public enum Role
     {
-
+        Standard,
+        Admin
     }
 }

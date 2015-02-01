@@ -5,6 +5,7 @@ namespace WheresMyMovies.Entities
 {
     public class Movie
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public DateTime Year {get; set;}
         public string Rating {get; set;}
@@ -18,7 +19,6 @@ namespace WheresMyMovies.Entities
         public string Country {get; set;}
         public byte[] Poster {get; set;}
         public MovieType MovieType {get; set;}
-        public Format Format {get; set;}
     }
 
 }
