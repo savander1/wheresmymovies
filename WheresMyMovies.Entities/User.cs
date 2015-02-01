@@ -3,11 +3,11 @@ namespace WheresMyMovies.Entities
 {
     public class User
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Token { get; set; }
-        public Role UserRole { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Email { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Token { get; set; }
+        public virtual Role UserRole { get; set; }
     }
 }

@@ -5,20 +5,20 @@ namespace WheresMyMovies.Entities
 {
     public class Movie
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public DateTime Year {get; set;}
-        public string Rating {get; set;}
-        public string Released {get; set;}
-        public ICollection<string> Genre {get; set;}
-        public ICollection<Talent> Director {get; set;}
-        public ICollection<Talent> Writer {get; set;}
-        public ICollection<Talent> Actor {get; set;}
-        public string Plot {get; set;}
-        public string Language {get; set;}
-        public string Country {get; set;}
-        public byte[] Poster {get; set;}
-        public MovieType MovieType {get; set;}
+        public virtual int Id { get; set; }
+        public virtual string Title { get; set; }
+        public virtual DateTime Year { get; set; }
+        public virtual string Rating { get; set; }
+        public virtual string Released { get; set; }
+        public virtual ICollection<string> Genre { get; set; }
+        public virtual ICollection<Talent> Director { get; set; }
+        public virtual ICollection<Talent> Writer { get; set; }
+        public virtual ICollection<Talent> Actor { get; set; }
+        public virtual string Plot { get; set; }
+        public virtual string Language { get; set; }
+        public virtual string Country { get; set; }
+        public virtual byte[] Poster { get; set; }
+        public virtual MovieType MovieType { get; set; }
     }
 
 }
