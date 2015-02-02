@@ -1,30 +1,25 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
+using WheresMyMovies.Models;
 
 namespace WheresMyMovies.Controllers
 {
     public class HomeController : Controller
     {
-        
+        [Authorize(Roles = "Standard")]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel loginModel)
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
-
-        
     }
 }
