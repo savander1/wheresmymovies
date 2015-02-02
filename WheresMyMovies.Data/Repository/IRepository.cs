@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WheresMyMovies.Data.Repository
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<out T> where T : class
     {
         IQueryable<T> Get();
     }

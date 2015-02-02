@@ -26,8 +26,6 @@ namespace WheresMyMovies.Data
 
             if (user != null)
             {
-                var userRole = user.UserRole;
-
                 return user.UserRole == Role.Admin ? new[] { Role.Admin.ToString(), Role.Standard.ToString() }
                                                    : new[] { Role.Standard.ToString() };
             }
