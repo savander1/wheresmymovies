@@ -43,21 +43,16 @@ namespace WheresMyMovies.Data.Database
             Create.Table("MovieGenre")
                 .WithColumn("MovieId").AsInt32().ForeignKey().NotNullable()
                 .WithColumn("GenreId").AsInt32().ForeignKey().NotNullable();
+
+            Create.Table("Talent")
+                .WithColumn("Id").AsInt32().Identity().PrimaryKey()
+                .WithColumn("FirstName").AsString().Nullable()
+                .WithColumn("LastName").AsString().NotNullable()
+                .WithColumn("Type").AsString().NotNullable();
+
+            Create.Table("MovieTalent")
+                .WithColumn("MovieId").AsInt32().ForeignKey().NotNullable()
+                .WithColumn("TalentId").AsInt32().ForeignKey().NotNullable();
         }
     }
 }
-Id(x => x.Id);
-            Map(x => x.Title);
-            Map(x => x.Year);
-            Map(x => x.Rating);
-            Map(x => x.Released);
-
-            HasManyToMany<Talent>(x => x.Director);
-            HasManyToMany<Talent>(x => x.Writer);
-            HasManyToMany<Talent>(x => x.Actor);
-
-            Map(x => x.Plot);
-            Map(x => x.Language);
-            Map(x => x.Country);
-            Map(x => x.Poster);
-            Map(x => x.MovieType);

@@ -48,8 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enum\Genre.cs" />
+    <Compile Include="Enum\TalentType.cs" />
+    <Compile Include="Genre.cs" />
     <Compile Include="Enum\Format.cs" />
+    <Compile Include="Mappings\GenreMapping.cs" />
     <Compile Include="Mappings\MovieMap.cs" />
     <Compile Include="Mappings\TalentMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />

@@ -15,6 +15,7 @@ namespace WheresMyMovies.Entities.Mappings
             Map(x => x.Category);
             HasManyToMany(x => x.Movies)
                 .Cascade.All()
+                .Inverse()
                 .Table("MovieGenre");
         }
     }

@@ -17,9 +17,18 @@ namespace WheresMyMovies.Entities.Mappings
             Map(x => x.Rating);
 
 
-            HasManyToMany<Talent>(x => x.Director);
-            HasManyToMany<Talent>(x => x.Writer);
-            HasManyToMany<Talent>(x => x.Actor);
+            HasManyToMany<Director>(x => x.Director)
+                .Cascade.All()
+                .Table("MovieTalent");
+
+            HasManyToMany<Writer>(x => x.Writer)
+                .Cascade.All()
+                .Table("MovieTalent");
+
+            HasManyToMany<Actor>(x => x.Actor)
+                .Cascade.All()
+                .Table("MovieTalent"); 
+
             HasManyToMany<Genre>(x => x.Genre)
                 .Cascade.All()
                 .Table("MovieGenre");
@@ -29,6 +38,7 @@ namespace WheresMyMovies.Entities.Mappings
             Map(x => x.Country);
             Map(x => x.Poster);
             Map(x => x.MovieType);
+            Map(x => x.Location);
 
         }
     }
