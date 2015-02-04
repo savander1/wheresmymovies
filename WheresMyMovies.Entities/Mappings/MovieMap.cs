@@ -15,11 +15,14 @@ namespace WheresMyMovies.Entities.Mappings
             Map(x => x.Title);
             Map(x => x.Year);
             Map(x => x.Rating);
-            Map(x => x.Released);
+
 
             HasManyToMany<Talent>(x => x.Director);
             HasManyToMany<Talent>(x => x.Writer);
             HasManyToMany<Talent>(x => x.Actor);
+            HasManyToMany<Genre>(x => x.Genre)
+                .Cascade.All()
+                .Table("MovieGenre");
 
             Map(x => x.Plot);
             Map(x => x.Language);

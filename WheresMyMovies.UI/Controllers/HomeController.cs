@@ -5,7 +5,7 @@ namespace WheresMyMovies.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Standard")]
+        
         public ActionResult Index()
         {
             return View();
