@@ -99,11 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Content Include="App_Data\WheresMyMoviesDb.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WheresMyMovies.Entities\WheresMyMovies.Entities.csproj">
       <Project>{6771e36c-c474-4f17-90a1-b31da16683c3}</Project>
