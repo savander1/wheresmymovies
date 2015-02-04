@@ -13,6 +13,11 @@ namespace WheresMyMovies.Data.Database
         public override void Down()
         {
             Delete.Table("User");
+            Delete.Table("MovieGenre");
+            Delete.Table("Genre");
+            Delete.Table("MoveTalent");
+            Delete.Table("Talent");
+            Delete.Table("Movie");
         }
 
         public override void Up()
