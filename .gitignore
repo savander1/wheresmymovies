@@ -195,5 +195,8 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
-#Mac Files
+# Mac Files
 .DS_Store
+
+# Cmd Files
+.cmd
