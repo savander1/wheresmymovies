@@ -199,4 +199,4 @@ FakesAssemblies/
 .DS_Store
 
 # Cmd Files
-.cmd
+*.cmd
