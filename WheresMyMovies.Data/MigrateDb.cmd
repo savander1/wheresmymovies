@@ -1,1 +1,0 @@
-..\packages\FluentMigrator.1.4.0.0\tools\migrate --conn "Server=tcp:zikome8dzn.database.windows.net,1433;Database=WheresMyMovies;User ID=wheresmymovies_sqluser@zikome8dzn;Password=Iamth3r3Iamth3r3;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" --provider sqlserver2008 --assembly "bin\Debug\WheresMyMovies.Data.dll" --task migrate
