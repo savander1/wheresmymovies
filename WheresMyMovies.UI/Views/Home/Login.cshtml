@@ -1,3 +1,15 @@
 ﻿@model WheresMyMovies.Models.LoginModel
 
 <h2>Login</h2>
+
+<form action="/Login" method="post">
+    @Html.LabelFor(x=> x.UsernameOrEmail, "Username or Email Address")
+    @Html.TextBoxFor(x=> x.UsernameOrEmail)
+    @Html.ValidationMessageFor(x=> x.UsernameOrEmail)
+    @Html.LabelFor(x=> x.Password)
+    @Html.PasswordFor(x=> x.Password)
+    @Html.ValidationMessageFor(x => x.Password)
+    @Html.AntiForgeryToken()
+    
+    <input type="submit" value="Login" />
+</form>

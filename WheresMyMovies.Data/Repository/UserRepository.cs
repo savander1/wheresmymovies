@@ -12,7 +12,7 @@ namespace WheresMyMovies.Data.Repository
     {
         public IQueryable<User> Get()
         {
-            return new List<User>().AsQueryable();
+            return new List<User> { new User{ Id= 1, Email = "meep@moop.com", Password="a", Token = Guid.NewGuid().ToString(), UserName="meep", UserRole = Role.Admin } }.AsQueryable();
         }
 
         public User GetUser(string emailOrUsername)

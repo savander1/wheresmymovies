@@ -15,6 +15,8 @@ namespace WheresMyMovies.Data
             _userRepository = userRepository;
         }
 
+        public AppRoleProvider() : this(new UserRepository()) { }
+
         public override bool IsUserInRole(string username, string roleName)
         {
             return _userRepository.UserIsInRole(username, roleName); ;
