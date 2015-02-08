@@ -171,6 +171,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WheresMyMovies.Core\WheresMyMovies.Core.csproj">
+      <Project>{6174aee3-e60d-42a5-91b0-8ca7d4c610fe}</Project>
+      <Name>WheresMyMovies.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WheresMyMovies.Data\WheresMyMovies.Data.csproj">
       <Project>{543be17f-c8c2-4c8f-9e1d-21dc62b82929}</Project>
       <Name>WheresMyMovies.Data</Name>

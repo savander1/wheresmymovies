@@ -9,5 +9,6 @@ namespace WheresMyMovies.Data.Repository
         User GetUser(string emailOrUsername);
         bool UserIsInRole(string emailOrUsername, string roleName);
         IQueryable<User> SearchByPartialUsername(string partialEmailOrUsername);
+        void Save(User user);
     }
 }

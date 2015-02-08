@@ -31,7 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,10 +45,22 @@
     <Compile Include="..\WheresMyMovies.Data\SolutionVersionInfo.cs">
       <Link>SolutionVersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppMembershipProvider.cs" />
+    <Compile Include="AppRoleProvider.cs" />
+    <Compile Include="TokenGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WheresMyMovies.Data\WheresMyMovies.Data.csproj">
+      <Project>{543be17f-c8c2-4c8f-9e1d-21dc62b82929}</Project>
+      <Name>WheresMyMovies.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WheresMyMovies.Entities\WheresMyMovies.Entities.csproj">
+      <Project>{6771e36c-c474-4f17-90a1-b31da16683c3}</Project>
+      <Name>WheresMyMovies.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

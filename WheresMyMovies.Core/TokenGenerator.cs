@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WheresMyMovies.Core
 {
-    public class Class1
+    public static class TokenGenerator
     {
+        public static string GenerateToken()
+        {
+            return "";
+        }
     }
 }

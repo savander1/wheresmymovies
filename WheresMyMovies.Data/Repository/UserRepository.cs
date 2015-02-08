@@ -8,7 +8,7 @@ using WheresMyMovies.Entities;
 
 namespace WheresMyMovies.Data.Repository
 {
-    class UserRepository : IUserRepository 
+    public class UserRepository : IUserRepository 
     {
         public IQueryable<User> Get()
         {
@@ -35,6 +35,12 @@ namespace WheresMyMovies.Data.Repository
             var expression = new Regex(string.Format("^.*{0}.*$", partialEmailOrUsername));
             return Get().Where(x => expression.IsMatch(x.Email)
                                  || expression.IsMatch(x.UserName));
+        }
+
+
+        public void Save(User user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

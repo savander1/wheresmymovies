@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Security;
+using WheresMyMovies.Data;
 using WheresMyMovies.Data.Repository;
 using WheresMyMovies.Entities;
 
-namespace WheresMyMovies.Data
+namespace WheresMyMovies.Core
 {
     public class AppRoleProvider : RoleProvider
     {
