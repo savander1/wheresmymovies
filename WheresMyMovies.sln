@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.UI", "Wheres
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.Core", "WheresMyMovies.Core\WheresMyMovies.Core.csproj", "{6174AEE3-E60D-42A5-91B0-8CA7D4C610FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8AEF1A03-4B4C-40D7-8360-80B76F306483}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyMovies.Core.Tests", "tests\WheresMyMovies.Core.Tests\WheresMyMovies.Core.Tests.csproj", "{88B04372-FC25-4951-A25E-60A9C0DA2861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,11 +48,16 @@ Global
 		{6174AEE3-E60D-42A5-91B0-8CA7D4C610FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6174AEE3-E60D-42A5-91B0-8CA7D4C610FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6174AEE3-E60D-42A5-91B0-8CA7D4C610FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88B04372-FC25-4951-A25E-60A9C0DA2861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88B04372-FC25-4951-A25E-60A9C0DA2861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88B04372-FC25-4951-A25E-60A9C0DA2861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88B04372-FC25-4951-A25E-60A9C0DA2861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FB23265F-6CAF-448C-BED3-23E660E08185} = {199CF9E0-44D3-4188-A492-319AB77DF332}
+		{88B04372-FC25-4951-A25E-60A9C0DA2861} = {8AEF1A03-4B4C-40D7-8360-80B76F306483}
 	EndGlobalSection
 EndGlobal

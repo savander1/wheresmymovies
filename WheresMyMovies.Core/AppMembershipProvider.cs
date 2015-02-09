@@ -20,7 +20,7 @@ namespace WheresMyMovies.Core
     {
         private readonly IUserRepository _userRepository;
 
-        public AppMembershipProvider(IUserRepository userRepository)
+        public AppMembershipProvider(IUserRepository userRepository) : base()
         {
             if (userRepository == null) throw new ArgumentNullException("userRepository");
 
@@ -165,7 +165,9 @@ namespace WheresMyMovies.Core
 
         public override bool ValidateUser(string username, string password)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.GetUser(username);
+
+            return user != null && user.Password.Equals(password);
         }
     }
 }
