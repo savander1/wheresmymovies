@@ -14,6 +14,7 @@ using System.Text;
 using System.Web.Configuration;
 using WheresMyMovies.Data.Repository;
 using WheresMyMovies.Entities;
+using System.Collections.Generic;
 
 namespace WheresMyMovies.Core
 {
@@ -185,12 +186,16 @@ namespace WheresMyMovies.Core
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.GetUser(username);
+
+            return UserToMembershipUser(user);
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.Get().SingleOrDefault(x => x.Token.Equals(providerUserKey));
+
+            return UserToMembershipUser(user);
         }
 
         public override string GetUserNameByEmail(string email)
@@ -200,7 +205,7 @@ namespace WheresMyMovies.Core
 
         public override int MaxInvalidPasswordAttempts
         {
-            get { throw new NotImplementedException(); }
+            get { return 5; }
         }
 
         public override int MinRequiredNonAlphanumericCharacters
@@ -215,7 +220,7 @@ namespace WheresMyMovies.Core
 
         public override int PasswordAttemptWindow
         {
-            get { throw new NotImplementedException(); }
+            get { return 1; }
         }
 
         public override MembershipPasswordFormat PasswordFormat
@@ -245,7 +250,7 @@ namespace WheresMyMovies.Core
 
         public override bool UnlockUser(string userName)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
 
         public override void UpdateUser(MembershipUser user)
@@ -262,6 +267,8 @@ namespace WheresMyMovies.Core
 
         private MembershipUser UserToMembershipUser(User user)
         {
+            if (user == null) return null;
+
             return new MembershipUser(providerName: this.Name,
                                       name: null,
                                       providerUserKey: user.Token,
@@ -276,6 +283,48 @@ namespace WheresMyMovies.Core
                                       lastPasswordChangedDate: DateTime.UtcNow,
                                       lastLockoutDate: DateTime.UtcNow);
                                                     
+        }
+
+        private static string _machineValidationKey;
+        private string machineValidationKey
+        {
+            get
+            {
+                return _machineValidationKey ?? (_machineValidationKey = GetMachineValidationKey());
+                
+            }
+        }
+
+        private string EncodePassword(string password)
+        {
+            var key = new List<byte>();
+            for (int i = 0; i < machineValidationKey.Length / 2; i++) 
+            { 
+                key.Add(Convert.ToByte(machineValidationKey.Substring(i * 2, 2), 16));
+            }
+            
+             
+            HMACSHA1 hash = new HMACSHA1(key.ToArray());
+            var pwBytes = Encoding.Unicode.GetBytes(password);
+            var hashedBytes = hash.ComputeHash(pwBytes);
+
+            return Convert.ToBase64String(hashedBytes);
+
+        }
+
+        private static string GetMachineValidationKey()
+        {
+            var cfg = WebConfigurationManager.OpenWebConfiguration(System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
+            if (cfg == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var machineKey = (MachineKeySection)cfg.GetSection("system.web/machineKey");
+            if (machineKey == null)
+            {
+                throw new ArgumentNullException();
+            }
+            return machineKey.ValidationKey;
         }
     }
 }
