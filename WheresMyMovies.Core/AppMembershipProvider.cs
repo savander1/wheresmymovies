@@ -2,6 +2,7 @@
 using System.Configuration.Provider;
 using System.Collections.Specialized;
 using System;
+using System.Linq;
 using System.Data;
 using System.Data.Odbc;
 using System.Configuration;
@@ -50,7 +51,51 @@ namespace WheresMyMovies.Core
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+            var args = new ValidatePasswordEventArgs(username, password, true);
+
+            OnValidatingPassword(args);
+
+            if (args.Cancel)
+            {
+                status = MembershipCreateStatus.InvalidPassword;
+                return null;
+            }
+
+            if (RequiresUniqueEmail && !string.IsNullOrEmpty(GetUserNameByEmail(email)))
+            {
+                status = MembershipCreateStatus.DuplicateEmail;
+                return null;
+            }
+
+            var existing = GetUser(username, false);
+
+            if (existing != null)
+            {
+                status = MembershipCreateStatus.DuplicateUserName;
+                return null;
+            }
+
+            var user = new User
+            {
+                Email = email,
+                Password = password,
+                Token = TokenGenerator.GenerateToken(),
+                UserName = username,
+                UserRole = Role.Standard
+            };
+
+            try
+            {
+                _userRepository.Save(user);
+            }
+            catch (Exception)
+            {
+                status = MembershipCreateStatus.ProviderError;
+                return null;
+            }
+
+            status = MembershipCreateStatus.Success;
+            return UserToMembershipUser(user);
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -70,22 +115,67 @@ namespace WheresMyMovies.Core
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            var collection = new MembershipUserCollection(); 
+            var users = _userRepository.Get().Where(x => x.Email.Equals(emailToMatch, StringComparison.InvariantCultureIgnoreCase));
+            totalRecords = users.Count();
+
+            var usersToSkip = pageIndex * pageSize;
+
+            var userMembers = users.Skip(usersToSkip).Take(pageSize).ToList();
+
+            if (users.Any())
+            {
+                foreach (var user in users)
+                {
+                    collection.Add(UserToMembershipUser(user));
+                }
+            }
+            return collection;
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            var collection = new MembershipUserCollection();
+            var users = _userRepository.Get().Where(x => x.UserName.Equals(usernameToMatch, StringComparison.InvariantCultureIgnoreCase));
+            totalRecords = users.Count();
+
+            var usersToSkip = pageIndex * pageSize;
+
+            var userMembers = users.Skip(usersToSkip).Take(pageSize).ToList();
+
+            if (users.Any())
+            {
+                foreach (var user in users)
+                {
+                    collection.Add(UserToMembershipUser(user));
+                }
+            }
+            return collection;
         }
 
         public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
         {
-            throw new NotImplementedException();
+            var collection = new MembershipUserCollection();
+            var users = _userRepository.Get();
+            totalRecords = users.Count();
+
+            var usersToSkip = pageIndex * pageSize;
+
+            var userMembers = users.Skip(usersToSkip).Take(pageSize).ToList();
+
+            if (users.Any())
+            {
+                foreach (var user in users)
+                {
+                    collection.Add(UserToMembershipUser(user));
+                }
+            }
+            return collection;
         }
 
         public override int GetNumberOfUsersOnline()
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
 
         public override string GetPassword(string username, string answer)
@@ -115,12 +205,12 @@ namespace WheresMyMovies.Core
 
         public override int MinRequiredNonAlphanumericCharacters
         {
-            get { throw new NotImplementedException(); }
+            get { return 1; }
         }
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException(); }
+            get { return 8; }
         }
 
         public override int PasswordAttemptWindow
@@ -130,7 +220,7 @@ namespace WheresMyMovies.Core
 
         public override MembershipPasswordFormat PasswordFormat
         {
-            get { throw new NotImplementedException(); }
+            get { return MembershipPasswordFormat.Hashed; }
         }
 
         public override string PasswordStrengthRegularExpression
@@ -140,12 +230,12 @@ namespace WheresMyMovies.Core
 
         public override bool RequiresQuestionAndAnswer
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public override bool RequiresUniqueEmail
         {
-            get { throw new NotImplementedException(); }
+            get { return true; }
         }
 
         public override string ResetPassword(string username, string answer)
@@ -168,6 +258,24 @@ namespace WheresMyMovies.Core
             var user = _userRepository.GetUser(username);
 
             return user != null && user.Password.Equals(password);
+        }
+
+        private MembershipUser UserToMembershipUser(User user)
+        {
+            return new MembershipUser(providerName: this.Name,
+                                      name: null,
+                                      providerUserKey: user.Token,
+                                      email: user.Email,
+                                      passwordQuestion: string.Empty,
+                                      comment: string.Empty,
+                                      isApproved: true,
+                                      isLockedOut: false,
+                                      creationDate: DateTime.UtcNow,
+                                      lastLoginDate: DateTime.UtcNow,
+                                      lastActivityDate: DateTime.UtcNow,
+                                      lastPasswordChangedDate: DateTime.UtcNow,
+                                      lastLockoutDate: DateTime.UtcNow);
+                                                    
         }
     }
 }
