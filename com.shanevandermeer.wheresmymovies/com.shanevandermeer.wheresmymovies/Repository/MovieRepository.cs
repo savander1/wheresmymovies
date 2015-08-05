@@ -1,12 +1,34 @@
-﻿using System;
+﻿using com.shanevandermeer.wheresmymovies.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.shanevandermeer.wheresmymovies.Repository
 {
-    class MovieRepository
+    public class MovieRepository : IRepository<Movie>
     {
+        public bool Delete(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Movie Get(string Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Movie> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Insert(Movie t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(string id, Movie t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
