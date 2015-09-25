@@ -197,3 +197,6 @@ FakesAssemblies/
 
 #Mac Files
 .DS_Store
+
+#App Specific Files and Directories
+Sandbox/
