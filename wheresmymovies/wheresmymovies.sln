@@ -12,6 +12,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "wheresmymovies", "src\wheresmymovies\wheresmymovies.xproj", "{8AC256C1-9495-4505-97F4-2E1FA2E4E0FF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{48BA4806-8CF6-42DA-9737-41ED15DAD003}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
+		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{D11F3D42-9EBC-4235-904C-32DD23293185}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\wheresmymovies-WAWS-dev.json = PublishScripts\Configurations\wheresmymovies-WAWS-dev.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +39,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8AC256C1-9495-4505-97F4-2E1FA2E4E0FF} = {B8C56175-BAC0-4DC3-8A0A-6C398014D182}
+		{D11F3D42-9EBC-4235-904C-32DD23293185} = {48BA4806-8CF6-42DA-9737-41ED15DAD003}
 	EndGlobalSection
 EndGlobal

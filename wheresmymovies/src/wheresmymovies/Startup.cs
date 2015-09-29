@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using Microsoft.Framework.DependencyInjection;
+using wheresmymovies.Data;
 
 namespace wheresmymovies
 {
@@ -13,14 +10,24 @@ namespace wheresmymovies
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInstance<IMovieRepository>(new MovieRepository());
+            services.AddMvc();
+            services.BuildServiceProvider();
         }
-
+        
         public void Configure(IApplicationBuilder app)
         {
-            app.Run(async (context) =>
+            app.RunIISPipeline();
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "/api/{controller}/{action}");
             });
+            app.Run(async (context) =>
+            { 
+                await context.Response.WriteAsync("Hello World!");
+            });   
         }
     }
 }
