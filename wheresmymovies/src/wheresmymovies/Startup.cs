@@ -9,7 +9,6 @@ namespace wheresmymovies
     {
     	public Startup(IHostingEnvironment env)
 	    {
-	    
 	    }
 
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
@@ -19,10 +18,11 @@ namespace wheresmymovies
             services.AddMvc();
         }
         
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder  app)
         {
             app.UseStaticFiles();
-            app.UseMvc();   
+            app.UseDefaultFiles();
+            app.UseMvc();  
         }
     }
 }
