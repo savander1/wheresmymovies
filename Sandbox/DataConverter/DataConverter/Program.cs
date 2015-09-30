@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using wheresmymovies.Entities;
+using System;
 
 namespace DataConverter
 {
@@ -14,27 +12,37 @@ namespace DataConverter
     {
         static void Main(string[] args)
         {
-
+            var movies = GetMovies();
+            var movieJson = JsonConvert.SerializeObject(movies, Formatting.Indented);
+            WriteFile(movieJson);
         } 
 
-        static IEnumerable<MovieTEMP> GetMovies()
+        static IEnumerable<Movie> GetMovies()
         {
-            var moviesString = ReadFileAsync().Result;
+            var moviesString = ReadFile();
 
             var movies = JsonConvert.DeserializeObject<IEnumerable<MovieTEMP>>(moviesString);
 
-            return movies.Select(x=> x.).Distinct();
+            return movies.Select(x=> Movie.ToMovie(x)).Distinct();
         } 
 
-        static Task<string> ReadFileAsync()
+        static string ReadFile()
         {
-            using (var stream = File.Open("", FileMode.Open))
+            using (var stream = File.Open("data.json", FileMode.Open))
             {
                 using (var reader = new StreamReader(stream))
                 {
-                    return reader.ReadToEndAsync();
+                    return reader.ReadToEnd();
                 }
             }
         } 
+
+        static void WriteFile(string json)
+        {
+            using (var stream = File.CreateText("cleansed.json"))
+            {
+                stream.Write(json);
+            }
+        }
     }
 }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace wheresmymovies.Entities
 {
     public class MovieTEMP
     {
         public string Title { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string Rated { get; set; }
         public string Released { get; set; }
         public string Runtime { get; set; }
@@ -21,9 +20,9 @@ namespace wheresmymovies.Entities
         public string Country { get; set; }
         public string Awards { get; set; }
         public string Poster { get; set; }
-        public int Metascore { get; set; }
-        public decimal imdbRating { get; set; }
-        public long imdbVotes { get; set; }
+        public string Metascore { get; set; }
+        public string imdbRating { get; set; }
+        public string imdbVotes { get; set; }
         public string imdbId { get; set; }
         public string type { get; set; }
         public bool Response { get; set; }
@@ -33,10 +32,10 @@ namespace wheresmymovies.Entities
     {
         public string Id {get;set;}
         public string Title { get; set; }
-        public int Year { get; set; }
+        public string Year { get; set; }
         public string Rated { get; set; }
-        public DateTime Released { get; set; }
-        public TimeSpan Runtime { get; set; }
+        public string Released { get; set; }
+        public string Runtime { get; set; }
         public List<string> Genre { get; set; }
         public List<string> Director { get; set; }
         public List<string> Writer { get; set; }
@@ -47,7 +46,7 @@ namespace wheresmymovies.Entities
         public string ThumbImgUrl { get; set; }
         public string FullImgUrl { get; set; }
 
-        public Movie ToMovie(MovieTEMP temp)
+        public static Movie ToMovie(MovieTEMP temp)
         {
             return new Movie
             {
@@ -55,23 +54,31 @@ namespace wheresmymovies.Entities
                 Title = temp.Title,
                 Year = temp.Year,
                 Rated = temp.Rated,
-                Released = DateTime.Parse(temp.Released),
-                Runtime = TimeSpan.Parse(temp.Runtime),
-                Genre = temp.Genre.Split(",".ToCharArray()).ToList(),
-                Director = temp.Director.Split(",".ToCharArray()).ToList(),
-                Writer = temp.Writer.Split(",".ToCharArray()).ToList(),
-                Actors = temp.Actors.Split(",".ToCharArray()).ToList(),
+                Released = temp.Released,
+                Runtime = temp.Runtime,
+                Genre = temp.Genre.SplitEx().ToList(),
+                Director = temp.Director.SplitEx().ToList(),
+                Writer = temp.Writer.SplitEx().ToList(),
+                Actors = temp.Actors.SplitEx().ToList(),
                 Plot = temp.Plot,
-                Language = temp.Language.Split(",".ToCharArray()).ToList(),
+                Language = temp.Language.SplitEx().ToList(),
                 Country = temp.Country,
                 ThumbImgUrl = GetThumbImageUrl(temp.Poster),
                 FullImgUrl = temp.Poster
             };
         }
 
-        private string GetThumbImageUrl(string poster)
+        private static string GetThumbImageUrl(string poster)
         {
-            throw new NotImplementedException();
+            return poster.Replace("SX300.jpg", "SX100.jpg");
+        } 
+    }
+
+    static class MovieExtensions
+    {
+        public static IEnumerable<string> SplitEx(this string s)
+        {
+            return s.Split(",".ToCharArray()).Select(x=> x.Trim());
         }
     }
 }
