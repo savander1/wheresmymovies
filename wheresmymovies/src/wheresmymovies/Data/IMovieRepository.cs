@@ -8,7 +8,7 @@ namespace wheresmymovies.Data
     {
         ICollection<Movie> Search(MovieSearchParameters searchParams);
         void Add(Movie moive);
-        void Update(Movie movie);
+        void Update(string id, Movie movie);
         void Delete(string movie);
     }
 }

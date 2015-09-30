@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 
@@ -24,7 +22,7 @@ namespace wheresmymovies.Data
             throw new NotImplementedException();
         }
 
-        public void Update(Movie movie)
+        public void Update(string id, Movie movie)
         {
             throw new NotImplementedException();
         }

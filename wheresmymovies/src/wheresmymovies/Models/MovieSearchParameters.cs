@@ -7,5 +7,6 @@ namespace wheresmymovies.Models
 {
     public class MovieSearchParameters
     {
+        public string Id { get; set; }
     }
 }
