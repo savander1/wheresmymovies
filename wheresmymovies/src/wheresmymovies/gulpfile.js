@@ -28,6 +28,6 @@ gulp.task('default', function () {
 	    .pipe(gulp.dest(paths.sass.dest));
 
     gulp.src(paths.ts.src)
-        .pipe(tsc())
+        .pipe(tsc({sourceMap:true}))
         .pipe(gulp.dest(paths.ts.dest));
 });
