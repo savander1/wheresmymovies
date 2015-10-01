@@ -1,24 +1,34 @@
-﻿/*
+﻿/// <binding AfterBuild='default' />
+/*
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var tsc = require('gulp-tsc');
+var bundle = bundle = require('gulp-bundle');
 
 var paths = {
     sass: {
     	src: 'Content/Sass/*.scss',
-	dest: 'wwwroot/style/'
+	    dest: 'wwwroot/css/'
     },
     ts: {
     	src: 'Content/Typescript/*.ts',
-	dest: 'wwwroot/js/'
+	    dest: 'wwwroot/js/'
     }
 }
 
 gulp.task('default', function () {
     gulp.src(paths.sass.src)
-        .pipe(sass())
-	.pipe(gulp.dest(paths.sass.dest));
+        .pipe(sourcemaps.init())
+        .pipe(sass({ outputStyle: 'compressed' }))
+        .pipe(sourcemaps.write())
+	    .pipe(gulp.dest(paths.sass.dest));
+
+    gulp.src(paths.ts.src)
+        .pipe(tsc())
+        .pipe(gulp.dest(paths.ts.dest));
 });

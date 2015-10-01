@@ -1,0 +1,8 @@
+{
+    "name": "ASP.NET",
+    "private": true,
+    "dependencies": {
+        "typeahead.js": "http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js",
+        "jquery" : "2.1.4"
+    }
+}

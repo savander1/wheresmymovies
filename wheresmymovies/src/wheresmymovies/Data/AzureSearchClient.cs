@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace wheresmymovies.Data
@@ -9,8 +10,8 @@ namespace wheresmymovies.Data
     {
     	private readonly WebClient _client;
     	public AzureSearchClient()
-	{
-	    _client = new WebClient();   
-	}
+	    {
+	        _client = new WebClient();   
+	    }
     }
 }
