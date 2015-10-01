@@ -10,6 +10,10 @@ var paths = {
     sass: {
     	src: 'Content/Sass/*.scss',
 	dest: 'wwwroot/style/'
+    },
+    ts: {
+    	src: 'Content/Typescript/*.ts',
+	dest: 'wwwroot/js/'
     }
 }
 
