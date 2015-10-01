@@ -7,6 +7,17 @@
 	    min-width: 370px;
 	    margin: 0 auto;
 	    text-align:center;
+
+        h1{
+            img {
+                vertical-align:middle;
+            }
+            span::first-letter{
+                font-size:larger;
+                text-shadow: 2px 2px 2px #ddd;
+            }
+        }
+        
      }
     input[type='search'] {
         width: 80%;

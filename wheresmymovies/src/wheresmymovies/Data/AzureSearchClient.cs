@@ -8,10 +8,9 @@ namespace wheresmymovies.Data
 {
     public class AzureSearchClient
     {
-    	private readonly WebClient _client;
     	public AzureSearchClient()
 	    {
-	        _client = new WebClient();   
+	         
 	    }
     }
 }

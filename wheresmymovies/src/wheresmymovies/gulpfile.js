@@ -8,7 +8,6 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var tsc = require('gulp-tsc');
-var bundle = bundle = require('gulp-bundle');
 
 var paths = {
     sass: {
