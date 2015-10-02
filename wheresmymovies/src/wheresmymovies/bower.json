@@ -2,7 +2,9 @@
     "name": "ASP.NET",
     "private": true,
     "dependencies": {
-        "typeahead.js": "http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js",
-        "jquery" : "2.1.4"
+        "typeahead.js": "0.11.1",
+        "jquery": "2.1.4",
+        "handlebars.js": "4.0.3"
     }
-}
+} 
+
