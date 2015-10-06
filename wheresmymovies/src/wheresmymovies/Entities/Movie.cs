@@ -46,5 +46,6 @@ namespace wheresmymovies.Entities
         public string Country { get; set; }
         public string ThumbImgUrl { get; set; }
         public string FullImgUrl { get; set; }
+        public string Location { get; set; }
     }
 }

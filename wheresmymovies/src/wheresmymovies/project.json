@@ -9,8 +9,9 @@
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
         "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta7",
-        "jquery.TypeScript.DefinitelyTyped": "2.3.0",
-        "typeahead.TypeScript.DefinitelyTyped": "0.1.5"
+        "Microsoft.Framework.Configuration": "1.0.0-beta7",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
+        "Microsoft.Framework.ConfigurationModel": "1.0.0-beta4"
     },
 
     "commands": {
@@ -18,7 +19,11 @@
     },
 
     "frameworks": {
-        "dnx451": { },
+        "dnx451": {
+            "dependencies": {
+                "Microsoft.Framework.Configuration.Json": "1.0.0-beta5"
+            }
+        },
         "dnxcore50": { }
     },
 
