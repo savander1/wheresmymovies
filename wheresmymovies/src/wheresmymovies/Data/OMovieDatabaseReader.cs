@@ -2,15 +2,31 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using Newtonsoft.Json;
+using wheresmymovies.Entities;
+using wheresmymovies.Models;
 
 namespace wheresmymovies.Data
 {
     public class OMovieDatabaseReader
     {
-        //public 
-        private string GetData(string line)
+        public Movie GetMovie(MovieSearchParameters parameters)
         {
-            var endPoint = GetEndpoint(line);
+            var data = GetData(parameters);
+
+            try
+            {
+                return JsonConvert.DeserializeObject<Movie>(data);
+            }
+            catch
+            {
+                return new Movie();
+            }
+        }
+         
+        private string GetData(MovieSearchParameters parameters)
+        {
+            var endPoint = GetEndpoint(parameters);
 
             var request = WebRequest.Create(endPoint);
 
@@ -26,18 +42,17 @@ namespace wheresmymovies.Data
             }
         }
 
-        private Uri GetEndpoint(string line)
+        private Uri GetEndpoint(MovieSearchParameters parameters)
         {
             var builder = new StringBuilder("http://www.omdbapi.com/");
-            if (line.StartsWith("tt", StringComparison.Ordinal))
+            if (!string.IsNullOrEmpty(parameters.Id))
             {
-                builder.Append("?i=");
+                builder.Append("?i=" + parameters.Id.Trim());
             }
             else
             {
-                builder.Append("?t=");
+                builder.Append("?t=" + parameters.Name.Trim());
             }
-            builder.Append(line.Trim());
             builder.Append("&plot=full&r=json");
             return new Uri(builder.ToString());
         }

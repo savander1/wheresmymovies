@@ -21,7 +21,8 @@ namespace wheresmymovies.Controllers
         [HttpGet]
         public Movie Get([FromQuery]MovieSearchParameters searchParameters)
         {
-
+            var oMovieDatabaseReader = new OMovieDatabaseReader();
+            return oMovieDatabaseReader.GetMovie(searchParameters);
         }
 
         // POST api/values
