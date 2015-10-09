@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace wheresmymovies.Utils
 {
@@ -36,13 +37,16 @@ namespace wheresmymovies.Utils
 
         public static DateTime GetReleaseDate(this string s)
         {
-            //25 May 2007
             return DateTime.ParseExact(s, "dd MMM yyyy", CultureInfo.InvariantCulture);
         }
 
         public static TimeSpan GetRuntime(this string s)
         {
-            
+            var regex = new Regex("\\d");
+            var time = regex.Match(s).Value;
+            var minutes = int.Parse(time);
+
+            return TimeSpan.FromMinutes(minutes);
         }
 
         public static List<string> SplitOnCommas(this string s)
