@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Mvc;
 using wheresmymovies.Data;
 using wheresmymovies.Entities;
+using wheresmymovies.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +15,13 @@ namespace wheresmymovies.Controllers
         public MoviesController(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
+        }
+
+        // GET
+        [HttpGet]
+        public Movie Get([FromQuery]MovieSearchParameters searchParameters)
+        {
+
         }
 
         // POST api/values
