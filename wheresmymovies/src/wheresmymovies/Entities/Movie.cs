@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using wheresmymovies.Utils;
 
 namespace wheresmymovies.Entities
 {
@@ -9,7 +8,7 @@ namespace wheresmymovies.Entities
     {
         public string Id {get;set;}
         public string Title { get; set; }
-        public int Year { get; set; }
+        public List<int> Year { get; set; }
         public string Rated { get; set; }
         public DateTime Released { get; set; }
         public TimeSpan Runtime { get; set; }
@@ -23,5 +22,27 @@ namespace wheresmymovies.Entities
         public string ThumbImgUrl { get; set; }
         public string FullImgUrl { get; set; }
         public string Location { get; set; }
+
+        public Movie () { }
+
+        public Movie(Omovie oMovie)
+        {
+            Id = oMovie.imdbId;
+            Title = oMovie.Title;
+            Year = oMovie.Year.GetYear();
+            Rated = oMovie.Rated;
+            Released = oMovie.Released.GetReleaseDate();
+            Runtime = oMovie.Runtime.GetRuntime();
+            Genre = oMovie.Genre.SplitOnCommas();
+            Director = oMovie.Director.SplitOnCommas();
+            Writer = oMovie.Writer.SplitOnCommas();
+            Actors = oMovie.Actors.SplitOnCommas();
+            Plot = oMovie.Plot;
+            Language = oMovie.Language.SplitOnCommas();
+            Country = oMovie.Country;
+            ThumbImgUrl = oMovie.Poster.GetThumbImageUrl();
+            FullImgUrl = oMovie.Poster;
+            Location = string.Empty;
+        }
     }
 }

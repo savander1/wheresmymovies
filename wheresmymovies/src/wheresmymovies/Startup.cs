@@ -18,13 +18,14 @@ namespace wheresmymovies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInstance<IMovieRepository>(new MovieRepository());
+            services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder  app)
         {
-            var configuration = new ConfigurationBuilder()
-                                .AddJsonFile("config.json");
-            configuration.Build();
+            //var configuration = new ConfigurationBuilder()
+            //                    .AddJsonFile("/config.json");
+            //configuration.Build();
 
 
             app.UseDefaultFiles();

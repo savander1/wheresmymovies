@@ -24,7 +24,11 @@
                 "Microsoft.Framework.Configuration.Json": "1.0.0-beta5"
             }
         },
-        "dnxcore50": { }
+        "dnxcore50": {
+            "dependencies": {
+                "System.Globalization": "4.0.11-beta-23225"
+            }
+        }
     },
 
     "publishExclude": [
