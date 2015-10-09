@@ -27,7 +27,7 @@ namespace wheresmymovies.Data
         private string GetData(MovieSearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
-
+            
             var request = WebRequest.Create(endPoint);
 
             using (var response = request.GetResponse())

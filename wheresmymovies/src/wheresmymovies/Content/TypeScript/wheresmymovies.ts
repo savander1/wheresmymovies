@@ -1,21 +1,23 @@
-﻿interface Controller{
+﻿/// <reference path="jquery.d.ts" />
+
+interface IController{
     address:string;
 }
 
-class SearchController implements Controller{
+class SearchController implements IController{
 
     constructor(public address:string) {
     }
 }
 
-class MovieController implements Controller{
+class MovieController implements IController{
     
     constructor(public address:string) {
         
     }
 }
 
-class AuthController implements Controller{
+class AuthController implements IController{
     
     constructor(public address:string) {
         
@@ -33,6 +35,6 @@ class WheresMyMovies {
     }
     
     init():void {
-       
+      
     }
 }
