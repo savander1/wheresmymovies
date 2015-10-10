@@ -10,8 +10,11 @@ namespace wheresmymovies.Utils
     {
         public static List<int> GetYear(this string s)
         { 
-            if (s.Contains("-"))
-                return GetYearRange(s);
+            var regex = new Regex("[^\\d]+");
+            if (regex.IsMatch(s))
+            {
+                return GetYearRange(s, regex.Match(s).Value);
+            }
 
             int year;
             if (int.TryParse(s, out year))
@@ -20,12 +23,16 @@ namespace wheresmymovies.Utils
             return new List<int>();
         }
 
-        private static List<int> GetYearRange(string s)
+        private static List<int> GetYearRange(string s, string delimiter)
         {
-            var yearParts = s.Split('-');
+            var yearParts = s.Split(delimiter.ToCharArray());
             var start = int.Parse(yearParts[0]);
-            var end = int.Parse(yearParts[1]);
 
+            var second = yearParts[1];
+            var end = string.IsNullOrEmpty(second)
+                ? DateTime.Now.Year
+                : int.Parse(second);
+            
             var range = new List<int>();
             for (var i = start; i <= end; i++)
             {
@@ -42,7 +49,7 @@ namespace wheresmymovies.Utils
 
         public static TimeSpan GetRuntime(this string s)
         {
-            var regex = new Regex("\\d");
+            var regex = new Regex("\\d+");
             var time = regex.Match(s).Value;
             var minutes = int.Parse(time);
 

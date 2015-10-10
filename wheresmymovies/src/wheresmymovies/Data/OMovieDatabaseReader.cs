@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
@@ -12,33 +13,33 @@ namespace wheresmymovies.Data
     {
         public Movie GetMovie(MovieSearchParameters parameters)
         {
-            var data = GetData(parameters);
-
-            try
-            {
-                return JsonConvert.DeserializeObject<Movie>(data);
-            }
-            catch
-            {
-                return new Movie();
-            }
+           return GetData(parameters).ContinueWith((antecedent) =>
+           {
+               try
+               {
+                   var data = antecedent.Result;
+                   var oMovie = JsonConvert.DeserializeObject<Omovie>(data);
+                   return new Movie(oMovie);
+               }
+               catch
+               {
+                   return new Movie();
+               }
+           }).Result;
         }
          
-        private string GetData(MovieSearchParameters parameters)
+        private async Task<string> GetData(MovieSearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
-            
-            var request = WebRequest.Create(endPoint);
-
-            using (var response = request.GetResponse())
+            using (var client = new HttpClient())
             {
-                using (var stream = response.GetResponseStream())
+                using (var stream = await client.GetStreamAsync(GetEndpoint(parameters)))
                 {
                     using (var reader = new StreamReader(stream))
                     {
-                        return  reader.ReadToEnd();
+                        return await Task<string>.Factory.StartNew(() => reader.ReadToEnd());
                     }
-                }
+                }           
             }
         }
 

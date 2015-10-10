@@ -16,6 +16,7 @@
         "jqueryui.TypeScript.DefinitelyTyped": "0.4.3",
         "typeahead.TypeScript.DefinitelyTyped": "0.1.5",
         "handlebars.TypeScript.DefinitelyTyped": "0.1.9",
+        "System.Net.Http": "4.0.0-beta-23019"
     },
 
     "commands": {
@@ -30,7 +31,8 @@
         },
         "dnxcore50": {
             "dependencies": {
-                "System.Globalization": "4.0.11-beta-23225"
+                "System.Globalization": "4.0.11-beta-23225",
+                "System.Threading.Tasks": "4.0.11-beta-23225"
             }
         }
     },
