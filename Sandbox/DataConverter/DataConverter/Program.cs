@@ -23,7 +23,7 @@ namespace DataConverter
 
             var movies = JsonConvert.DeserializeObject<IEnumerable<MovieTEMP>>(moviesString);
 
-            return movies.Select(x=> Movie.ToMovie(x)).Distinct();
+            return movies.Select(x=> new Movie(x)).Distinct();
         } 
 
         static string ReadFile()

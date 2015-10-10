@@ -9,7 +9,7 @@ namespace wheresmymovies.Utils
     public static class StringExtensions
     {
         public static List<int> GetYear(this string s)
-        { 
+        {
             var regex = new Regex("[^\\d]+");
             if (regex.IsMatch(s))
             {
@@ -32,7 +32,7 @@ namespace wheresmymovies.Utils
             var end = string.IsNullOrEmpty(second)
                 ? DateTime.Now.Year
                 : int.Parse(second);
-            
+
             var range = new List<int>();
             for (var i = start; i <= end; i++)
             {
@@ -44,6 +44,7 @@ namespace wheresmymovies.Utils
 
         public static DateTime GetReleaseDate(this string s)
         {
+            if (s.Equals("N/A")) return DateTime.MinValue;
             return DateTime.ParseExact(s, "dd MMM yyyy", CultureInfo.InvariantCulture);
         }
 
@@ -51,6 +52,7 @@ namespace wheresmymovies.Utils
         {
             var regex = new Regex("\\d+");
             var time = regex.Match(s).Value;
+            if (string.IsNullOrEmpty(time)) return new TimeSpan();
             var minutes = int.Parse(time);
 
             return TimeSpan.FromMinutes(minutes);
@@ -62,7 +64,6 @@ namespace wheresmymovies.Utils
                     .Select(x => x.Trim())
                     .ToList();
         }
-
 
         public static string GetThumbImageUrl(this string poster)
         {
