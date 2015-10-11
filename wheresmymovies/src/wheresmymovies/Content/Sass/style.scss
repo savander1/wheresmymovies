@@ -1,6 +1,17 @@
-﻿body {
+﻿@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+$main-color: #2b415f;
+
+
+body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     min-width: 390px;
+    color: $main-color;
 
     div:first-child {
      	width: 80%;
@@ -16,13 +27,26 @@
                 font-size:larger;
                 text-shadow: 2px 2px 2px #ddd;
             }
+            
         }
-        
-     }
-    input[type='search'] {
-        width: 80%;
-        font-size: 1.2em;
-        height: 50px;
-        padding: 0.1em;
+        input[type='search'] {
+            width: 80%;
+            font-size: 1.2em;
+            height: 50px;
+            padding: 0.1em;
+            @include border-radius(25px); 
+            border: 1px solid $main-color;
+        }       
     }
+    a, a:visited{
+            font-size:0.8em;
+            font-weight:bold;
+            text-decoration:none;
+            color: $main-color;
+            text-transform: uppercase;
+        }
+    a:hover{
+        text-decoration: underline;
+    }
+     
 }

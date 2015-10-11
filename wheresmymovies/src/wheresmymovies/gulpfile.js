@@ -15,7 +15,7 @@ var paths = {
 	    dest: 'wwwroot/css/'
     },
     ts: {
-    	src: 'Content/Typescript/*.ts',
+    	src: 'Content/Typescript/wheresmymovies.ts',
 	    dest: 'wwwroot/js/'
     }
 }
