@@ -1,27 +1,21 @@
-﻿/// <reference path="jquery.d.ts" />
-
-interface IController{
-    address:string;
-}
-
-class SearchController implements IController{
-
-    constructor(public address:string) {
+﻿abstract class Controller{
+    constructor(protected address: string) {
     }
 }
 
-class MovieController implements IController{
+class SearchController extends Controller{
+
+    constructor(address: string) { super(address);  }
+}
+
+class MovieController extends Controller{
     
-    constructor(public address:string) {
-        
-    }
+    constructor(address: string) { super(address); }
 }
 
-class AuthController implements IController{
+class AuthController extends Controller{
     
-    constructor(public address:string) {
-        
-    }
+    constructor(address: string) { super(address); }
 }
 
 class WheresMyMovies {
@@ -34,7 +28,25 @@ class WheresMyMovies {
         
     }
     
+    show(selector: string): void {
+        $(selector).css('display', 'show');
+        
+        
+    }
+
+        
     init():void {
-      
+        $('a[data-command="add"]').click(function (event) {
+            this.show('.form');
+            event.preventDefault();
+        });
     }
 }
+
+var searchController = new SearchController('/api/search/');
+var movieController = new MovieController('/api/movies/');
+var authController = new AuthController('/api/auth/');
+
+var movieApp = new WheresMyMovies(searchController, movieController, authController);
+
+$('document').ready(movieApp.init);

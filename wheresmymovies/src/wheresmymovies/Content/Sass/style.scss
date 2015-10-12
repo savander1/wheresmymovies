@@ -36,7 +36,25 @@ body {
             padding: 0.1em;
             @include border-radius(25px); 
             border: 1px solid $main-color;
-        }       
+        }
+        .form{
+            display:none;
+        } 
+    }
+    ::-webkit-input-placeholder {
+       text-align: center;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+       text-align: center;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+       text-align: center;  
+    }
+
+    :-ms-input-placeholder {  
+       text-align: center; 
     }
     a, a:visited{
             font-size:0.8em;

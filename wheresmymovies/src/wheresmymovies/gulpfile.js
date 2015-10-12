@@ -20,7 +20,7 @@ var paths = {
     }
 }
 
-gulp.task('default', function () {
+gulp.task('default', function (){
     gulp.src(paths.sass.src)
         .pipe(sourcemaps.init())
         .pipe(sass({ outputStyle: 'compressed' }))
@@ -28,6 +28,9 @@ gulp.task('default', function () {
 	    .pipe(gulp.dest(paths.sass.dest));
 
     gulp.src(paths.ts.src)
-        .pipe(tsc({sourceMap:true}))
+        .pipe(tsc({
+            sourceMap: true,
+            noLib: true
+        }))
         .pipe(gulp.dest(paths.ts.dest));
 });
