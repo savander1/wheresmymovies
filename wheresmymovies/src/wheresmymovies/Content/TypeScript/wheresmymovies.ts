@@ -1,6 +1,4 @@
-﻿/// <reference path="jquery.d.ts" />
-
-interface IController{
+﻿interface IController{
     address:string;
 }
 
