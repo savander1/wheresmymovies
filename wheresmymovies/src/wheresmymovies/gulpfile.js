@@ -20,14 +20,19 @@ var paths = {
     }
 }
 
-gulp.task('default', function (){
+gulp.task('default', ['sass', 'tsc']);
+
+gulp.task('sass', function(){
     gulp.src(paths.sass.src)
         .pipe(sourcemaps.init())
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(sourcemaps.write())
 	    .pipe(gulp.dest(paths.sass.dest));
+});
 
+gulp.task('tsc', function(){
     gulp.src(paths.ts.src)
+
         .pipe(tsc({
             sourceMap: true,
             noLib: true

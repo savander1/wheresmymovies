@@ -32,15 +32,16 @@ var AuthController = (function (_super) {
 })(Controller);
 var WheresMyMovies = (function () {
     function WheresMyMovies(searchControllerAddress, movieControllerAdderess, authControllerAddress) {
+        this.searchController = searchController;
+        this.authController = authController;
+        this.movieController = movieController;
     }
-    WheresMyMovies.prototype.show = function (selector) {
+    WheresMyMovies.prototype.show = function (selector, event) {
         $(selector).css('display', 'show');
+        event.preventDefault();
     };
     WheresMyMovies.prototype.init = function () {
-        $('a[data-command="add"]').click(function (event) {
-            this.show('.form');
-            event.preventDefault();
-        });
+        $('a[data-command="add"]').click(function (event) { this.show('.form', event); });
     };
     return WheresMyMovies;
 })();

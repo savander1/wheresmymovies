@@ -1,4 +1,4 @@
-﻿abstract class Controller{
+﻿﻿abstract class Controller{
     constructor(protected address: string) {
     }
 }
@@ -24,22 +24,20 @@ class WheresMyMovies {
     private movieController:MovieController;
     private authController:AuthController;
     
-    constructor(searchControllerAddress:SearchController, movieControllerAdderess:MovieController, authControllerAddress:AuthController){
-        
+    constructor(searchControllerAddress: SearchController, movieControllerAdderess: MovieController, authControllerAddress: AuthController) {
+        this.searchController = searchController;
+        this.authController = authController;
+        this.movieController = movieController;
     }
-    
-    show(selector: string): void {
+
+    show(selector: string, event: JQueryEventObject): void {
         $(selector).css('display', 'show');
-        
-        
+        event.preventDefault(); 
     }
 
         
     init():void {
-        $('a[data-command="add"]').click(function (event) {
-            this.show('.form');
-            event.preventDefault();
-        });
+        $('a[data-command="add"]').click(function (event) { this.show('.form', event); });
     }
 }
 
