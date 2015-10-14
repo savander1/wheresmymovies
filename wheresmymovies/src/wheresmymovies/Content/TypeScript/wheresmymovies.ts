@@ -31,7 +31,7 @@ class MovieController extends Controller{
         }).done(function(data) {
             alert(data);
         }).fail(function(error){
-            console.log(error);
+            error(error);
         });
     }
 }
