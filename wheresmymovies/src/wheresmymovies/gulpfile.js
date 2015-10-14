@@ -31,6 +31,10 @@ var paths = {
     ts: {
     	src: 'Content/Typescript/wheresmymovies.ts',
 	    dest: 'wwwroot/js/'
+    },
+    html: {
+        src: 'Content/Html/*.html', 
+        dest: 'wwwroot/'
     }
 }
 
@@ -65,8 +69,8 @@ gulp.task('js', function(){
 });
 
 gulp.task('min-html', function(){
-    gulp.src('wwwroot/default.html')
+    gulp.src(paths.html.src)
         .pipe(minHtml())
-        .pipe(gulp.dest('wwwroot/'));
+        .pipe(gulp.dest(paths.html.dest));
 })
 
