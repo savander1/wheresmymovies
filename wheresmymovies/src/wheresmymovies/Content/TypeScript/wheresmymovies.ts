@@ -2,6 +2,10 @@
 class Controller{
     constructor(protected address: string) {
     }
+        
+    error(err:Object): void {
+        console.log(err);
+    }
 }
 
 class SearchController extends Controller{
@@ -14,7 +18,21 @@ class MovieController extends Controller{
     constructor(address: string) { super(address); }
 
     get(): void {
-
+        var id = $('#id').val();
+        var name = $('#title').val();
+        var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
+        
+        var url  = this.address + query;
+        
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'application/json'
+        }).done(function(data) {
+            alert(data);
+        }).fail(function(error){
+            console.log(error);
+        });
     }
 }
 
