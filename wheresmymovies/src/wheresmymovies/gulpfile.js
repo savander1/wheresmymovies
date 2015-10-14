@@ -9,6 +9,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var tsc = require('gulp-tsc');
 var uglify = require('gulp-uglify');
+var minHtml = require('gulp-minify-html');
 
 var paths = {
     js: {
@@ -33,7 +34,7 @@ var paths = {
     }
 }
 
-gulp.task('default', ['sass', 'tsc', 'js']);
+gulp.task('default', ['sass', 'tsc', 'js', 'min-html']);
 
 gulp.task('sass', function(){
     gulp.src(paths.sass.src)
@@ -62,3 +63,10 @@ gulp.task('js', function(){
         //.pipe(uglify())
         .pipe(gulp.dest(paths.js.dest));
 });
+
+gulp.task('min-html', function(){
+    gulp.src('wwwroot/default.html')
+        .pipe(minHtml())
+        .pipe('wwwroot/default.html');
+})
+
