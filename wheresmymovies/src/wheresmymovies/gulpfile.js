@@ -67,6 +67,6 @@ gulp.task('js', function(){
 gulp.task('min-html', function(){
     gulp.src('wwwroot/default.html')
         .pipe(minHtml())
-        .pipe('wwwroot/default.html');
+        .pipe(gulp.dest('wwwroot/'));
 })
 
