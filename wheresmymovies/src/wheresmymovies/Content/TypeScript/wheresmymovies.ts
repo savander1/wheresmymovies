@@ -1,4 +1,5 @@
-﻿﻿abstract class Controller{
+﻿///<reference path="jquery.d.ts" />
+class Controller{
     constructor(protected address: string) {
     }
 }
@@ -11,6 +12,10 @@ class SearchController extends Controller{
 class MovieController extends Controller{
     
     constructor(address: string) { super(address); }
+
+    get(): void {
+
+    }
 }
 
 class AuthController extends Controller{
@@ -29,15 +34,13 @@ class WheresMyMovies {
         this.authController = authController;
         this.movieController = movieController;
     }
-
-    show(selector: string, event: JQueryEventObject): void {
-        $(selector).css('display', 'show');
-        event.preventDefault(); 
-    }
-
-        
+    
     init():void {
-        $('a[data-command="add"]').click(function (event) { this.show('.form', event); });
+        $('#add').click(function (event) {
+            $('.form').css('display', 'block');
+            event.stopPropagation();
+            event.preventDefault();
+        });
     }
 }
 

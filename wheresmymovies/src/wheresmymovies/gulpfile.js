@@ -8,8 +8,21 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var tsc = require('gulp-tsc');
+var uglify = require('gulp-uglify');
 
 var paths = {
+    js: {
+        src: 'wwwroot/js/*.js',
+        dest: 'wwwroot/js'
+    },
+    jq: {
+        src: 'Content/Libraries/jquery/dist/jquery.js',
+        dest: 'wwwroot/js/'
+    },
+    typeahead: {
+        src: 'Content/Libraries/typeahead.js/dist/typeahead.bundle.js',
+        dest: 'wwwroot/js/'
+    },
     sass: {
     	src: 'Content/Sass/*.scss',
 	    dest: 'wwwroot/css/'
@@ -20,7 +33,7 @@ var paths = {
     }
 }
 
-gulp.task('default', ['sass', 'tsc']);
+gulp.task('default', ['sass', 'tsc', 'js']);
 
 gulp.task('sass', function(){
     gulp.src(paths.sass.src)
@@ -34,8 +47,18 @@ gulp.task('tsc', function(){
     gulp.src(paths.ts.src)
 
         .pipe(tsc({
-            sourceMap: true,
-            noLib: true
+            sourceMap: true
         }))
         .pipe(gulp.dest(paths.ts.dest));
+});
+
+gulp.task('js', function(){
+    gulp.src(paths.jq.src)
+        .pipe(gulp.dest(paths.jq.dest));
+    gulp.src(paths.typeahead.src)
+        .pipe(gulp.dest(paths.typeahead.dest));
+
+    gulp.src(paths.js.src)
+        //.pipe(uglify())
+        .pipe(gulp.dest(paths.js.dest));
 });

@@ -3,6 +3,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+///<reference path="jquery.d.ts" />
 var Controller = (function () {
     function Controller(address) {
         this.address = address;
@@ -21,6 +22,8 @@ var MovieController = (function (_super) {
     function MovieController(address) {
         _super.call(this, address);
     }
+    MovieController.prototype.get = function () {
+    };
     return MovieController;
 })(Controller);
 var AuthController = (function (_super) {
@@ -36,12 +39,12 @@ var WheresMyMovies = (function () {
         this.authController = authController;
         this.movieController = movieController;
     }
-    WheresMyMovies.prototype.show = function (selector, event) {
-        $(selector).css('display', 'show');
-        event.preventDefault();
-    };
     WheresMyMovies.prototype.init = function () {
-        $('a[data-command="add"]').click(function (event) { this.show('.form', event); });
+        $('#add').click(function (event) {
+            $('.form').css('display', 'block');
+            event.stopPropagation();
+            event.preventDefault();
+        });
     };
     return WheresMyMovies;
 })();

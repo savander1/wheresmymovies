@@ -39,6 +39,10 @@ body {
         }
         .form{
             display:none;
+            text-align: right;
+            div{
+                color:blue;
+            }
         } 
     }
     ::-webkit-input-placeholder {
