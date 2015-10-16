@@ -8,6 +8,11 @@ var Controller = (function () {
     function Controller(address) {
         this.address = address;
     }
+    Controller.prototype.error = function (err) {
+        if (err.responseCode) {
+            console.log(err.responseCode);
+        }
+    };
     return Controller;
 })();
 var SearchController = (function (_super) {
@@ -22,7 +27,28 @@ var MovieController = (function (_super) {
     function MovieController(address) {
         _super.call(this, address);
     }
+    MovieController.prototype.error = function (err) {
+        _super.prototype.error.call(this, err);
+    };
+    ;
     MovieController.prototype.get = function () {
+        var id = $('#id').val();
+        var name = $('#title').val();
+        var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
+        var url = this.address + query;
+        var me = this;
+        return $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'application/json'
+        }).pipe(function (data) {
+            return data.responseCode != 200 ?
+                $.Deferred().reject(data) :
+                data;
+        }).fail(function (err) {
+            me.error(err);
+            return err;
+        });
     };
     return MovieController;
 })(Controller);
@@ -39,11 +65,39 @@ var WheresMyMovies = (function () {
         this.authController = authController;
         this.movieController = movieController;
     }
+    WheresMyMovies.setImage = function (src) {
+        var img = $('<img id="dynamic">');
+        img.attr('src', src);
+        return img;
+    };
+    WheresMyMovies.populateForm = function () {
+        movieController.get().done(function (data) {
+            $('#id').val();
+            $('#title').val();
+            $('#year').val();
+            $('#released').val();
+            $('#runtime').val();
+            $('#genre').val();
+            $('#rated').val();
+            $('#director').val();
+            $('#writer').val();
+            $('#language').val();
+            $('#location').val();
+            $('#plot').text();
+            var thumb = WheresMyMovies.setImage(data.FullImgUrl);
+            $('#poster').appendTo(thumb);
+        });
+    };
     WheresMyMovies.prototype.init = function () {
         $('#add').click(function (event) {
             $('.form').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
+        });
+        $('#check').click(function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            WheresMyMovies.populateForm();
         });
     };
     return WheresMyMovies;
@@ -53,4 +107,3 @@ var movieController = new MovieController('/api/movies/');
 var authController = new AuthController('/api/auth/');
 var movieApp = new WheresMyMovies(searchController, movieController, authController);
 $('document').ready(movieApp.init);
-//# sourceMappingURL=wheresmymovies.js.map

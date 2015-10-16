@@ -8,6 +8,7 @@
         "gulp-sourcemaps": "1.6.0",
         "gulp-tsc": "1.1.1",
         "gulp-uglify": "*",
-        "gulp-minify-html": "*"
+        "gulp-minify-html": "*",
+        "tsc": "1.20150623.0"
     }
 }

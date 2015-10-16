@@ -1,10 +1,16 @@
 ﻿///<reference path="jquery.d.ts" />
+interface Movie {
+    imdbId
+}
+
 class Controller{
     constructor(protected address: string) {
     }
         
-    error(err:Object): void {
-        console.log(err);
+    protected error(err:any): void {
+        if (err.responseCode) {
+            console.log(err.responseCode);
+        }
     }
 }
 
@@ -17,21 +23,30 @@ class MovieController extends Controller{
     
     constructor(address: string) { super(address); }
 
-    get(): void {
+    error(err: any): void {
+        super.error(err);
+    };
+
+    get(): JQueryPromise<any> {
         var id = $('#id').val();
         var name = $('#title').val();
         var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
         
-        var url  = this.address + query;
+        var url = this.address + query;
+
+        var me = this;
         
-        $.ajax({
+        return $.ajax({
             type: "GET",
             url: url,
             dataType: 'application/json'
-        }).done(function(data) {
-            alert(data);
-        }).fail(function(error){
-            error(error);
+        }).pipe(function (data) {
+            return data.responseCode != 200 ?
+                $.Deferred().reject(data) :
+                data;
+        }).fail(function (err) {
+            me.error(err);
+            return err;
         });
     }
 }
@@ -51,13 +66,45 @@ class WheresMyMovies {
         this.searchController = searchController;
         this.authController = authController;
         this.movieController = movieController;
+    } 
+
+    private static setImage(src: string): JQuery {
+        var img = $('<img id="dynamic">');
+        img.attr('src', src);
+        
+        return img;
+    }
+
+    private static populateForm(): void {
+        movieController.get().done(function (data) {
+            $('#id').val();
+            $('#title').val();
+            $('#year').val();
+            $('#released').val();
+            $('#runtime').val();
+            $('#genre').val();
+            $('#rated').val();
+            $('#director').val();
+            $('#writer').val();
+            $('#language').val();
+            $('#location').val();
+            $('#plot').text();
+            var thumb = WheresMyMovies.setImage(data.FullImgUrl);
+            $('#poster').appendTo(thumb);
+        })
     }
     
-    init():void {
+    public init(): void {
         $('#add').click(function (event) {
             $('.form').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
+        });
+
+        $('#check').click(function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            WheresMyMovies.populateForm();
         });
     }
 }
