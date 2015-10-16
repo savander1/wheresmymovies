@@ -27,27 +27,20 @@ var MovieController = (function (_super) {
     function MovieController(address) {
         _super.call(this, address);
     }
-    MovieController.prototype.error = function (err) {
-        _super.prototype.error.call(this, err);
-    };
-    ;
     MovieController.prototype.get = function () {
+        var _this = this;
         var id = $('#id').val();
         var name = $('#title').val();
         var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
         var url = this.address + query;
-        var me = this;
         return $.ajax({
             type: "GET",
             url: url,
             dataType: 'application/json'
-        }).pipe(function (data) {
-            return data.responseCode != 200 ?
-                $.Deferred().reject(data) :
-                data;
-        }).fail(function (err) {
-            me.error(err);
-            return err;
+        }).pipe(function (data) { return (data.responseCode !== 200 ?
+            $.Deferred().reject(data) :
+            data); }).fail(function (err) {
+            _super.prototype.error.call(_this, err);
         });
     };
     return MovieController;
@@ -61,9 +54,9 @@ var AuthController = (function (_super) {
 })(Controller);
 var WheresMyMovies = (function () {
     function WheresMyMovies(searchControllerAddress, movieControllerAdderess, authControllerAddress) {
-        this.searchController = searchController;
-        this.authController = authController;
-        this.movieController = movieController;
+        searchController = searchControllerAddress;
+        authController = authControllerAddress;
+        movieController = movieControllerAdderess;
     }
     WheresMyMovies.setImage = function (src) {
         var img = $('<img id="dynamic">');

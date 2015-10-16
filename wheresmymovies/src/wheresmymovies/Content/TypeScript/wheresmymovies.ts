@@ -1,9 +1,9 @@
 ﻿///<reference path="jquery.d.ts" />
-interface Movie {
+interface IMovie {
     imdbId
 }
 
-class Controller{
+abstract class Controller{
     constructor(protected address: string) {
     }
         
@@ -23,30 +23,20 @@ class MovieController extends Controller{
     
     constructor(address: string) { super(address); }
 
-    error(err: any): void {
-        super.error(err);
-    };
-
     get(): JQueryPromise<any> {
         var id = $('#id').val();
         var name = $('#title').val();
         var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
         
         var url = this.address + query;
-
-        var me = this;
-        
         return $.ajax({
             type: "GET",
             url: url,
             dataType: 'application/json'
-        }).pipe(function (data) {
-            return data.responseCode != 200 ?
-                $.Deferred().reject(data) :
-                data;
-        }).fail(function (err) {
-            me.error(err);
-            return err;
+        }).pipe(data => (data.responseCode !== 200 ?
+            $.Deferred().reject(data) :
+            data)).fail(err => {
+            super.error(err);
         });
     }
 }
@@ -63,9 +53,9 @@ class WheresMyMovies {
     private authController:AuthController;
     
     constructor(searchControllerAddress: SearchController, movieControllerAdderess: MovieController, authControllerAddress: AuthController) {
-        this.searchController = searchController;
-        this.authController = authController;
-        this.movieController = movieController;
+        searchController = searchControllerAddress;
+        authController = authControllerAddress;
+        movieController = movieControllerAdderess;
     } 
 
     private static setImage(src: string): JQuery {
@@ -76,7 +66,7 @@ class WheresMyMovies {
     }
 
     private static populateForm(): void {
-        movieController.get().done(function (data) {
+        movieController.get().done(data => {
             $('#id').val();
             $('#title').val();
             $('#year').val();
@@ -91,17 +81,17 @@ class WheresMyMovies {
             $('#plot').text();
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
             $('#poster').appendTo(thumb);
-        })
+        });
     }
     
     public init(): void {
-        $('#add').click(function (event) {
+        $('#add').click(event => {
             $('.form').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
         });
 
-        $('#check').click(function (event) {
+        $('#check').click(event => {
             event.stopPropagation();
             event.preventDefault();
             WheresMyMovies.populateForm();
