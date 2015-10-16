@@ -8,6 +8,9 @@ var Controller = (function () {
     function Controller(address) {
         this.address = address;
     }
+    Controller.prototype.error = function (err) {
+        console.log(err);
+    };
     return Controller;
 })();
 var SearchController = (function (_super) {
@@ -23,6 +26,19 @@ var MovieController = (function (_super) {
         _super.call(this, address);
     }
     MovieController.prototype.get = function () {
+        var id = $('#id').val();
+        var name = $('#title').val();
+        var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
+        var url = this.address + query;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'application/json'
+        }).done(function (data) {
+            alert(data);
+        }).fail(function (error) {
+            error(error);
+        });
     };
     return MovieController;
 })(Controller);
@@ -53,4 +69,3 @@ var movieController = new MovieController('/api/movies/');
 var authController = new AuthController('/api/auth/');
 var movieApp = new WheresMyMovies(searchController, movieController, authController);
 $('document').ready(movieApp.init);
-//# sourceMappingURL=wheresmymovies.js.map

@@ -7,7 +7,7 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var tsc = require('gulp-tsc');
+var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 var minHtml = require('gulp-minify-html');
 
@@ -68,9 +68,9 @@ gulp.task('js', function(){
         .pipe(gulp.dest(paths.js.dest));
 });
 
-gulp.task('min-html', function(){
+gulp.task('min-html', function() {
     gulp.src(paths.html.src)
         .pipe(minHtml())
         .pipe(gulp.dest(paths.html.dest));
-})
+});
 

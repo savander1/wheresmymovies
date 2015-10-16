@@ -6,8 +6,9 @@
         "gulp": "3.9.0",
         "gulp-sass": "2.0.4",
         "gulp-sourcemaps": "1.6.0",
-        "gulp-tsc": "1.1.1",
+        "gulp-typescript": "2.9.2",
         "gulp-uglify": "*",
-        "gulp-minify-html": "*"
+        "gulp-minify-html": "*",
+        "typescript": "1.6.2"
     }
 }
