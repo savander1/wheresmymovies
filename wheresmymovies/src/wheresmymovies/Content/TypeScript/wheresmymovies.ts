@@ -34,9 +34,12 @@ class MovieController extends Controller{
             url: url,
             dataType: 'application/json'
         }).pipe(data => (data.responseCode !== 200 ?
-            $.Deferred().reject(data) :
-            data)).fail(err => {
-            super.error(err);
+        $.Deferred().reject(data) :
+                data)
+        ).fail((jqXHr, textStatus, errorThrown) => {
+            super.error(jqXHr.responseText);
+            super.error(textStatus);
+            super.error(errorThrown);
         });
     }
 }
