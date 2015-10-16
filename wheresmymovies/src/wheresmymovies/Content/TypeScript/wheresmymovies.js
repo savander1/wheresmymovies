@@ -9,9 +9,7 @@ var Controller = (function () {
         this.address = address;
     }
     Controller.prototype.error = function (err) {
-        if (err.responseCode) {
-            console.log(err.responseCode);
-        }
+        console.log(err);
     };
     return Controller;
 })();
@@ -35,8 +33,7 @@ var MovieController = (function (_super) {
         var url = this.address + query;
         return $.ajax({
             type: "GET",
-            url: url,
-            dataType: 'application/json'
+            url: url
         }).pipe(function (data) { return (data.responseCode !== 200 ?
             $.Deferred().reject(data) :
             data); }).fail(function (jqXHr, textStatus, errorThrown) {

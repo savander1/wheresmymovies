@@ -20,6 +20,7 @@ namespace wheresmymovies.Controllers
         public Movie Get([FromQuery]MovieSearchParameters searchParameters)
         {
             var oMovieDatabaseReader = new OMovieDatabaseReader();
+            Response.Headers.Add("content-type", new [] { "application/json"});
             return oMovieDatabaseReader.GetMovie(searchParameters);
         }
 

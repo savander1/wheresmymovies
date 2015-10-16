@@ -8,9 +8,7 @@ abstract class Controller{
     }
         
     protected error(err:any): void {
-        if (err.responseCode) {
-            console.log(err.responseCode);
-        }
+        console.log(err);
     }
 }
 
@@ -31,8 +29,7 @@ class MovieController extends Controller{
         var url = this.address + query;
         return $.ajax({
             type: "GET",
-            url: url,
-            dataType: 'application/json'
+            url: url
         }).pipe(data => (data.responseCode !== 200 ?
         $.Deferred().reject(data) :
                 data)
