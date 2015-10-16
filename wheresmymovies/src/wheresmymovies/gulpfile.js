@@ -52,7 +52,7 @@ gulp.task('tsc', function(){
     gulp.src(paths.ts.src)
 
         .pipe(tsc({
-            sourceMap: true
+            sourceMap: false
         }))
         .pipe(gulp.dest(paths.ts.dest));
 });

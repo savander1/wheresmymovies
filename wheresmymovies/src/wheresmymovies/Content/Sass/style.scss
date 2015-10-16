@@ -13,7 +13,7 @@ body {
     min-width: 390px;
     color: $main-color;
 
-    div:first-child {
+    div:first-of-type {
      	width: 80%;
 	    min-width: 370px;
 	    margin: 0 auto;
