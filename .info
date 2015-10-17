@@ -1,9 +1,0 @@
-- sqlce db of movies and their locations
-
-- which book are they in? itunes? movies folder? converted? need to be?
-
-- simple crud db using azure and pw protected to let me know where my movies are.
-
-- We should try to push as much processing onto the client as possible and load the movie locations out of browser storage if possible.
-
-- future release will have an ios app to locate movies.
