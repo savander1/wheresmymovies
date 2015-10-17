@@ -1,13 +1,28 @@
 ﻿///<reference path="jquery.d.ts" />
 interface IMovie {
-    imdbId
+    Id: string;
+    Title: string;
+    Year: number[]; 
+    Rated: string;
+    Released: Date;
+    Runtime: TimeRanges; 
+    Genre: string[]; 
+    Director: string[];
+    Writer: string[];
+    Actors: string[];
+    Plot: string;
+    Language: string[]; 
+    Country: string;
+    ThumbImgUrl: string;
+    FullImgUrl: string;
+    Location: string;
 }
 
 abstract class Controller{
     constructor(protected address: string) {
     }
         
-    protected error(err:any): void {
+    public error(err:any): void {
         console.log(err);
     }
 }
@@ -21,22 +36,16 @@ class MovieController extends Controller{
     
     constructor(address: string) { super(address); }
 
-    get(): JQueryPromise<any> {
+    get(success:Function, failure:Function): void {
         var id = $('#id').val();
         var name = $('#title').val();
-        var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
         
-        var url = this.address + query;
-        return $.ajax({
+        $.ajax({
             type: "GET",
-            url: url
-        }).pipe(data => (data.responseCode !== 200 ?
-        $.Deferred().reject(data) :
-                data)
-        ).fail((jqXHr, textStatus, errorThrown) => {
-            super.error(jqXHr.responseText);
-            super.error(textStatus);
-            super.error(errorThrown);
+            url: this.address,
+            data: { name: name, id: id },
+            success: function (jqXHr) { success(jqXHr); },
+            error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown) }
         });
     }
 }
@@ -66,21 +75,26 @@ class WheresMyMovies {
     }
 
     private static populateForm(): void {
-        movieController.get().done(data => {
-            $('#id').val();
-            $('#title').val();
-            $('#year').val();
+        movieController.get(function(data:IMovie){
+            $('#id').val(data.Id);
+            $('#title').val(data.Title);
+            $('#year').val(data.Year[0].toString());
             $('#released').val();
             $('#runtime').val();
-            $('#genre').val();
-            $('#rated').val();
-            $('#director').val();
-            $('#writer').val();
-            $('#language').val();
-            $('#location').val();
-            $('#plot').text();
+            $('#genre').val(data.Genre);
+            $('#rated').val(data.Rated);
+            $('#director').val(data.Director);
+            $('#writer').val(data.Writer);
+            $('#language').val(data.Language);
+            $('#location').val(data.Location);
+            $('#plot').text(data.Plot);
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
-            $('#poster').appendTo(thumb);
+            var poster = $('#poster');
+            thumb.appendTo(poster);
+        }, function(jqXHr, textStatus, errorThrown) {
+            movieController.error(jqXHr.responseText);
+            movieController.error(textStatus);
+            movieController.error(errorThrown);
         });
     }
     

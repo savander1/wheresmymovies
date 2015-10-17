@@ -25,21 +25,15 @@ var MovieController = (function (_super) {
     function MovieController(address) {
         _super.call(this, address);
     }
-    MovieController.prototype.get = function () {
-        var _this = this;
+    MovieController.prototype.get = function (success, failure) {
         var id = $('#id').val();
         var name = $('#title').val();
-        var query = '?id=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name);
-        var url = this.address + query;
-        return $.ajax({
+        $.ajax({
             type: "GET",
-            url: url
-        }).pipe(function (data) { return (data.responseCode !== 200 ?
-            $.Deferred().reject(data) :
-            data); }).fail(function (jqXHr, textStatus, errorThrown) {
-            _super.prototype.error.call(_this, jqXHr.responseText);
-            _super.prototype.error.call(_this, textStatus);
-            _super.prototype.error.call(_this, errorThrown);
+            url: this.address,
+            data: { name: name, id: id },
+            success: function (jqXHr) { success(jqXHr); },
+            error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown); }
         });
     };
     return MovieController;
@@ -63,21 +57,26 @@ var WheresMyMovies = (function () {
         return img;
     };
     WheresMyMovies.populateForm = function () {
-        movieController.get().done(function (data) {
-            $('#id').val();
-            $('#title').val();
-            $('#year').val();
+        movieController.get(function (data) {
+            $('#id').val(data.Id);
+            $('#title').val(data.Title);
+            $('#year').val(data.Year[0].toString());
             $('#released').val();
             $('#runtime').val();
-            $('#genre').val();
-            $('#rated').val();
-            $('#director').val();
-            $('#writer').val();
-            $('#language').val();
-            $('#location').val();
-            $('#plot').text();
+            $('#genre').val(data.Genre);
+            $('#rated').val(data.Rated);
+            $('#director').val(data.Director);
+            $('#writer').val(data.Writer);
+            $('#language').val(data.Language);
+            $('#location').val(data.Location);
+            $('#plot').text(data.Plot);
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
-            $('#poster').appendTo(thumb);
+            var poster = $('#poster');
+            thumb.appendTo(poster);
+        }, function (jqXHr, textStatus, errorThrown) {
+            movieController.error(jqXHr.responseText);
+            movieController.error(textStatus);
+            movieController.error(errorThrown);
         });
     };
     WheresMyMovies.prototype.init = function () {
