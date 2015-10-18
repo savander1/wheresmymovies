@@ -6,19 +6,21 @@
 }
 
 $main-color: #2b415f;
-
+$active-color: #4d6f9e;
+$min-width: 370px;
+$fonts: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: $fonts;
     min-width: 390px;
     color: $main-color;
 
-    div:first-of-type {
+    > div {
      	width: 80%;
-	    min-width: 370px;
+	    min-width: $min-width;
 	    margin: 0 auto;
 	    text-align:center;
-
+        position: relative;
         h1{
             img {
                 vertical-align:middle;
@@ -37,13 +39,62 @@ body {
             @include border-radius(25px); 
             border: 1px solid $main-color;
         }
-        .form{
+        form{
             display:none;
-            text-align: right;
+            text-align: left;
+            width: 80%;
+            min-width: $min-width;
+            margin: 0 auto;
             div{
-                color:blue;
+                width: 100%;
+                margin: 10px 0px;
+                float: left;
+                label{
+                    font-weight: bold;
+                    width: 10%;
+                    display:inline-block;
+                    vertical-align: top;
+                }
+                label::after{
+                    content: ": "; 
+                }
+                input, textarea{
+                    width: 80%;
+                    height: 1.5em;
+                    padding: 0.1em;
+                    @include border-radius(2px); 
+                    border: 1px solid $main-color;
+                    vertical-align: top;
+                }
+                textarea{
+                    height: 6.6em;
+                    width: 90%;
+                    font-family: $fonts;
+                    line-height: 1.1em;
+                }
+            }
+            button{
+                background-color: $main-color;
+                color: white;
+                height: 1.8em;
+                font-weight: bold;
+                border: 1px solid $main-color;
+                @include border-radius(3px);
+            }
+            button:hover{
+                border: 1px solid $active-color;
+                background-color: $active-color;
             }
         } 
+        div.poster{
+                max-width: $min-width;
+                img{
+                    @include border-radius(5px);   
+                }
+            }
+        .form::after{
+            clear: both;
+        }
     }
     ::-webkit-input-placeholder {
        text-align: center;

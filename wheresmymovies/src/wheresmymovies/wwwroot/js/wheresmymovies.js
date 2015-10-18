@@ -81,7 +81,7 @@ var WheresMyMovies = (function () {
     };
     WheresMyMovies.prototype.init = function () {
         $('#add').click(function (event) {
-            $('.form').css('display', 'block');
+            $('body > div form').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
         });

@@ -100,7 +100,7 @@ class WheresMyMovies {
     
     public init(): void {
         $('#add').click(event => {
-            $('.form').css('display', 'block');
+            $('body > div form').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
         });
