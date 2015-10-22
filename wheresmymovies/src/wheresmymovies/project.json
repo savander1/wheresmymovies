@@ -1,17 +1,19 @@
 {
     "userSecretsId": "aspnet5-wheresmymovies-20150929092639",
     "webroot": "wwwroot",
-    "version": "1.0.0-beta7",
+    "version": "1.0.0-beta8",
 
     "dependencies": {
-        "Microsoft.AspNet.Mvc": "6.0.0-beta7",
-        "Microsoft.AspNet.Server.IIS": "1.0.0-beta7",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta7",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta7",
-        "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta7",
-        "Microsoft.Framework.Configuration": "1.0.0-beta7",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-beta7",
-        "Microsoft.Framework.ConfigurationModel": "1.0.0-beta4",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta8",
+        "Microsoft.AspNet.Server.IIS": "1.0.0-beta8",
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta8",
+        "Microsoft.AspNet.Session": "1.0.0-beta8",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
+        "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta8",
+        "Microsoft.Framework.Configuration.CommandLine": "1.0.0-beta8",
+        "Microsoft.Framework.Configuration.EnvironmentVariables": "1.0.0-beta8",
+        "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
         "jquery.TypeScript.DefinitelyTyped": "2.3.1",
         "jqueryui.TypeScript.DefinitelyTyped": "0.4.3",
         "typeahead.TypeScript.DefinitelyTyped": "0.1.5",
@@ -20,19 +22,22 @@
     },
 
     "commands": {
+        "gen": "Microsoft.Framework.CodeGeneration",
+        "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:5004",
+        "run": "run server.urls=http://localhost:5003",
         "web": "Microsoft.AspNet.Hosting --config hosting.ini"
     },
 
     "frameworks": {
         "dnx451": {
             "dependencies": {
-                "Microsoft.Framework.Configuration.Json": "1.0.0-beta5"
             }
         },
         "dnxcore50": {
             "dependencies": {
                 "System.Globalization": "4.0.11-beta-23225",
-                "System.Threading.Tasks": "4.0.11-beta-23225"
+                "System.Threading.Tasks": "4.0.11-beta-23225",
+                "System.Runtime.Serialization.Primitives": "4.0.11-beta-23409"
             }
         }
     },

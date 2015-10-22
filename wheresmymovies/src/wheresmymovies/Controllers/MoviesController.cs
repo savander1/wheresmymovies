@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Microsoft.Framework.Configuration;
 using wheresmymovies.Data;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
@@ -9,6 +10,7 @@ namespace wheresmymovies.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IConfiguration _config;
 
         public MoviesController(IMovieRepository movieRepository)
         {
@@ -19,7 +21,8 @@ namespace wheresmymovies.Controllers
         [HttpGet]
         public Movie Get([FromQuery]MovieSearchParameters searchParameters)
         {
-            var oMovieDatabaseReader = new OMovieDatabaseReader();
+            var url = Startup.Configuration.Get<string>("Data:omovieUrl");
+            var oMovieDatabaseReader = new OMovieDatabaseReader(url);
             Response.Headers.Add("content-type", new [] { "application/json"});
             return oMovieDatabaseReader.GetMovie(searchParameters);
         }

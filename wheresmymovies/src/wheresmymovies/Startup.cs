@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
+using Microsoft.Dnx.Runtime;
 using Microsoft.Framework.Configuration;
-using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using wheresmymovies.Data;
 
@@ -9,25 +10,27 @@ namespace wheresmymovies
 {
     public class Startup
     {
-    	public Startup(IHostingEnvironment env)
+        public static IConfiguration Configuration { get; private set; }
+    	public Startup(IApplicationEnvironment applicationEnvironment, IRuntimeEnvironment runtimeEnvironment)
 	    {
-            
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(applicationEnvironment.ApplicationBasePath)
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInstance<IMovieRepository>(new MovieRepository());
+            services.AddInstance<IConfiguration>(Configuration);
             services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder  app)
         {
-            //var configuration = new ConfigurationBuilder()
-            //                    .AddJsonFile("/config.json");
-            //configuration.Build();
-
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();  

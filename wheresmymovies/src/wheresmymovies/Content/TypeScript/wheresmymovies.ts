@@ -68,7 +68,7 @@ class WheresMyMovies {
     } 
 
     private static setImage(src: string): JQuery {
-        var img = $('<img id="dynamic">');
+        var img = $('<img>');
         img.attr('src', src);
         
         return img;
@@ -91,10 +91,12 @@ class WheresMyMovies {
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
             var poster = $('#poster');
             thumb.appendTo(poster);
+            $('form img').removeAttr('style');
         }, function(jqXHr, textStatus, errorThrown) {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
+            $('form img').removeAttr('style');
         });
     }
     
@@ -106,6 +108,7 @@ class WheresMyMovies {
         });
 
         $('#check').click(event => {
+            $('form img').css('display', 'block')
             event.stopPropagation();
             event.preventDefault();
             WheresMyMovies.populateForm();

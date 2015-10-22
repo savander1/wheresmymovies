@@ -1,7 +1,5 @@
 ﻿{
     "Data": {
-    },
-    "AppSettings": {
-        "" : ""
+        "omovieUrl" : "http://www.omdbapi.com/"
     }
 }

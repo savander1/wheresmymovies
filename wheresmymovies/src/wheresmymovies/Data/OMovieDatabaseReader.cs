@@ -11,6 +11,12 @@ namespace wheresmymovies.Data
 {
     public class OMovieDatabaseReader
     {
+        private string _omdbUrl;
+        public OMovieDatabaseReader(string omdbUrl)
+        {
+            _omdbUrl = omdbUrl;
+        }
+        
         public Movie GetMovie(MovieSearchParameters parameters)
         {
            return GetData(parameters).ContinueWith((antecedent) =>
@@ -45,7 +51,7 @@ namespace wheresmymovies.Data
 
         private Uri GetEndpoint(MovieSearchParameters parameters)
         {
-            var builder = new StringBuilder("http://www.omdbapi.com/");
+            var builder = new StringBuilder(_omdbUrl);
             if (!string.IsNullOrEmpty(parameters.Id))
             {
                 builder.Append("?i=" + parameters.Id.Trim());
