@@ -10,7 +10,6 @@ namespace wheresmymovies.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly IConfiguration _config;
 
         public MoviesController(IMovieRepository movieRepository)
         {

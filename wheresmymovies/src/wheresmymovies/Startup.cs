@@ -14,9 +14,7 @@ namespace wheresmymovies
     	public Startup(IApplicationEnvironment applicationEnvironment, IRuntimeEnvironment runtimeEnvironment)
 	    {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(applicationEnvironment.ApplicationBasePath)
-                .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
+                .AddJsonFile("config.json");
 
             Configuration = builder.Build();
         }
@@ -25,7 +23,6 @@ namespace wheresmymovies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInstance<IMovieRepository>(new MovieRepository());
-            services.AddInstance<IConfiguration>(Configuration);
             services.AddMvc();
         }
         

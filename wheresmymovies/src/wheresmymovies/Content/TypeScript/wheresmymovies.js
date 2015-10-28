@@ -52,7 +52,7 @@ var WheresMyMovies = (function () {
         movieController = movieControllerAdderess;
     }
     WheresMyMovies.setImage = function (src) {
-        var img = $('<img id="dynamic">');
+        var img = $('<img>');
         img.attr('src', src);
         return img;
     };
@@ -72,12 +72,30 @@ var WheresMyMovies = (function () {
             $('#plot').text(data.Plot);
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
             var poster = $('#poster');
+            poster.html('');
             thumb.appendTo(poster);
+            $('form img').removeAttr('style');
         }, function (jqXHr, textStatus, errorThrown) {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
+            $('form img').removeAttr('style');
         });
+    };
+    WheresMyMovies.clearForm = function () {
+        $('#id').val('');
+        $('#title').val('');
+        $('#year').val('');
+        $('#released').val('');
+        $('#runtime').val('');
+        $('#genre').val('');
+        $('#rated').val('');
+        $('#director').val('');
+        $('#writer').val('');
+        $('#language').val('');
+        $('#location').val('');
+        $('#plot').text('');
+        $('#poster').html('');
     };
     WheresMyMovies.prototype.init = function () {
         $('#add').click(function (event) {
@@ -86,9 +104,16 @@ var WheresMyMovies = (function () {
             event.preventDefault();
         });
         $('#check').click(function (event) {
+            $('form img').css('display', 'block');
             event.stopPropagation();
             event.preventDefault();
             WheresMyMovies.populateForm();
+        });
+        $('#clear').click(function (event) {
+            $('form img').css('display', 'none');
+            event.stopPropagation();
+            event.preventDefault();
+            WheresMyMovies.clearForm();
         });
     };
     return WheresMyMovies;

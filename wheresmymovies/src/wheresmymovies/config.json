@@ -1,5 +1,5 @@
 ﻿{
-    "Data": {
-        "omovieUrl" : "http://www.omdbapi.com/"
+    "data": {
+        "omovieUrl": "http://www.omdbapi.com/"
     }
 }

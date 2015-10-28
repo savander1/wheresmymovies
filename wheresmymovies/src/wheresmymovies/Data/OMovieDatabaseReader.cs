@@ -11,7 +11,7 @@ namespace wheresmymovies.Data
 {
     public class OMovieDatabaseReader
     {
-        private string _omdbUrl;
+        private readonly string _omdbUrl;
         public OMovieDatabaseReader(string omdbUrl)
         {
             _omdbUrl = omdbUrl;
