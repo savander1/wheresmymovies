@@ -4,6 +4,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 ///<reference path="jquery.d.ts" />
+///<reference path="typeahead.d.ts"/>
+var Display;
+(function (Display) {
+    Display[Display["Show"] = 0] = "Show";
+    Display[Display["Hide"] = 1] = "Hide";
+})(Display || (Display = {}));
 var Controller = (function () {
     function Controller(address) {
         this.address = address;
@@ -97,24 +103,38 @@ var WheresMyMovies = (function () {
         $('#plot').text('');
         $('#poster').html('');
     };
+    WheresMyMovies.showForm = function (event, display) {
+        var disp = 'hide';
+        if (display === Display.Show) {
+            disp = 'show';
+        }
+        $('body > div form').addClass(disp);
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    WheresMyMovies.clear = function (event) {
+        $('form img').addClass('hide');
+        event.stopPropagation();
+        event.preventDefault();
+        WheresMyMovies.clearForm();
+    };
+    WheresMyMovies.check = function (event) {
+        $('form img').addClass('show');
+        event.stopPropagation();
+        event.preventDefault();
+        WheresMyMovies.populateForm();
+    };
+    WheresMyMovies.close = function (event) {
+        WheresMyMovies.clear(event);
+        WheresMyMovies.showForm(event, Display.Hide);
+    };
     WheresMyMovies.prototype.init = function () {
         $('#add').click(function (event) {
-            $('body > div form').css('display', 'block');
-            event.stopPropagation();
-            event.preventDefault();
+            WheresMyMovies.showForm(event, Display.Show);
         });
-        $('#check').click(function (event) {
-            $('form img').css('display', 'block');
-            event.stopPropagation();
-            event.preventDefault();
-            WheresMyMovies.populateForm();
-        });
-        $('#clear').click(function (event) {
-            $('form img').css('display', 'none');
-            event.stopPropagation();
-            event.preventDefault();
-            WheresMyMovies.clearForm();
-        });
+        $('#check').click(WheresMyMovies.check);
+        $('#clear').click(WheresMyMovies.clear);
+        $('#close').click(WheresMyMovies.close);
     };
     return WheresMyMovies;
 })();

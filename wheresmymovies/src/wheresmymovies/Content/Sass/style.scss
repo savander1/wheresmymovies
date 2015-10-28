@@ -124,5 +124,10 @@ body {
     a:hover{
         text-decoration: underline;
     }
-    
+    .show {
+        display:block;
+    }
+    .hide {
+        display: none;
+    }
 }

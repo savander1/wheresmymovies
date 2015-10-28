@@ -1,4 +1,5 @@
 ﻿///<reference path="jquery.d.ts" />
+///<reference path="typeahead.d.ts"/>
 interface IMovie {
     Id: string;
     Title: string;
@@ -16,6 +17,11 @@ interface IMovie {
     ThumbImgUrl: string;
     FullImgUrl: string;
     Location: string;
+}
+
+enum Display {
+    Show,
+    Hide
 }
 
 abstract class Controller{
@@ -44,8 +50,8 @@ class MovieController extends Controller{
             type: "GET",
             url: this.address,
             data: { name: name, id: id },
-            success: function (jqXHr) { success(jqXHr); },
-            error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown) }
+            success: jqXHr => { success(jqXHr); },
+            error: (jqXHr, textStatus, errorThrown) => { failure(jqXHr, textStatus, errorThrown) }
         });
     }
 }
@@ -75,7 +81,7 @@ class WheresMyMovies {
     }
 
     private static populateForm(): void {
-        movieController.get(function(data:IMovie){
+        movieController.get((data:IMovie) => {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
             $('#year').val(data.Year[0].toString());
@@ -93,7 +99,7 @@ class WheresMyMovies {
             poster.html('');
             thumb.appendTo(poster);
             $('form img').removeAttr('style');
-        }, function(jqXHr, textStatus, errorThrown) {
+        }, (jqXHr, textStatus, errorThrown) => {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
@@ -116,27 +122,45 @@ class WheresMyMovies {
         $('#plot').text('');
         $('#poster').html('');
     }
+
+    private static showForm(event: JQueryEventObject, display: Display): void {
+        var disp = 'hide';
+        if (display === Display.Show) {
+            disp = 'show';
+        }
+        $('body > div form').addClass(disp);
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    private static clear(event:JQueryEventObject): void {
+        $('form img').addClass('hide');
+        event.stopPropagation();
+        event.preventDefault();
+        WheresMyMovies.clearForm();
+    }
+
+    private static check(event: JQueryEventObject): void {
+        $('form img').addClass('show');
+        event.stopPropagation();
+        event.preventDefault();
+        WheresMyMovies.populateForm();
+    }
+
+    private static close(event: JQueryEventObject): void {
+        WheresMyMovies.clear(event);
+        WheresMyMovies.showForm(event, Display.Hide);
+    }
     
     public init(): void {
         $('#add').click(event => {
-            $('body > div form').css('display', 'block');
-            event.stopPropagation();
-            event.preventDefault();
+            WheresMyMovies.showForm(event, Display.Show);
         });
 
-        $('#check').click(event => {
-            $('form img').css('display', 'block');
-            event.stopPropagation();
-            event.preventDefault();
-            WheresMyMovies.populateForm();
-        });
+        $('#check').click(WheresMyMovies.check);
+        $('#clear').click(WheresMyMovies.clear);
+        $('#close').click(WheresMyMovies.close);
 
-        $('#clear').click(event => {
-            $('form img').css('display', 'none');
-            event.stopPropagation();
-            event.preventDefault();
-            WheresMyMovies.clearForm();
-        });
     }
 }
 
