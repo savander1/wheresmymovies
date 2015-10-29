@@ -61,7 +61,7 @@ class AuthController extends Controller{
     constructor(address: string) { super(address); }
 }
 
-class WheresMyMovies {
+class App {
     
     private searchController:SearchController;
     private movieController:MovieController;
@@ -98,7 +98,7 @@ class WheresMyMovies {
             $('#language').val(data.Language);
             $('#location').val(data.Location);
             $('#plot').text(data.Plot);
-            var thumb = WheresMyMovies.setImage(data.FullImgUrl);
+            var thumb = App.setImage(data.FullImgUrl);
             var poster = $('#poster');
             poster.html('');
             thumb.appendTo(poster);
@@ -138,7 +138,7 @@ class WheresMyMovies {
     }
 
     private static showForm(event: JQueryEventObject, display: Display): void {
-        WheresMyMovies.killEvent(event);
+        App.killEvent(event);
         var form = $('body > div form');
         var disp = 'hide';
         if (display === Display.Show) {
@@ -150,38 +150,38 @@ class WheresMyMovies {
 
     private static clear(event:JQueryEventObject): void {
         $('form img').addClass('hide');
-        WheresMyMovies.killEvent(event);
-        WheresMyMovies.clearForm();
+        App.killEvent(event);
+        App.clearForm();
     }
 
     private static check(event: JQueryEventObject): void {
         
-        WheresMyMovies.killEvent(event);
-        if (WheresMyMovies.canPopulateForm()) {
+        App.killEvent(event);
+        if (App.canPopulateForm()) {
             $('form img').addClass('show');
-            WheresMyMovies.populateForm();
+            App.populateForm();
         }
     }
 
     private static close(event: JQueryEventObject): void {
-        WheresMyMovies.clear(event);
-        WheresMyMovies.showForm(event, Display.Hide);
+        App.clear(event);
+        App.showForm(event, Display.Hide);
     }
 
     private static submit(event: JQueryEventObject): void {
-        WheresMyMovies.killEvent(event);
-        WheresMyMovies.submitForm();
+        App.killEvent(event);
+        App.submitForm();
     }
     
     public init(): void {
         $('#add').click(event => {
-            WheresMyMovies.showForm(event, Display.Show);
+            App.showForm(event, Display.Show);
         });
 
-        $('#check').click(WheresMyMovies.check);
-        $('#clear').click(WheresMyMovies.clear);
-        $('#close').click(WheresMyMovies.close);
-        $('#submit').click(WheresMyMovies.submit);
+        $('#check').click(App.check);
+        $('#clear').click(App.clear);
+        $('#close').click(App.close);
+        $('#submit').click(App.submit);
 
     }
 }
@@ -200,6 +200,6 @@ var searchController = new SearchController('/api/search/');
 var movieController = new MovieController('/api/movies/');
 var authController = new AuthController('/api/auth/');
 
-var movieApp = new WheresMyMovies(searchController, movieController, authController);
+var movieApp = new App(searchController, movieController, authController);
 
 $('document').ready(movieApp.init);
