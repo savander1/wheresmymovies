@@ -63,7 +63,7 @@ var WheresMyMovies = (function () {
         return img;
     };
     WheresMyMovies.canPopulateForm = function () {
-        return $('#id').val() !== '' && $('#title').val() !== '';
+        return $('#id').val() !== '' || $('#title').val() !== '';
     };
     WheresMyMovies.populateForm = function () {
         movieController.get(function (data) {
@@ -83,12 +83,12 @@ var WheresMyMovies = (function () {
             var poster = $('#poster');
             poster.html('');
             thumb.appendTo(poster);
-            $('form img').removeAttr('style');
+            $('form img').addClass('hide');
         }, function (jqXHr, textStatus, errorThrown) {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
-            $('form img').removeAttr('style');
+            $('form img').addClass('hide');
         });
     };
     WheresMyMovies.clearForm = function () {
@@ -116,11 +116,13 @@ var WheresMyMovies = (function () {
     };
     WheresMyMovies.showForm = function (event, display) {
         WheresMyMovies.killEvent(event);
+        var form = $('body > div form');
         var disp = 'hide';
         if (display === Display.Show) {
             disp = 'show';
         }
-        $('body > div form').addClass(disp);
+        form.removeAttr('class');
+        form.addClass(disp);
     };
     WheresMyMovies.clear = function (event) {
         $('form img').addClass('hide');
@@ -128,9 +130,9 @@ var WheresMyMovies = (function () {
         WheresMyMovies.clearForm();
     };
     WheresMyMovies.check = function (event) {
-        $('form img').addClass('show');
         WheresMyMovies.killEvent(event);
         if (WheresMyMovies.canPopulateForm()) {
+            $('form img').addClass('show');
             WheresMyMovies.populateForm();
         }
     };
