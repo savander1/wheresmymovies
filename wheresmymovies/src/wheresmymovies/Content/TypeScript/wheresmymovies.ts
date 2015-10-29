@@ -65,7 +65,7 @@ class WheresMyMovies {
     
     private searchController:SearchController;
     private movieController:MovieController;
-    private authController:AuthController;
+    private authController: AuthController;
     
     constructor(searchControllerAddress: SearchController, movieControllerAdderess: MovieController, authControllerAddress: AuthController) {
         searchController = searchControllerAddress;
@@ -78,6 +78,10 @@ class WheresMyMovies {
         img.attr('src', src);
         
         return img;
+    }
+
+    private static canPopulateForm(): boolean {
+        return $('#id').val() !== '' && $('#title').val() !== '';
     }
 
     private static populateForm(): void {
@@ -123,33 +127,47 @@ class WheresMyMovies {
         $('#poster').html('');
     }
 
-    private static showForm(event: JQueryEventObject, display: Display): void {
-        var disp = 'hide';
-        if (display === Display.Show) {
-            disp = 'show';
-        }
-        $('body > div form').addClass(disp);
+    private static killEvent(event: JQueryEventObject): void {
         event.stopPropagation();
         event.preventDefault();
     }
 
+    private static submitForm(): void {
+        var body = $('form').serialize();
+        alert(body);
+    }
+
+    private static showForm(event: JQueryEventObject, display: Display): void {
+        WheresMyMovies.killEvent(event);
+        var disp = 'hide';
+        if (display === Display.Show) {
+            disp = 'show';
+        }
+        $('body > div form').addClass(disp);  
+    }
+
     private static clear(event:JQueryEventObject): void {
         $('form img').addClass('hide');
-        event.stopPropagation();
-        event.preventDefault();
+        WheresMyMovies.killEvent(event);
         WheresMyMovies.clearForm();
     }
 
     private static check(event: JQueryEventObject): void {
         $('form img').addClass('show');
-        event.stopPropagation();
-        event.preventDefault();
-        WheresMyMovies.populateForm();
+        WheresMyMovies.killEvent(event);
+        if (WheresMyMovies.canPopulateForm()) {
+            WheresMyMovies.populateForm();
+        }
     }
 
     private static close(event: JQueryEventObject): void {
         WheresMyMovies.clear(event);
         WheresMyMovies.showForm(event, Display.Hide);
+    }
+
+    private static submit(event: JQueryEventObject): void {
+        WheresMyMovies.killEvent(event);
+        WheresMyMovies.submitForm();
     }
     
     public init(): void {
@@ -160,7 +178,18 @@ class WheresMyMovies {
         $('#check').click(WheresMyMovies.check);
         $('#clear').click(WheresMyMovies.clear);
         $('#close').click(WheresMyMovies.close);
+        $('#submit').click(WheresMyMovies.submit);
 
+    }
+}
+
+class TimeFormatter {
+    public static formatYear(year: string): string {
+        return '1999';
+    }
+
+    public static formatRuntime(runtime: string): string {
+        return '89 minutes';
     }
 }
 

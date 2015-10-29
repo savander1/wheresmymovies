@@ -62,6 +62,9 @@ var WheresMyMovies = (function () {
         img.attr('src', src);
         return img;
     };
+    WheresMyMovies.canPopulateForm = function () {
+        return $('#id').val() !== '' && $('#title').val() !== '';
+    };
     WheresMyMovies.populateForm = function () {
         movieController.get(function (data) {
             $('#id').val(data.Id);
@@ -103,30 +106,41 @@ var WheresMyMovies = (function () {
         $('#plot').text('');
         $('#poster').html('');
     };
+    WheresMyMovies.killEvent = function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    };
+    WheresMyMovies.submitForm = function () {
+        var body = $('form').serialize();
+        alert(body);
+    };
     WheresMyMovies.showForm = function (event, display) {
+        WheresMyMovies.killEvent(event);
         var disp = 'hide';
         if (display === Display.Show) {
             disp = 'show';
         }
         $('body > div form').addClass(disp);
-        event.stopPropagation();
-        event.preventDefault();
     };
     WheresMyMovies.clear = function (event) {
         $('form img').addClass('hide');
-        event.stopPropagation();
-        event.preventDefault();
+        WheresMyMovies.killEvent(event);
         WheresMyMovies.clearForm();
     };
     WheresMyMovies.check = function (event) {
         $('form img').addClass('show');
-        event.stopPropagation();
-        event.preventDefault();
-        WheresMyMovies.populateForm();
+        WheresMyMovies.killEvent(event);
+        if (WheresMyMovies.canPopulateForm()) {
+            WheresMyMovies.populateForm();
+        }
     };
     WheresMyMovies.close = function (event) {
         WheresMyMovies.clear(event);
         WheresMyMovies.showForm(event, Display.Hide);
+    };
+    WheresMyMovies.submit = function (event) {
+        WheresMyMovies.killEvent(event);
+        WheresMyMovies.submitForm();
     };
     WheresMyMovies.prototype.init = function () {
         $('#add').click(function (event) {
@@ -135,8 +149,20 @@ var WheresMyMovies = (function () {
         $('#check').click(WheresMyMovies.check);
         $('#clear').click(WheresMyMovies.clear);
         $('#close').click(WheresMyMovies.close);
+        $('#submit').click(WheresMyMovies.submit);
     };
     return WheresMyMovies;
+})();
+var TimeFormatter = (function () {
+    function TimeFormatter() {
+    }
+    TimeFormatter.formatYear = function (year) {
+        return '1999';
+    };
+    TimeFormatter.formatRuntime = function (runtime) {
+        return '89 minutes';
+    };
+    return TimeFormatter;
 })();
 var searchController = new SearchController('/api/search/');
 var movieController = new MovieController('/api/movies/');
