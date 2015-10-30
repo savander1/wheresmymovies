@@ -5,8 +5,8 @@ interface IMovie {
     Title: string;
     Year: number[]; 
     Rated: string;
-    Released: Date;
-    Runtime: TimeRanges; 
+    Released: string;
+    Runtime: string; 
     Genre: string[]; 
     Director: string[];
     Writer: string[];
@@ -96,6 +96,7 @@ class WheresMyMovies {
             $('#director').val(data.Director);
             $('#writer').val(data.Writer);
             $('#language').val(data.Language);
+            $('#country').val(data.Country);
             $('#location').val(data.Location);
             $('#plot').text(data.Plot);
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
@@ -122,6 +123,7 @@ class WheresMyMovies {
         $('#director').val('');
         $('#writer').val('');
         $('#language').val('');
+        $('#country').val('');
         $('#location').val('');
         $('#plot').text('');
         $('#poster').html('');
@@ -186,21 +188,49 @@ class WheresMyMovies {
         $('#clear').click(WheresMyMovies.clear);
         $('#close').click(WheresMyMovies.close);
         $('#submit').click(WheresMyMovies.submit);
-
     }
 }
 
 class TimeFormatter {
     public static formatYear(year: Number[]): string {
-        return '1999';
+        if (year.length === 0) {
+            return '';
+        }
+        if (year.length === 1) {
+            return year[0].toString();
+        }
+        var from = year[0].toString();
+        var to = year[year.length - 1].toString();
+        return from + '-' + to;
     }
 
-    public static formatReleaseDate(year: Date): string {
-        return '1998';
+    public static formatReleaseDate(year: string): string {
+        if (year === void 0) {
+            return '';
+        }
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(year).toLocaleDateString('en-US', options);
     }
 
-    public static formatRuntime(runtime: TimeRanges): string {
-        return '89 minutes';
+    public static formatRuntime(runtime: string): string {
+        if (runtime === void 0) {'en-US'
+            return '';
+        }
+        var rt = runtime.split(':');
+        if (rt.length !== 3) {
+            throw 'Invalid Runtime: ' + runtime;
+        }
+        var hours = +rt[0] * 60;
+        var mins = +rt[1];
+        var secs = +rt[2];
+
+        if (secs > 30) {
+            secs = 0;
+        } else {
+            secs = 1;
+        }
+
+        return hours + mins + secs + ' minutes'
     }
 }
 
