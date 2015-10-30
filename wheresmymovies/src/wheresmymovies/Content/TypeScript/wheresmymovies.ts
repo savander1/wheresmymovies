@@ -81,16 +81,16 @@ class WheresMyMovies {
     }
 
     private static canPopulateForm(): boolean {
-        return $('#id').val() !== '' && $('#title').val() !== '';
+        return $('#id').val() !== '' || $('#title').val() !== '';
     }
 
     private static populateForm(): void {
         movieController.get((data:IMovie) => {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
-            $('#year').val(data.Year[0].toString());
-            $('#released').val();
-            $('#runtime').val();
+            $('#year').val(TimeFormatter.formatYear(data.Year));
+            $('#released').val(TimeFormatter.formatReleaseDate(data.Released));
+            $('#runtime').val(TimeFormatter.formatRuntime(data.Runtime));
             $('#genre').val(data.Genre);
             $('#rated').val(data.Rated);
             $('#director').val(data.Director);
@@ -133,7 +133,9 @@ class WheresMyMovies {
     }
 
     private static submitForm(): void {
-        var body = $('form').serialize();
+        var form = $('form');
+        form.submit();
+        var body = form.serialize();
         alert(body);
     }
 
@@ -153,10 +155,13 @@ class WheresMyMovies {
     }
 
     private static check(event: JQueryEventObject): void {
-        $('form img').addClass('show');
         WheresMyMovies.killEvent(event);
         if (WheresMyMovies.canPopulateForm()) {
+            $('form img').addClass('show');
             WheresMyMovies.populateForm();
+        }
+        else {
+            alert('Enter an ID or Title');
         }
     }
 
@@ -184,11 +189,15 @@ class WheresMyMovies {
 }
 
 class TimeFormatter {
-    public static formatYear(year: string): string {
+    public static formatYear(year: Number[]): string {
         return '1999';
     }
 
-    public static formatRuntime(runtime: string): string {
+    public static formatReleaseDate(year: Date): string {
+        return '1998';
+    }
+
+    public static formatRuntime(runtime: TimeRanges): string {
         return '89 minutes';
     }
 }

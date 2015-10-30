@@ -63,15 +63,15 @@ var WheresMyMovies = (function () {
         return img;
     };
     WheresMyMovies.canPopulateForm = function () {
-        return $('#id').val() !== '' && $('#title').val() !== '';
+        return $('#id').val() !== '' || $('#title').val() !== '';
     };
     WheresMyMovies.populateForm = function () {
         movieController.get(function (data) {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
-            $('#year').val(data.Year[0].toString());
-            $('#released').val();
-            $('#runtime').val();
+            $('#year').val(TimeFormatter.formatYear(data.Year));
+            $('#released').val(TimeFormatter.formatReleaseDate(data.Released));
+            $('#runtime').val(TimeFormatter.formatRuntime(data.Runtime));
             $('#genre').val(data.Genre);
             $('#rated').val(data.Rated);
             $('#director').val(data.Director);
@@ -111,7 +111,9 @@ var WheresMyMovies = (function () {
         event.preventDefault();
     };
     WheresMyMovies.submitForm = function () {
-        var body = $('form').serialize();
+        var form = $('form');
+        form.submit();
+        var body = form.serialize();
         alert(body);
     };
     WheresMyMovies.showForm = function (event, display) {
@@ -128,10 +130,13 @@ var WheresMyMovies = (function () {
         WheresMyMovies.clearForm();
     };
     WheresMyMovies.check = function (event) {
-        $('form img').addClass('show');
         WheresMyMovies.killEvent(event);
         if (WheresMyMovies.canPopulateForm()) {
+            $('form img').addClass('show');
             WheresMyMovies.populateForm();
+        }
+        else {
+            alert('Enter an ID or Title');
         }
     };
     WheresMyMovies.close = function (event) {
@@ -158,6 +163,9 @@ var TimeFormatter = (function () {
     }
     TimeFormatter.formatYear = function (year) {
         return '1999';
+    };
+    TimeFormatter.formatReleaseDate = function (year) {
+        return '1998';
     };
     TimeFormatter.formatRuntime = function (runtime) {
         return '89 minutes';
