@@ -102,12 +102,12 @@ class WheresMyMovies {
             var poster = $('#poster');
             poster.html('');
             thumb.appendTo(poster);
-            $('form img').removeAttr('style');
+            $('form img').addClass('hide');
         }, (jqXHr, textStatus, errorThrown) => {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
-            $('form img').removeAttr('style');
+            $('form img').addClass('hide');
         });
     }
 
@@ -141,11 +141,13 @@ class WheresMyMovies {
 
     private static showForm(event: JQueryEventObject, display: Display): void {
         WheresMyMovies.killEvent(event);
+        var form = $('body > div form');
         var disp = 'hide';
         if (display === Display.Show) {
             disp = 'show';
         }
-        $('body > div form').addClass(disp);  
+        form.removeAttr('class');
+        form.addClass(disp);  
     }
 
     private static clear(event:JQueryEventObject): void {

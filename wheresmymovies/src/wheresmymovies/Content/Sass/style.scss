@@ -86,7 +86,7 @@ body {
                 background-color: $active-color;
             }
             img {
-                    display:none;
+                    display: none;
                 }
         } 
         div.poster{
@@ -125,7 +125,7 @@ body {
         text-decoration: underline;
     }
     .show {
-        display:block;
+        display:inline-block;
     }
     .hide {
         display: none;
