@@ -1,9 +1,8 @@
 ﻿using Microsoft.Framework.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using wheresmymovies.Entities;
 
@@ -21,23 +20,37 @@ namespace wheresmymovies.Data
             SearchUrl = string.Format(urlFormatter, index, apiVersion);
         }
 
-    	public AzureSearchClient()
+    	public AzureSearchClient(string apiKey)
         {
-
+            ApiKey = apiKey;
         }
+
+        public string ApiKey { get; private set; }
 
         public async Task<bool> Add(Movie movie)
         {
             using (var client = new HttpClient())
             {
-                var response = await client.PostAsync(SearchUrl, GetHttpContent(movie));
+                var response = await client.PostAsync(SearchUrl, await GetHttpContent(movie));
                 return response.IsSuccessStatusCode;
             }
         }
 
-        private HttpContent GetHttpContent(Movie movie)
+        private async Task<HttpContent> GetHttpContent(Movie movie)
         {
-            var content = 
+            var content = new MultipartContent();
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            content.Headers.Add("api-key", ApiKey);
+            using (var stream = new MemoryStream())
+            using (var writer = new StreamWriter(stream))
+            {
+                var movieResponse = await Task.Factory.StartNew( () => JsonConvert.SerializeObject(movie, Formatting.Indented) );
+                var responseBytes = Encoding.UTF8.GetBytes(movieResponse);
+                await stream.WriteAsync(responseBytes, 0, responseBytes.Length);
+                stream.Seek(0, SeekOrigin.Begin);
+                await content.CopyToAsync(stream);
+            }
+                
             return content;
         }
     }
