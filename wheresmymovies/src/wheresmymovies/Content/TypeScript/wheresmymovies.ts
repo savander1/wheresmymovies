@@ -5,8 +5,8 @@ interface IMovie {
     Title: string;
     Year: number[]; 
     Rated: string;
-    Released: Date;
-    Runtime: TimeRanges; 
+    Released: string;
+    Runtime: string; 
     Genre: string[]; 
     Director: string[];
     Writer: string[];
@@ -88,14 +88,15 @@ class App {
         movieController.get((data:IMovie) => {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
-            $('#year').val(data.Year[0].toString());
-            $('#released').val();
-            $('#runtime').val();
+            $('#year').val(TimeFormatter.formatYear(data.Year));
+            $('#released').val(TimeFormatter.formatReleaseDate(data.Released));
+            $('#runtime').val(TimeFormatter.formatRuntime(data.Runtime));
             $('#genre').val(data.Genre);
             $('#rated').val(data.Rated);
             $('#director').val(data.Director);
             $('#writer').val(data.Writer);
             $('#language').val(data.Language);
+            $('#country').val(data.Country);
             $('#location').val(data.Location);
             $('#plot').text(data.Plot);
             var thumb = App.setImage(data.FullImgUrl);
@@ -122,6 +123,7 @@ class App {
         $('#director').val('');
         $('#writer').val('');
         $('#language').val('');
+        $('#country').val('');
         $('#location').val('');
         $('#plot').text('');
         $('#poster').html('');
@@ -133,7 +135,9 @@ class App {
     }
 
     private static submitForm(): void {
-        var body = $('form').serialize();
+        var form = $('form');
+        form.submit();
+        var body = form.serialize();
         alert(body);
     }
 
@@ -155,11 +159,13 @@ class App {
     }
 
     private static check(event: JQueryEventObject): void {
-        
         App.killEvent(event);
         if (App.canPopulateForm()) {
             $('form img').addClass('show');
             App.populateForm();
+        }
+        else {
+            alert('Enter an ID or Title');
         }
     }
 
@@ -182,17 +188,49 @@ class App {
         $('#clear').click(App.clear);
         $('#close').click(App.close);
         $('#submit').click(App.submit);
-
     }
 }
 
 class TimeFormatter {
-    public static formatYear(year: string): string {
-        return '1999';
+    public static formatYear(year: Number[]): string {
+        if (year.length === 0) {
+            return '';
+        }
+        if (year.length === 1) {
+            return year[0].toString();
+        }
+        var from = year[0].toString();
+        var to = year[year.length - 1].toString();
+        return from + '-' + to;
+    }
+
+    public static formatReleaseDate(year: string): string {
+        if (year === void 0) {
+            return '';
+        }
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(year).toLocaleDateString('en-US', options);
     }
 
     public static formatRuntime(runtime: string): string {
-        return '89 minutes';
+        if (runtime === void 0) {'en-US'
+            return '';
+        }
+        var rt = runtime.split(':');
+        if (rt.length !== 3) {
+            throw 'Invalid Runtime: ' + runtime;
+        }
+        var hours = +rt[0] * 60;
+        var mins = +rt[1];
+        var secs = +rt[2];
+
+        if (secs > 30) {
+            secs = 0;
+        } else {
+            secs = 1;
+        }
+
+        return hours + mins + secs + ' minutes'
     }
 }
 

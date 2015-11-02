@@ -13986,7 +13986,7 @@
     "System.Globalization/4.0.11-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "yXW8KIhMr2r1IB9yZEJLcjRCkIdu9DO9Qzy7+XSPXON49qI0pbFU10a2TbQJxVj4jNo7R2qqvg2N4FwZqaNSgg==",
+      "sha512": "EP1QanGQDNlRIaoOgJQY/CkAzBGR8kNfSE30xkvso3vwCu5+nsmGcATeaJf9NgiXn1RwI0QfpX02lqUEgMJxbg==",
       "files": [
         "lib/DNXCore50/System.Globalization.dll",
         "lib/MonoAndroid10/_._",
@@ -14589,7 +14589,7 @@
     "System.Reflection/4.1.0-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "nlguo6AocBKGccv4CFSMCOR2/vU+93u/yvzFKO6ViNJ/SBz2VEZ1nOeW93vqKKpOMJkt3YtTvMWmS+kUGz/1bA==",
+      "sha512": "WbLtaCxoe5XdqEyZuGpemSQ8YBJ8cj11zx+yxOxJfHbNrmu7oMQ29+J50swaqg3soUc3BVBMqfIhb/7gocDHQA==",
       "files": [
         "lib/DNXCore50/System.Reflection.dll",
         "lib/MonoAndroid10/_._",
@@ -15844,7 +15844,7 @@
     "System.Threading.Tasks/4.0.11-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "HXGeC5GxXwli7aalRQV/XIEVhPGtvLsH9iH1Pq87kfspAm5Gr5n9US0mMjJdksy4xr7cd6irAFGt10VD2V2e8g==",
+      "sha512": "8NHb4nr8zepyfG64hNmQ94LOwfD3DVU+ij+Kj33VrNOZTiHze246nV935gE00XUaIK9IATklpcQ15Le9aF3ZhQ==",
       "files": [
         "lib/DNXCore50/System.Threading.Tasks.dll",
         "lib/MonoAndroid10/_._",

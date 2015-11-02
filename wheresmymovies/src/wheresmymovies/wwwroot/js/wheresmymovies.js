@@ -69,14 +69,15 @@ var WheresMyMovies = (function () {
         movieController.get(function (data) {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
-            $('#year').val(data.Year[0].toString());
-            $('#released').val();
-            $('#runtime').val();
+            $('#year').val(TimeFormatter.formatYear(data.Year));
+            $('#released').val(TimeFormatter.formatReleaseDate(data.Released));
+            $('#runtime').val(TimeFormatter.formatRuntime(data.Runtime));
             $('#genre').val(data.Genre);
             $('#rated').val(data.Rated);
             $('#director').val(data.Director);
             $('#writer').val(data.Writer);
             $('#language').val(data.Language);
+            $('#country').val(data.Country);
             $('#location').val(data.Location);
             $('#plot').text(data.Plot);
             var thumb = WheresMyMovies.setImage(data.FullImgUrl);
@@ -102,6 +103,7 @@ var WheresMyMovies = (function () {
         $('#director').val('');
         $('#writer').val('');
         $('#language').val('');
+        $('#country').val('');
         $('#location').val('');
         $('#plot').text('');
         $('#poster').html('');
@@ -111,7 +113,9 @@ var WheresMyMovies = (function () {
         event.preventDefault();
     };
     WheresMyMovies.submitForm = function () {
-        var body = $('form').serialize();
+        var form = $('form');
+        form.submit();
+        var body = form.serialize();
         alert(body);
     };
     WheresMyMovies.showForm = function (event, display) {
@@ -134,6 +138,9 @@ var WheresMyMovies = (function () {
         if (WheresMyMovies.canPopulateForm()) {
             $('form img').addClass('show');
             WheresMyMovies.populateForm();
+        }
+        else {
+            alert('Enter an ID or Title');
         }
     };
     WheresMyMovies.close = function (event) {
@@ -159,10 +166,42 @@ var TimeFormatter = (function () {
     function TimeFormatter() {
     }
     TimeFormatter.formatYear = function (year) {
-        return '1999';
+        if (year.length === 0) {
+            return '';
+        }
+        if (year.length === 1) {
+            return year[0].toString();
+        }
+        var from = year[0].toString();
+        var to = year[year.length - 1].toString();
+        return from + '-' + to;
+    };
+    TimeFormatter.formatReleaseDate = function (year) {
+        if (year === void 0) {
+            return '';
+        }
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(year).toLocaleDateString('en-US', options);
     };
     TimeFormatter.formatRuntime = function (runtime) {
-        return '89 minutes';
+        if (runtime === void 0) {
+            'en-US';
+            return '';
+        }
+        var rt = runtime.split(':');
+        if (rt.length !== 3) {
+            throw 'Invalid Runtime: ' + runtime;
+        }
+        var hours = +rt[0] * 60;
+        var mins = +rt[1];
+        var secs = +rt[2];
+        if (secs > 30) {
+            secs = 0;
+        }
+        else {
+            secs = 1;
+        }
+        return hours + mins + secs + ' minutes';
     };
     return TimeFormatter;
 })();
