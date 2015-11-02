@@ -7,12 +7,23 @@ namespace wheresmymovies.Data
 {
     public class MovieRepository : IMovieRepository
     {
-        public void Add(Movie moive)
+        private readonly string _apiKey;
+        public MovieRepository(string azureApiKey)
         {
-            throw new NotImplementedException();
+            _apiKey = azureApiKey;
+        }
+        
+        public bool Add(Movie movie)
+        {
+            var azureClient = new AzureSearchClient(_apiKey);
+            
+            azureClient.Add(movie).ContinueWith((anticedent) => {
+                var result = anticedent.Result;
+                
+            });
         }
 
-        public void Delete(string movie)
+        public bool Delete(string movie)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +33,7 @@ namespace wheresmymovies.Data
             throw new NotImplementedException();
         }
 
-        public void Update(string id, Movie movie)
+        public bool Update(string id, Movie movie)
         {
             throw new NotImplementedException();
         }
