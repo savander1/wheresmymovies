@@ -19,6 +19,25 @@ interface IMovie {
     Location: string;
 }
 
+class Movie implements IMovie{
+    public Id: string;
+    public Title: string;
+    public Year: number[]; 
+    public Rated: string;
+    public Released: string;
+    public Runtime: string; 
+    public Genre: string[]; 
+    public Director: string[];
+    public Writer: string[];
+    public Actors: string[];
+    public Plot: string;
+    public Language: string[]; 
+    public Country: string;
+    public ThumbImgUrl: string;
+    public FullImgUrl: string;
+    public Location: string;
+}
+
 enum Display {
     Show,
     Hide
@@ -53,6 +72,10 @@ class MovieController extends Controller{
             success: jqXHr => { success(jqXHr); },
             error: (jqXHr, textStatus, errorThrown) => { failure(jqXHr, textStatus, errorThrown) }
         });
+    }
+    
+    post(movie:IMovie, success:Function, failure:Function):void {
+        alert(movie);
     }
 }
 
@@ -134,11 +157,23 @@ class App {
         event.preventDefault();
     }
 
-    private static submitForm(): void {
-        var form = $('form');
-        form.submit();
-        var body = form.serialize();
-        alert(body);
+    private static getMovie(): IMovie {
+        var data = new Movie();
+        data.Id = $('#id').val();
+        data.Title = $('#title').val();
+        data.Year = $('#year').val();
+        data.Released = $('#released').val();
+        data.Runtime =  $('#runtime').val();
+        data.Genre = $('#genre').val();
+        data.Rated = $('#rated').val();
+        data.Director = $('#director').val();
+        data.Writer = $('#writer').val();
+        data.Language = $('#language').val();
+        data.Country = $('#country').val();
+        data.Location = $('#location').val();
+        data.Plot = $('#plot').text();
+        data.FullImgUrl =  $('form img').attr('src');
+        return data;
     }
 
     private static showForm(event: JQueryEventObject, display: Display): void {
@@ -176,7 +211,8 @@ class App {
 
     private static submit(event: JQueryEventObject): void {
         App.killEvent(event);
-        App.submitForm();
+        var movie = App.getMovie();
+        movieController.post(movie, null,null);
     }
     
     public init(): void {
