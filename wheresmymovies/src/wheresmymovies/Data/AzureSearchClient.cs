@@ -31,7 +31,7 @@ namespace wheresmymovies.Data
         {
             using (var client = new HttpClient())
             {
-                var azureMovie = new AzureMovie(movie, "mergeOrUpload")
+                var azureMovie = new AzureMovie(movie, "mergeOrUpload");
                 var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
                 return response.IsSuccessStatusCode;
             }

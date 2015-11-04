@@ -41,7 +41,7 @@ namespace wheresmymovies.Data
 
         public async Task<bool> Delete(string movieId)
         {
-            
+            throw new NotImplementedException();
         }
 
         public async Task<ICollection<Movie>> Search(MovieSearchParameters searchParams)
@@ -51,7 +51,7 @@ namespace wheresmymovies.Data
 
         public async Task<bool> Update(string id, Movie movie)
         {
-            return Add(movie);
+            return await Add(movie);
         }
     }
 }
