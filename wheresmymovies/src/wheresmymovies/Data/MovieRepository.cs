@@ -39,19 +39,19 @@ namespace wheresmymovies.Data
             return result;
         }
 
-        public bool Delete(string movie)
+        public async Task<bool> Delete(string movieId)
+        {
+            
+        }
+
+        public async Task<ICollection<Movie>> Search(MovieSearchParameters searchParams)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<Movie> Search(MovieSearchParameters searchParams)
+        public async Task<bool> Update(string id, Movie movie)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(string id, Movie movie)
-        {
-            throw new NotImplementedException();
+            return Add(movie);
         }
     }
 }

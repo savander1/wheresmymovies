@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using wheresmymovies.Utils;
 
 namespace wheresmymovies.Entities
 {
     public class AzureMovie
     {
+        [JsonProperty(PropertyName = "@search.action")]
 		public string SearchAction {get;set;}
         public string Id {get;set;}
         public string Title { get; set; }
@@ -27,21 +29,22 @@ namespace wheresmymovies.Entities
         public AzureMovie(Movie movie, string searchAction)
         {
             SearchAction =  searchAction;
-            Id = movie.imdbId;
+            Id = movie.Id;
             Title = movie.Title;
-            Year = movie.Year.GetYear();
+            Year = movie.Year;
             Rated = movie.Rated;
-            Released = movie.Released.GetReleaseDate();
-            Runtime = movie.Runtime.GetRuntime();
-            Genre = movie.Genre.SplitOnCommas();
-            Director = movie.Director.SplitOnCommas();
-            Writer = movie.Writer.SplitOnCommas();
-            Actors = movie.Actors.SplitOnCommas();
+            Released = movie.Released;
+            Runtime = movie.Runtime;
+            Genre = movie.Genre;
+            Director = movie.Director;
+            Writer = movie.Writer;
+            Actors = movie.Actors;
             Plot = movie.Plot;
-            Language = movie.Language.SplitOnCommas();
+            Language = movie.Language;
             Country = movie.Country;
-            ThumbImgUrl = movie.Poster.GetThumbImageUrl();
-            FullImgUrl = movie.Poster;
-            Location = string.Empty;
+            ThumbImgUrl = movie.ThumbImgUrl;
+            FullImgUrl = movie.FullImgUrl;
+            Location = movie.Location;
         }
     }
+}

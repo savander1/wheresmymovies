@@ -31,12 +31,13 @@ namespace wheresmymovies.Data
         {
             using (var client = new HttpClient())
             {
-                var response = await client.PostAsync(SearchUrl, await GetHttpContent(movie));
+                var azureMovie = new AzureMovie(movie, "mergeOrUpload")
+                var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
                 return response.IsSuccessStatusCode;
             }
         }
 
-        private async Task<HttpContent> GetHttpContent(Movie movie)
+        private async Task<HttpContent> GetHttpContent(AzureMovie movie)
         {
             var content = new MultipartContent();
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
