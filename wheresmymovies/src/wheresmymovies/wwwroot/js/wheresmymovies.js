@@ -49,6 +49,13 @@ var MovieController = (function (_super) {
     };
     MovieController.prototype.post = function (movie, success, failure) {
         console.log(movie);
+        $.ajax({
+            type: "POST",
+            url: this.address,
+            data: movie,
+            success: function (jqXHr) { success(jqXHr); },
+            error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown); }
+        });
     };
     return MovieController;
 })(Controller);
@@ -170,7 +177,15 @@ var App = (function () {
     App.submit = function (event) {
         App.killEvent(event);
         var movie = App.getMovie();
-        movieController.post(movie, null, null);
+        movieController.post(movie, function () {
+            App.clear(event);
+            App.showForm(event, Display.Hide);
+        }, function (jqXHr, textStatus, errorThrown) {
+            movieController.error(jqXHr.responseText);
+            movieController.error(textStatus);
+            movieController.error(errorThrown);
+            $('form img').addClass('hide');
+        });
     };
     App.prototype.init = function () {
         $('#add').click(function (event) {

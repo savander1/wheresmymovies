@@ -76,6 +76,14 @@ class MovieController extends Controller{
     
     post(movie:IMovie, success:Function, failure:Function):void {
         console.log(movie);
+        
+        $.ajax({
+            type: "POST",
+            url: this.address,
+            data: movie,
+            success: jqXHr => { success(jqXHr); },
+            error: (jqXHr, textStatus, errorThrown) => { failure(jqXHr, textStatus, errorThrown) }
+        });
     }
 }
 
@@ -212,7 +220,15 @@ class App {
     private static submit(event: JQueryEventObject): void {
         App.killEvent(event);
         var movie = App.getMovie();
-        movieController.post(movie, null,null);
+        movieController.post(movie, () => {
+            App.clear(event);
+            App.showForm(event, Display.Hide);
+        },(jqXHr, textStatus, errorThrown) => {
+            movieController.error(jqXHr.responseText);
+            movieController.error(textStatus);
+            movieController.error(errorThrown);
+            $('form img').addClass('hide');
+        });
     }
     
     public init(): void {
