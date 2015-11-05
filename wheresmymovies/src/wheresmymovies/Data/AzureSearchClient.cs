@@ -1,5 +1,6 @@
 ﻿using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Text;
@@ -22,6 +23,7 @@ namespace wheresmymovies.Data
 
     	public AzureSearchClient(string apiKey)
         {
+            if (string.IsNullOrEmpty(apiKey)) throw new ArgumentNullException(nameof(apiKey));
             ApiKey = apiKey;
         }
 

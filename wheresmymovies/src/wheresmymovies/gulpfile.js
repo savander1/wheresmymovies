@@ -54,18 +54,18 @@ gulp.task('tsc', function(){
         .pipe(tsc({
             sourceMap: false
         }))
+        .pipe(uglify())
         .pipe(gulp.dest(paths.ts.dest));
 });
 
 gulp.task('js', function(){
     gulp.src(paths.jq.src)
+        .pipe(uglify())
         .pipe(gulp.dest(paths.jq.dest));
-    gulp.src(paths.typeahead.src)
+        
+   gulp.src(paths.typeahead.src)
+        .pipe(uglify())
         .pipe(gulp.dest(paths.typeahead.dest));
-
-    gulp.src(paths.js.src)
-        //.pipe(uglify())
-        .pipe(gulp.dest(paths.js.dest));
 });
 
 gulp.task('min-html', function() {
