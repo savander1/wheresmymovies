@@ -16,7 +16,7 @@ namespace wheresmymovies.Controllers
             _movieRepository = movieRepository;
         }
 
-        // GET
+        // GET api/movies/
         [HttpGet]
         public Movie Get([FromQuery]MovieSearchParameters searchParameters)
         {
@@ -26,21 +26,21 @@ namespace wheresmymovies.Controllers
             return oMovieDatabaseReader.GetMovie(searchParameters);
         }
 
-        // POST api/values
+        // POST api/movies/
         [HttpPost]
         public void Post([FromBody]Movie value)
         {
             _movieRepository.Add(value);
         }
 
-        // PUT api/values/5
+        // PUT api/movies/5
         [HttpPut("{id}")]
         public void Put(string id, [FromBody]Movie value)
         {
             _movieRepository.Update(id, value);
         }
 
-        // DELETE api/values/5
+        // DELETE api/movies/5
         [HttpDelete("{id}")]
         public void Delete(string id)
         {

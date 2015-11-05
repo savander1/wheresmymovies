@@ -75,7 +75,7 @@ class MovieController extends Controller{
     }
     
     post(movie:IMovie, success:Function, failure:Function):void {
-        alert(movie);
+        console.log(movie);
     }
 }
 
@@ -97,7 +97,7 @@ class App {
     } 
 
     private static setImage(src: string): JQuery {
-        var img = $('<img>');
+        var img = $('<img id="posterImg">');
         img.attr('src', src);
         
         return img;
@@ -172,7 +172,7 @@ class App {
         data.Country = $('#country').val();
         data.Location = $('#location').val();
         data.Plot = $('#plot').text();
-        data.FullImgUrl =  $('form img').attr('src');
+        data.FullImgUrl =  $('#posterImg').attr('src');
         return data;
     }
 

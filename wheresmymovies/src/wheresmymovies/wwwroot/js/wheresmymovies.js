@@ -48,7 +48,7 @@ var MovieController = (function (_super) {
         });
     };
     MovieController.prototype.post = function (movie, success, failure) {
-        alert(movie);
+        console.log(movie);
     };
     return MovieController;
 })(Controller);
@@ -66,7 +66,7 @@ var App = (function () {
         movieController = movieControllerAdderess;
     }
     App.setImage = function (src) {
-        var img = $('<img>');
+        var img = $('<img id="posterImg">');
         img.attr('src', src);
         return img;
     };
@@ -135,7 +135,7 @@ var App = (function () {
         data.Country = $('#country').val();
         data.Location = $('#location').val();
         data.Plot = $('#plot').text();
-        data.FullImgUrl = $('form img').attr('src');
+        data.FullImgUrl = $('#posterImg').attr('src');
         return data;
     };
     App.showForm = function (event, display) {
