@@ -10,24 +10,24 @@ namespace wheresmymovies.Data
     public class MovieRepository : IMovieRepository
     {
         private const int RETRIES = 10;
-        private readonly string _apiKey;
+        private readonly AzureSearchClient _azureClient;
+
         public MovieRepository(string azureApiKey)
         {
-            _apiKey = azureApiKey;
+            if (string.IsNullOrEmpty(azureApiKey)) throw new ArgumentNullException(nameof(azureApiKey));
+            _azureClient = new AzureSearchClient(azureApiKey);
         }
         
         public async Task<bool> Add(Movie movie)
         {
-            var azureClient = new AzureSearchClient(_apiKey);
-            
-            var result = await azureClient.Add(movie);
+            var result = await _azureClient.Add(movie);
             if (!result)
             {
                 var index = 1;
                 
                 while (index > RETRIES)
                 {
-                    result = await azureClient.Add(movie);
+                    result = await _azureClient.Add(movie);
                     if (result)
                     {
                         break;
@@ -46,7 +46,8 @@ namespace wheresmymovies.Data
 
         public async Task<ICollection<Movie>> Search(MovieSearchParameters searchParams)
         {
-            throw new NotImplementedException();
+            var response = await _azureClient.Get();
+            
         }
 
         public async Task<bool> Update(string id, Movie movie)

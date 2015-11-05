@@ -28,6 +28,14 @@ namespace wheresmymovies.Data
         }
 
         public string ApiKey { get; private set; }
+        
+        public async Task<HttpResponseMessage> Get()
+        {
+            using (var client = new HttpClient())
+            {
+                return await client.GetAsync(SearchUrl);
+            }
+        }
 
         public async Task<bool> Add(Movie movie)
         {
