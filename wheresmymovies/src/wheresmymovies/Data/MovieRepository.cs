@@ -47,6 +47,7 @@ namespace wheresmymovies.Data
         public async Task<ICollection<Movie>> Search(MovieSearchParameters searchParams)
         {
             var response = await _azureClient.Get();
+            throw new NotImplementedException();
             
         }
 
