@@ -219,6 +219,7 @@ class App {
 
     private static submit(event: JQueryEventObject): void {
         App.killEvent(event);
+        $('form img').addClass('show');
         var movie = App.getMovie();
         movieController.post(movie, () => {
             App.clear(event);
@@ -227,6 +228,7 @@ class App {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
+            alert('There was a problem with your request');
             $('form img').addClass('hide');
         });
     }

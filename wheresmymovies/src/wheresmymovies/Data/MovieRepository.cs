@@ -18,28 +18,29 @@ namespace wheresmymovies.Data
             _azureClient = new AzureSearchClient(azureApiKey);
         }
         
-        public async Task<bool> Add(Movie movie)
+        public async Task<int> Add(Movie movie)
         {
             var result = await _azureClient.Add(movie);
-            if (!result)
+            if (result != System.Net.HttpStatusCode.OK)
             {
                 var index = 1;
                 
-                while (index > RETRIES)
+                while (index <= RETRIES)
                 {
                     result = await _azureClient.Add(movie);
-                    if (result)
+                    if (result == System.Net.HttpStatusCode.OK)
                     {
                         break;
                     }
+                    index++;
                     Thread.Sleep(TimeSpan.FromSeconds(1d));
                 }
             }
             
-            return result;
+            return (int)result;
         }
 
-        public async Task<bool> Delete(string movieId)
+        public async Task<int> Delete(string movieId)
         {
             throw new NotImplementedException();
         }
@@ -51,7 +52,7 @@ namespace wheresmymovies.Data
             
         }
 
-        public async Task<bool> Update(string id, Movie movie)
+        public async Task<int> Update(string id, Movie movie)
         {
             return await Add(movie);
         }

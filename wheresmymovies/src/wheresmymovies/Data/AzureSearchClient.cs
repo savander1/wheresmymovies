@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,13 +38,13 @@ namespace wheresmymovies.Data
             }
         }
 
-        public async Task<bool> Add(Movie movie)
+        public async Task<HttpStatusCode> Add(Movie movie)
         {
             using (var client = new HttpClient())
             {
                 var azureMovie = new AzureMovie(movie, "mergeOrUpload");
                 var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
-                return response.IsSuccessStatusCode;
+                return response.StatusCode;
             }
         }
 

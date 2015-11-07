@@ -5,6 +5,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 ///<reference path="jquery.d.ts" />
 ///<reference path="typeahead.d.ts"/>
+var Movie = (function () {
+    function Movie() {
+    }
+    return Movie;
+})();
 var Display;
 (function (Display) {
     Display[Display["Show"] = 0] = "Show";
@@ -42,6 +47,16 @@ var MovieController = (function (_super) {
             error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown); }
         });
     };
+    MovieController.prototype.post = function (movie, success, failure) {
+        console.log(movie);
+        $.ajax({
+            type: "POST",
+            url: this.address,
+            data: movie,
+            success: function (jqXHr) { success(jqXHr); },
+            error: function (jqXHr, textStatus, errorThrown) { failure(jqXHr, textStatus, errorThrown); }
+        });
+    };
     return MovieController;
 })(Controller);
 var AuthController = (function (_super) {
@@ -51,21 +66,21 @@ var AuthController = (function (_super) {
     }
     return AuthController;
 })(Controller);
-var WheresMyMovies = (function () {
-    function WheresMyMovies(searchControllerAddress, movieControllerAdderess, authControllerAddress) {
+var App = (function () {
+    function App(searchControllerAddress, movieControllerAdderess, authControllerAddress) {
         searchController = searchControllerAddress;
         authController = authControllerAddress;
         movieController = movieControllerAdderess;
     }
-    WheresMyMovies.setImage = function (src) {
-        var img = $('<img>');
+    App.setImage = function (src) {
+        var img = $('<img id="posterImg">');
         img.attr('src', src);
         return img;
     };
-    WheresMyMovies.canPopulateForm = function () {
+    App.canPopulateForm = function () {
         return $('#id').val() !== '' || $('#title').val() !== '';
     };
-    WheresMyMovies.populateForm = function () {
+    App.populateForm = function () {
         movieController.get(function (data) {
             $('#id').val(data.Id);
             $('#title').val(data.Title);
@@ -80,7 +95,7 @@ var WheresMyMovies = (function () {
             $('#country').val(data.Country);
             $('#location').val(data.Location);
             $('#plot').text(data.Plot);
-            var thumb = WheresMyMovies.setImage(data.FullImgUrl);
+            var thumb = App.setImage(data.FullImgUrl);
             var poster = $('#poster');
             poster.html('');
             thumb.appendTo(poster);
@@ -92,7 +107,7 @@ var WheresMyMovies = (function () {
             $('form img').addClass('hide');
         });
     };
-    WheresMyMovies.clearForm = function () {
+    App.clearForm = function () {
         $('#id').val('');
         $('#title').val('');
         $('#year').val('');
@@ -108,18 +123,30 @@ var WheresMyMovies = (function () {
         $('#plot').text('');
         $('#poster').html('');
     };
-    WheresMyMovies.killEvent = function (event) {
+    App.killEvent = function (event) {
         event.stopPropagation();
         event.preventDefault();
     };
-    WheresMyMovies.submitForm = function () {
-        var form = $('form');
-        form.submit();
-        var body = form.serialize();
-        alert(body);
+    App.getMovie = function () {
+        var data = new Movie();
+        data.Id = $('#id').val();
+        data.Title = $('#title').val();
+        data.Year = $('#year').val();
+        data.Released = $('#released').val();
+        data.Runtime = $('#runtime').val();
+        data.Genre = $('#genre').val();
+        data.Rated = $('#rated').val();
+        data.Director = $('#director').val();
+        data.Writer = $('#writer').val();
+        data.Language = $('#language').val();
+        data.Country = $('#country').val();
+        data.Location = $('#location').val();
+        data.Plot = $('#plot').text();
+        data.FullImgUrl = $('#posterImg').attr('src');
+        return data;
     };
-    WheresMyMovies.showForm = function (event, display) {
-        WheresMyMovies.killEvent(event);
+    App.showForm = function (event, display) {
+        App.killEvent(event);
         var form = $('body > div form');
         var disp = 'hide';
         if (display === Display.Show) {
@@ -128,39 +155,50 @@ var WheresMyMovies = (function () {
         form.removeAttr('class');
         form.addClass(disp);
     };
-    WheresMyMovies.clear = function (event) {
+    App.clear = function (event) {
         $('form img').addClass('hide');
-        WheresMyMovies.killEvent(event);
-        WheresMyMovies.clearForm();
+        App.killEvent(event);
+        App.clearForm();
     };
-    WheresMyMovies.check = function (event) {
-        WheresMyMovies.killEvent(event);
-        if (WheresMyMovies.canPopulateForm()) {
+    App.check = function (event) {
+        App.killEvent(event);
+        if (App.canPopulateForm()) {
             $('form img').addClass('show');
-            WheresMyMovies.populateForm();
+            App.populateForm();
         }
         else {
             alert('Enter an ID or Title');
         }
     };
-    WheresMyMovies.close = function (event) {
-        WheresMyMovies.clear(event);
-        WheresMyMovies.showForm(event, Display.Hide);
+    App.close = function (event) {
+        App.clear(event);
+        App.showForm(event, Display.Hide);
     };
-    WheresMyMovies.submit = function (event) {
-        WheresMyMovies.killEvent(event);
-        WheresMyMovies.submitForm();
-    };
-    WheresMyMovies.prototype.init = function () {
-        $('#add').click(function (event) {
-            WheresMyMovies.showForm(event, Display.Show);
+    App.submit = function (event) {
+        App.killEvent(event);
+        $('form img').addClass('show');
+        var movie = App.getMovie();
+        movieController.post(movie, function () {
+            App.clear(event);
+            App.showForm(event, Display.Hide);
+        }, function (jqXHr, textStatus, errorThrown) {
+            movieController.error(jqXHr.responseText);
+            movieController.error(textStatus);
+            movieController.error(errorThrown);
+            alert('There was a problem with your request');
+            $('form img').addClass('hide');
         });
-        $('#check').click(WheresMyMovies.check);
-        $('#clear').click(WheresMyMovies.clear);
-        $('#close').click(WheresMyMovies.close);
-        $('#submit').click(WheresMyMovies.submit);
     };
-    return WheresMyMovies;
+    App.prototype.init = function () {
+        $('#add').click(function (event) {
+            App.showForm(event, Display.Show);
+        });
+        $('#check').click(App.check);
+        $('#clear').click(App.clear);
+        $('#close').click(App.close);
+        $('#submit').click(App.submit);
+    };
+    return App;
 })();
 var TimeFormatter = (function () {
     function TimeFormatter() {
@@ -208,5 +246,5 @@ var TimeFormatter = (function () {
 var searchController = new SearchController('/api/search/');
 var movieController = new MovieController('/api/movies/');
 var authController = new AuthController('/api/auth/');
-var movieApp = new WheresMyMovies(searchController, movieController, authController);
+var movieApp = new App(searchController, movieController, authController);
 $('document').ready(movieApp.init);
