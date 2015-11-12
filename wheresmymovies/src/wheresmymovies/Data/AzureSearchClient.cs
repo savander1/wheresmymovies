@@ -47,6 +47,15 @@ namespace wheresmymovies.Data
                 return response.StatusCode;
             }
         }
+        
+        public async Task<Movie> Get(string id)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(SearchUrl + "/" + id);
+                return JsonConvert.DeserializeObject<Movie>(await response.Content.ReadAsStringAsync());
+            }
+        }
 
         private async Task<HttpContent> GetHttpContent(AzureMovie movie)
         {

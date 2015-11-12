@@ -228,7 +228,7 @@ class App {
             movieController.error(jqXHr.responseText);
             movieController.error(textStatus);
             movieController.error(errorThrown);
-            alert('There was a problem with your request');
+            alert('There was a problem with your request: ' + errorThrown);
             $('form img').addClass('hide');
         });
     }
