@@ -1,4 +1,6 @@
-﻿namespace wheresmymovies.Models
+﻿using System.Net;
+
+namespace wheresmymovies.Models
 {
     public class MovieSearchParameters
     {
@@ -7,7 +9,7 @@
 
         public MovieSearchParameters Decode()
         {
-            Name = System.Net.WebUtility.UrlDecode(Name);
+            Name = WebUtility.UrlDecode(Name);
 
             return this;
         }
