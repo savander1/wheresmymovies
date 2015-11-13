@@ -9,37 +9,37 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Data
 {
-    public class OMovieDatabaseReader
+    public class OmovieClient
     {
         private readonly string _omdbUrl;
-        public OMovieDatabaseReader(string omdbUrl)
+        public OmovieClient(string omdbUrl)
         {
             _omdbUrl = omdbUrl;
         }
-        
-        public Movie GetMovie(MovieSearchParameters parameters)
+
+        public async Task<Movie> GetMovie(MovieSearchParameters parameters)
         {
-           return GetData(parameters).ContinueWith((antecedent) =>
-           {
-               try
-               {
-                   var data = antecedent.Result;
-                   var oMovie = JsonConvert.DeserializeObject<Omovie>(data);
-                   return new Movie(oMovie);
-               }
-               catch
-               {
-                   return new Movie();
-               }
-           }).Result;
+            return await GetData(parameters).ContinueWith((antecedent) =>
+            {
+                try
+                {
+                    var data = antecedent.Result;
+                    var oMovie = JsonConvert.DeserializeObject<Omovie>(data);
+                    return new Movie(oMovie);
+                }
+                catch
+                {
+                    return null;
+                }
+            });
         }
-         
+
         private async Task<string> GetData(MovieSearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
             using (var client = new HttpClient())
             {
-                using (var stream = await client.GetStreamAsync(GetEndpoint(parameters)))
+                using (var stream = await client.GetStreamAsync(endPoint))
                 {
                     using (var reader = new StreamReader(stream))
                     {

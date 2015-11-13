@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNet.Mvc;
-using Microsoft.Framework.Configuration;
-using System.Net;
 using System.Threading.Tasks;
 using wheresmymovies.Data;
 using wheresmymovies.Entities;
@@ -12,20 +10,26 @@ namespace wheresmymovies.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly ISearchRepository _searchRepository;
 
-        public MoviesController(IMovieRepository movieRepository)
+        public MoviesController(IMovieRepository movieRepository, ISearchRepository searchRepository)
         {
             _movieRepository = movieRepository;
+            _searchRepository = searchRepository;
         }
 
         // GET api/movies/
         [HttpGet]
-        public Movie Get([FromQuery]MovieSearchParameters searchParameters)
+        public async Task<ObjectResult> Get([FromQuery]MovieSearchParameters searchParameters)
         {
-            var url = Startup.Configuration.Get<string>("Data:omovieUrl");
-            var oMovieDatabaseReader = new OMovieDatabaseReader(url);
-            Response.Headers.Add("content-type", new [] { "application/json"});
-            return oMovieDatabaseReader.GetMovie(searchParameters);
+            var movie = await _searchRepository.Search(searchParameters);
+            if (movie == null)
+            {
+                return new HttpNotFoundObjectResult(new Movie());
+            }
+
+            return new ObjectResult(movie);
+           
         }
 
         // POST api/movies/

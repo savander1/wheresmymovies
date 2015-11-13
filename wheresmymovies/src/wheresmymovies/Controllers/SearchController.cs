@@ -20,14 +20,14 @@ namespace wheresmymovies.Controllers
         [HttpGet]
         public IEnumerable<Movie> Get([FromQuery] MovieSearchParameters searchParams)
         {
-            return  _movieRepository.Search(searchParams).Result;
+            return  _movieRepository.Get(searchParams);
         }
 
         [HttpGet("{id}")]
         public Movie Get(string id)
         {
             var searchParams = new MovieSearchParameters { Id = id };
-            return _movieRepository.Search(searchParams).Result.SingleOrDefault();
+            return _movieRepository.Get(searchParams).SingleOrDefault();
         }
     }
 }

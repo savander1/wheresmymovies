@@ -63,7 +63,7 @@ class MovieController extends Controller{
 
     get(success:Function, failure:Function): void {
         var id = $('#id').val();
-        var name = $('#title').val();
+        var name = encodeURIComponent( $('#title').val() );
         
         $.ajax({
             type: "GET",
@@ -247,7 +247,7 @@ class App {
 
 class TimeFormatter {
     public static formatYear(year: Number[]): string {
-        if (year.length === 0) {
+        if (year === void 0 || year.length === 0) {
             return '';
         }
         if (year.length === 1) {

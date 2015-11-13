@@ -7,9 +7,9 @@ namespace wheresmymovies.Data
 {
     public interface IMovieRepository
     {
-        Task<ICollection<Movie>> Search(MovieSearchParameters searchParams);
         Task<int> Add(Movie movie);
         Task<int> Update(string id, Movie movie);
         Task<int> Delete(string movie);
+        ICollection<Movie> Get(MovieSearchParameters searchParams);
     }
 }
