@@ -26,7 +26,7 @@ namespace wheresmymovies
             services.AddInstance<IMovieRepository>(new MovieRepository(apikey));
 
             var oMovieUrl = Configuration.Get<string>("Data:omovieUrl");
-            services.AddInstance<ISearchRepository>(new SearchRepository(oMovieUrl));
+            services.AddInstance<IMetaDataSearchRepository>(new MetaDataSearchRepository (oMovieUrl));
 
             services.AddMvc();
         }

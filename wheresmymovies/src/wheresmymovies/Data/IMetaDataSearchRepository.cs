@@ -4,7 +4,7 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Data
 {
-    public interface ISearchRepository
+    public interface IMetaDataSearchRepository
     {
         Task<Movie> Search(MovieSearchParameters searchParams);
     }

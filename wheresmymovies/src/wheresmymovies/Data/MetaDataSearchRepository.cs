@@ -7,11 +7,11 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Data
 {
-    public class SearchRepository: ISearchRepository 
+    public class MetaDataSearchRepository : IMetaDataSearchRepository 
     {
         private string _oMovieUrl;
 
-        public SearchRepository(string oMovieUrl)
+        public MetaDataSearchRepository (string oMovieUrl)
         {
             if (string.IsNullOrEmpty(oMovieUrl)) throw new ArgumentNullException(nameof(oMovieUrl));
            _oMovieUrl = oMovieUrl;

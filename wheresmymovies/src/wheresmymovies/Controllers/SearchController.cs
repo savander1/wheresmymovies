@@ -4,6 +4,7 @@ using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace wheresmymovies.Controllers
 {
@@ -24,10 +25,15 @@ namespace wheresmymovies.Controllers
         }
 
         [HttpGet("{id}")]
-        public Movie Get(string id)
+        public async Task<ObjectResult> Get(string id)
         {
-            var searchParams = new MovieSearchParameters { Id = id };
-            return _movieRepository.Get(searchParams).SingleOrDefault();
+            var movie =  await _movieRepository.Get(id);
+            if (movie == null)
+            {
+                return new HttpNotFoundObjectResult(new Movie());
+            }
+
+            return new ObjectResult(movie);
         }
     }
 }

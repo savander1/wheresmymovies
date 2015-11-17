@@ -10,9 +10,9 @@ namespace wheresmymovies.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly ISearchRepository _searchRepository;
+        private readonly IMetaDataSearchRepository _searchRepository;
 
-        public MoviesController(IMovieRepository movieRepository, ISearchRepository searchRepository)
+        public MoviesController(IMovieRepository movieRepository, IMetaDataSearchRepository searchRepository)
         {
             _movieRepository = movieRepository;
             _searchRepository = searchRepository;
@@ -50,10 +50,10 @@ namespace wheresmymovies.Controllers
 
         // DELETE api/movies/5
         [HttpDelete("{id}")]
-        public HttpStatusCodeResult Delete(string id)
+        public async Task<HttpStatusCodeResult> Delete(string id)
         {
-            _movieRepository.Delete(id);
-            return new HttpOkResult();
+            var status = await _movieRepository.Delete(id);
+            return new HttpStatusCodeResult(status);
         }
     }
 }
