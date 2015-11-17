@@ -9,7 +9,7 @@ namespace wheresmymovies.Data
 {
     public class MovieRepository : IMovieRepository
     {
-        private const int RETRIES = 10;
+        private const int RETRIES = 9;
         private readonly AzureSearchClient _azureClient;
 
         public MovieRepository(string azureApiKey)
@@ -42,7 +42,24 @@ namespace wheresmymovies.Data
 
         public async Task<int> Delete(string movieId)
         {
-            throw new NotImplementedException();
+            var result = await _azureClient.Delete(movieId);
+            if (result != System.Net.HttpStatusCode.OK)
+            {
+                var index = 1;
+
+                while (index <= RETRIES)
+                {
+                    result = await _azureClient.Delete(movieId);
+                    if (result == System.Net.HttpStatusCode.OK)
+                    {
+                        break;
+                    }
+                    index++;
+                    Thread.Sleep(TimeSpan.FromSeconds(1d));
+                }
+            }
+
+            return (int)result;
         }
 
         public async Task<Movie> Get(string id)
