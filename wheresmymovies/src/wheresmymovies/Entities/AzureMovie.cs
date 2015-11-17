@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using wheresmymovies.Utils;
 using System.Linq;
+using wheresmymovies.Utils;
 
 namespace wheresmymovies.Entities
 {
@@ -52,12 +51,12 @@ namespace wheresmymovies.Entities
             Rated = movie.Rated;
             Released = movie.Released.ToString();
             Runtime = movie.Runtime.ToString();
-            Genre = movie.Genre;
-            Director = movie.Director;
-            Writer = movie.Writer;
-            Actors = movie.Actors;
+            Genre = movie.Genre != null ? movie.Genre.FirstOrDefault().SplitOnCommas() : null;
+            Director = movie.Director != null ? movie.Director.FirstOrDefault().SplitOnCommas() : null;
+            Writer = movie.Writer != null ? movie.Writer.FirstOrDefault().SplitOnCommas() : null;
+            Actors = movie.Actors != null ? movie.Actors.FirstOrDefault().SplitOnCommas() : null;
             Plot = movie.Plot;
-            Language = movie.Language;
+            Language = movie.Language != null ? movie.Language.FirstOrDefault().SplitOnCommas() : null;
             Country = movie.Country;
             ThumbImgUrl = movie.ThumbImgUrl;
             FullImgUrl = movie.FullImgUrl;

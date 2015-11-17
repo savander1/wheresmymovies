@@ -76,7 +76,7 @@ namespace wheresmymovies.Data
 
         private async Task<HttpContent> GetHttpContent(AzureMovie movie)
         {
-            var movieResponse = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(new AzureMovies(movie), Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver()}));
+            var movieResponse = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(new AzureMovies(movie), Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver(), NullValueHandling = NullValueHandling.Ignore }));
             var content = new StringContent(movieResponse, Encoding.UTF8);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             content.Headers.Add("api-key", ApiKey);
