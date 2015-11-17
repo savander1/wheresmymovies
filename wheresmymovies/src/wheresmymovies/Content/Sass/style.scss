@@ -9,6 +9,7 @@ $main-color: #2b415f;
 $active-color: #4d6f9e;
 $min-width: 370px;
 $fonts: 'Geneva', 'Gill Sans', Candara 'Tahoma', sans-serif;
+$header-fonts: 'Verdana', 'Gill Sans', Candara 'Tahoma', sans-serif;
 
 body {
     font-family: $fonts;
@@ -22,6 +23,7 @@ body {
 	    text-align:center;
         position: relative;
         h1{
+            font-family: $header-fonts;
             img {
                 vertical-align:middle;
             }
