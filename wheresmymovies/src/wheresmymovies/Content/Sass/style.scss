@@ -31,13 +31,16 @@ body {
             }
             
         }
-        input[type='search'] {
+        input[type='search']{
             width: 80%;
             font-size: 1.2em;
             height: 50px;
             padding: 0.1em;
             @include border-radius(25px); 
             border: 1px solid $main-color;
+        }
+        input[type='search']:focus{
+            outline: 0;
         }
         form{
             display:none;
