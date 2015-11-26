@@ -1,23 +1,24 @@
 {
     "userSecretsId": "aspnet5-wheresmymovies-20150929092639",
     "webroot": "wwwroot",
-    "version": "1.0.0-beta8",
+    "version": "1.0.0-rc1-final",
 
     "dependencies": {
-		"Microsoft.AspNet.IISPlatformHandler": "1.0.0-beta8",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta8",
-        "Microsoft.AspNet.Server.Kestrel": "1.0.0-beta8",
-        "Microsoft.AspNet.Session": "1.0.0-beta8",
-        "Microsoft.AspNet.StaticFiles": "1.0.0-beta8",
-        "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-beta8",
-        "Microsoft.Framework.Configuration.CommandLine": "1.0.0-beta8",
-        "Microsoft.Framework.Configuration.EnvironmentVariables": "1.0.0-beta8",
-        "Microsoft.Framework.Configuration.Json": "1.0.0-beta8",
+        "Microsoft.AspNet.IISPlatformHandler": "1.0.0-*",
+        "Microsoft.AspNet.Mvc": "6.0.0-*",
+        "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+        "Microsoft.AspNet.Session": "1.0.0-*",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-*",
+        "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-*",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0-rc1-final",
         "jquery.TypeScript.DefinitelyTyped": "2.3.1",
         "jqueryui.TypeScript.DefinitelyTyped": "0.4.3",
         "typeahead.TypeScript.DefinitelyTyped": "0.1.5",
         "handlebars.TypeScript.DefinitelyTyped": "0.1.9",
-        "System.Net.Http": "4.0.0-beta-23019"
+        "System.Net.Http": "4.0.0-beta-23019",
+        "Microsoft.AspNet.Hosting": "1.0.0-rc1-final"
     },
 
     "commands": {
@@ -30,6 +31,8 @@
     "frameworks": {
         "dnx451": {
             "dependencies": {
+                "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
+                "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
             }
         },
         "dnxcore50": {

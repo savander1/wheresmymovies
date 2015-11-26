@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using wheresmymovies.Data;
 
 namespace wheresmymovies
@@ -37,5 +36,7 @@ namespace wheresmymovies
             app.UseStaticFiles();
             app.UseMvc();  
         }
+
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
