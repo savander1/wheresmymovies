@@ -46,8 +46,12 @@ module Form {
         
         
         render(): Element{
+            var containerElement = new HTMLDivElement();
             
+            var labelElement = new HTMLLabelElement();
+            labelElement.textContent = this.label;
             
+            containerElement.appendChild(labelElement);
             
             var inputElement = new HTMLInputElement();
             
@@ -63,7 +67,19 @@ module Form {
                 inputElement.className = this.cls;
             }
             
-            return inputElement;
+            if (this.fieldType !== FieldValidationType.none){
+               inputElement.onblur = function(){
+                   if (!this.isValid(inputElement.value)){
+                       inputElement.className += ' nvalid';
+                   } else {
+                       inputElement.className = inputElement.className.replace(' invalid', '');
+                   }
+               };
+            }
+            
+            containerElement.appendChild(inputElement);
+            
+            return containerElement;
         }
         
         isValid():boolean {
