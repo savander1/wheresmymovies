@@ -7,6 +7,7 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
 var tsc = require('gulp-typescript');
 var uglify = require('gulp-uglify');
 var minHtml = require('gulp-minify-html');
@@ -42,6 +43,9 @@ gulp.task('default', ['sass', 'tsc', 'js', 'min-html']);
 
 gulp.task('sass', function(){
     gulp.src(paths.sass.src)
+        .pipe(autoprefixer({
+			browsers: ['last 2 versions']
+		}))
         .pipe(sourcemaps.init())
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(sourcemaps.write())
