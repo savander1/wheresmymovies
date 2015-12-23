@@ -1,5 +1,6 @@
 ﻿///<reference path="jquery.d.ts" />
 ///<reference path="typeahead.d.ts"/>
+///<reference path="form.ts" />
 interface IMovie {
     Id: string;
     Title: string;

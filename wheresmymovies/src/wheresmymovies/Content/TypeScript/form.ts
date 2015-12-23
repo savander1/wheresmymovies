@@ -14,7 +14,7 @@ module Form {
         'none'
     }
     
-    abstract class Field{
+    abstract class Field implements Renderable{
         
         fieldType: FieldValidationType;
         label: string;
@@ -34,26 +34,33 @@ module Form {
             this.id = id;
         }
         
-        
+        render(): Element{
+            return void 0;
+        }
         
         isPopulated(value: any): boolean{
             return value !== void 0 && value !== ''
         }
         
+        createElement(tagName:string): HTMLElement {
+            return document.createElement(tagName);
+        }
     }
     
     class TextField  extends Field implements Renderable, Validatable{
         
         
-        render(): Element{
-            var containerElement = new HTMLDivElement();
+        public render(): Element{
+            var me = this;
             
-            var labelElement = new HTMLLabelElement();
+            var containerElement = super.createElement('div');
+            
+            var labelElement = super.createElement('label')
             labelElement.textContent = this.label;
             
             containerElement.appendChild(labelElement);
             
-            var inputElement = new HTMLInputElement();
+            var inputElement = super.createElement('input') as HTMLInputElement
             
             if (this.isPopulated(this.name)){
                 inputElement.name = this.name;
@@ -68,13 +75,13 @@ module Form {
             }
             
             if (this.fieldType !== FieldValidationType.none){
-               inputElement.onblur = function(){
-                   if (!this.isValid(inputElement.value)){
-                       inputElement.className += ' nvalid';
+               inputElement.addEventListener('blur',  function(){
+                   if (!me.isValid()){
+                       inputElement.className += ' invalid';
                    } else {
                        inputElement.className = inputElement.className.replace(' invalid', '');
                    }
-               };
+               });
             }
             
             containerElement.appendChild(inputElement);
@@ -82,7 +89,7 @@ module Form {
             return containerElement;
         }
         
-        isValid():boolean {
+        public isValid():boolean {
             var elem = document.getElementById(this.id) as HTMLInputElement;
             var value = elem.value;
             
@@ -91,8 +98,32 @@ module Form {
         }
     }
     
-    export class AddModvieForm  {
+    export class AddModvieForm {
+        fields: Field[];
+        rootElement: HTMLElement;
         
+        constructor(root:string){
+            this.fields = [
+                new TextField(FieldValidationType.text, 'Title', 'form', 'title')
+            ];
+            this.rootElement = document.getElementById(root);
+        }
         
+        render(): void{
+            var formElement = document.createElement('form')
+            
+            formElement.method = 'POST';
+            
+            this.fields.forEach(element => {
+                formElement.appendChild(element.render());
+            });
+            
+            this.rootElement.appendChild(formElement);
+        }
     } 
 }
+
+window.onload = function(){
+    var form = new Form.AddModvieForm('boo');
+    form.render();
+};

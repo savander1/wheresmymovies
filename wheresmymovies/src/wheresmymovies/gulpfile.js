@@ -30,7 +30,7 @@ var paths = {
 	    dest: 'wwwroot/css/'
     },
     ts: {
-    	src: 'Content/Typescript/wheresmymovies.ts',
+    	src: 'Content/Typescript/*.ts',
 	    dest: 'wwwroot/js/'
     },
     html: {
