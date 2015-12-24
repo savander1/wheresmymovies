@@ -7,7 +7,7 @@ module Form {
         isValid():boolean;
     }
     
-    enum FieldValidationType {
+    export enum FieldValidationType {
         'text',
         'number',
         'textbox',
@@ -15,6 +15,8 @@ module Form {
     }
     
     abstract class Field implements Renderable, Validatable{
+        
+        protected invalidClass : string = ' invalid';
         
         fieldType: FieldValidationType;
         label: string;
@@ -101,7 +103,7 @@ module Form {
             
             if (this.fieldType !== FieldValidationType.none){
                inputElement.addEventListener('blur',  function(){
-                   if (!me.isValid()){
+                   if (!me.isValid() && inputElement.className.indexOf(' invalid') === -1){
                        inputElement.className += ' invalid';
                    } else {
                        inputElement.className = inputElement.className.replace(' invalid', '');
@@ -142,7 +144,7 @@ module Form {
             
             if (this.fieldType !== FieldValidationType.none){
                inputElement.addEventListener('blur',  function(){
-                   if (!me.isValid()){
+                   if (!me.isValid() && inputElement.className.indexOf(' invalid') === -1){
                        inputElement.className += ' invalid';
                    } else {
                        inputElement.className = inputElement.className.replace(' invalid', '');
@@ -211,33 +213,39 @@ module Form {
             return true;
         }
     }
-    
-    export class AddMovieForm {
-        fields: Field[];
-        rootElement: HTMLElement;
-        
-        constructor(root:string, fields: Field[]){
-            this.fields = [
-                new TextField(FieldValidationType.text, 'Title', 'form', 'title')
-            ];
-            this.rootElement = document.getElementById(root);
-        }
-        
-        render(): void{
-            var formElement = document.createElement('form')
-            
-            formElement.method = 'POST';
-            
-            this.fields.forEach(element => {
-                formElement.appendChild(element.render());
-            });
-            
-            this.rootElement.appendChild(formElement);
-        }
-    } 
 }
 
-window.onload = function(){
-    var form = new Form.AddMovieForm('boo', null);
+module Test {
+    var fields = [
+        new Form.TextField(Form.FieldValidationType.none, 'IMDB Id', 'id', '' , 'id' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Title', 'title', '' , 'title' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Year', 'year', '' , 'year' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Released', 'released', '' , 'released' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Runtime', 'runtime', '' , 'runtime' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Genre', 'genre', '' , 'genre' ),
+        
+        new Form.TextField(Form.FieldValidationType.none, 'Rated', 'rated', '' , 'rated' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Director', 'director', '' , 'director' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Writer', 'writer', '' , 'writer' ),
+        
+        new Form.TextField(Form.FieldValidationType.none, 'Language', 'writer', '' , 'writer' ),
+        new Form.TextField(Form.FieldValidationType.none, 'Country', 'country', '' , 'country' ),
+        
+        new Form.TextField(Form.FieldValidationType.none, 'Location', 'location', '' , 'location' ),
+        
+        new Form.TextAreaField(Form.FieldValidationType.none, 'Plot', 'plot', '' , 'plot' )
+    ];
+    
+    var buttons = [
+        new Form.Button('Check', null),
+        new Form.Button('Clear', null),
+        new Form.Button('Submit', null),
+        new Form.Button('Close', null)
+    ];
+    
+    window.onload = function (){
+        var form = new Form.RenderableForm('poster', fields, buttons);
+    
     form.render();
-};
+    }
+}
