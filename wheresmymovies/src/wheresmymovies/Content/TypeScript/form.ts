@@ -166,7 +166,7 @@ module Form {
         
         render(name: string = null, id:string = null, method:string = null, action:string = null): HTMLElement{
             var formElement = document.createElement('form')
-            
+            formElement.className = 'show';
             formElement.method = method;
             formElement.action = action;
             formElement.name = name;

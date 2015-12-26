@@ -295,4 +295,4 @@ var authController = new AuthController('/api/auth/');
 
 var movieApp = new App(searchController, movieController, authController);
 
-$('document').ready(movieApp.init);
+//$('document').ready(movieApp.init);

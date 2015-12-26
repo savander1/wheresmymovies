@@ -3,25 +3,29 @@
 module Alert {
     
     class MessageBoxHeader implements Common.Renderable{
-        
-        private closeButton: Common.Button;
+ 
         private headerText: string;
         
-        constructor(headerText:string, closeButton: Common.Button){
-            this.closeButton = closeButton;
+        constructor(headerText:string){
             this.headerText = headerText;
         }
         
         
         render(): Element {
             var headerContainer = document.createElement('div');
+            var textContainer = document.createElement('span');
             var headerText = document.createTextNode(this.headerText);
-            headerContainer.appendChild(headerText);
-            if (this.closeButton !== void 0){
-                var button = this.closeButton.render();
-                headerContainer.appendChild(button);
-            }
+            textContainer.appendChild(headerText);
+            headerContainer.appendChild(textContainer);
             
+            var closeButton = new Common.Button('Close', function(){
+                document.getElementsByClassName('messageBox')[0].remove();
+            });        
+            var button = closeButton.render();
+            button.id = 'close-button';
+            button.className = 'button close';
+            headerContainer.appendChild(button);
+        
             return headerContainer;
         }
     }
@@ -50,14 +54,15 @@ module Alert {
         content: HTMLElement; 
         footerElement: MessageBoxFooter;
         
-        constructor(header: string, headerCloseButton:Common.Button, content: HTMLElement, buttons:Common.Button[]){
-            this.headerElement = new MessageBoxHeader(header, headerCloseButton);
+        constructor(header: string, content: HTMLElement, buttons:Common.Button[]){
+            this.headerElement = new MessageBoxHeader(header);
             this.content = content;
             this.footerElement = new MessageBoxFooter(buttons);
         }
         
         render():Element{
             var container = document.createElement('div');
+            container.className = 'messageBox';
             
             container.appendChild(this.headerElement.render());
             container.appendChild(this.content);

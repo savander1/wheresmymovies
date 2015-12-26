@@ -8,10 +8,10 @@ module Common{
     
     export class Button implements Renderable{
         
-        onclick:EventListenerObject;
+        onclick:EventListener;
         buttonText:string;
         
-        constructor(buttonText:string, onclick: EventListenerObject){
+        constructor(buttonText:string, onclick: EventListener){
             this.onclick = onclick;
             this.buttonText = buttonText;
         }
@@ -24,7 +24,7 @@ module Common{
             var textElement = document.createTextNode(this.buttonText);
             inputElement.appendChild(textElement);
 
-            inputElement.addEventListener('click', onclick)
+            inputElement.addEventListener('click', this.onclick)
             
             return inputElement;
         }

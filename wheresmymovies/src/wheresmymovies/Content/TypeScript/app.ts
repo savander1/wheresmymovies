@@ -36,7 +36,7 @@ module Application {
         
         var form = new Form.Form(fields, []);
         
-        var messageBox = new Alert.MessageBox('Add Movie', new Common.Button('Close', null), form.render(), buttons)
+        var messageBox = new Alert.MessageBox('Add Movie', form.render(), buttons)
         
         var container = document.getElementById('poster');
         container.appendChild(messageBox.render())
