@@ -56,7 +56,8 @@ gulp.task('tsc', function(){
     gulp.src(paths.ts.src)
 
         .pipe(tsc({
-            sourceMap: false
+            sourceMap: false,
+            out: 'output.js'
         }))
         .pipe(uglify())
         .pipe(gulp.dest(paths.ts.dest));

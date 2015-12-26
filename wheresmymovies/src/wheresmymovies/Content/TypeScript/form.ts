@@ -1,12 +1,6 @@
+///<reference path="common.ts" />
+
 module Form {
-    
-    export interface Renderable {
-        render(): Element;
-    }
-    export interface Validatable {
-        isValid():boolean;
-    }
-    
     export enum FieldValidationType {
         'text',
         'number',
@@ -14,7 +8,7 @@ module Form {
         'none'
     }
     
-    abstract class Field implements Renderable, Validatable{
+    abstract class Field implements Common.Renderable, Common.Validatable{
         
         protected invalidClass : string = ' invalid';
         
@@ -158,38 +152,19 @@ module Form {
         }
     }
     
-    export class Button implements Renderable{
-        
-        onclick:EventListenerObject;
-        buttonText:string;
-        
-        constructor(buttonText:string, onclick: EventListenerObject){
-            this.onclick = onclick;
-            this.buttonText = buttonText;
-        }
-        
-        render(): Element{
-            var me = this;
-            
-            var inputElement = document.createElement('button') as HTMLButtonElement
-            inputElement.addEventListener('click', onclick)
-            
-            return inputElement;
-        }
-    }
     
-    export class RenderableForm implements Validatable{
+    
+    export class Form implements Common.Validatable, Common.Renderable{
         fields: Field[];
-        buttons: Button[];
+        buttons: Common.Button[];
         rootElement: HTMLElement;
         
-        constructor(root:string, fields: Field[], buttons: Button[]){
+        constructor(fields: Field[], buttons: Common.Button[]){
             this.fields = fields;
             this.buttons = buttons;
-            this.rootElement = document.getElementById(root);
         }
         
-        render(name: string = null, id:string = null, method:string = null, action:string = null): void{
+        render(name: string = null, id:string = null, method:string = null, action:string = null): HTMLElement{
             var formElement = document.createElement('form')
             
             formElement.method = method;
@@ -201,7 +176,11 @@ module Form {
                 formElement.appendChild(element.render());
             });
             
-            this.rootElement.appendChild(formElement);
+            this.buttons.forEach(button => {
+                formElement.appendChild(button.render());
+            });
+            
+            return formElement;
         }
         
         isValid() :boolean{
@@ -215,37 +194,3 @@ module Form {
     }
 }
 
-module Test {
-    var fields = [
-        new Form.TextField(Form.FieldValidationType.none, 'IMDB Id', 'id', '' , 'id' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Title', 'title', '' , 'title' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Year', 'year', '' , 'year' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Released', 'released', '' , 'released' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Runtime', 'runtime', '' , 'runtime' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Genre', 'genre', '' , 'genre' ),
-        
-        new Form.TextField(Form.FieldValidationType.none, 'Rated', 'rated', '' , 'rated' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Director', 'director', '' , 'director' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Writer', 'writer', '' , 'writer' ),
-        
-        new Form.TextField(Form.FieldValidationType.none, 'Language', 'writer', '' , 'writer' ),
-        new Form.TextField(Form.FieldValidationType.none, 'Country', 'country', '' , 'country' ),
-        
-        new Form.TextField(Form.FieldValidationType.none, 'Location', 'location', '' , 'location' ),
-        
-        new Form.TextAreaField(Form.FieldValidationType.none, 'Plot', 'plot', '' , 'plot' )
-    ];
-    
-    var buttons = [
-        new Form.Button('Check', null),
-        new Form.Button('Clear', null),
-        new Form.Button('Submit', null),
-        new Form.Button('Close', null)
-    ];
-    
-    window.onload = function (){
-        var form = new Form.RenderableForm('poster', fields, buttons);
-    
-    form.render();
-    }
-}
