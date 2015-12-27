@@ -1,6 +1,10 @@
-﻿///<reference path="jquery.d.ts" />
-///<reference path="typeahead.d.ts"/>
+﻿///<reference path="common.ts"/>
+///<reference path="ajax.ts"/>
 ///<reference path="form.ts" />
+
+
+///<reference path="jquery.d.ts"/>
+
 interface IMovie {
     Id: string;
     Title: string;
@@ -66,25 +70,15 @@ class MovieController extends Controller{
         var id = $('#id').val();
         var name = encodeURIComponent( $('#title').val() );
         
-        $.ajax({
-            type: "GET",
-            url: this.address,
-            data: { name: name, id: id },
-            success: jqXHr => { success(jqXHr); },
-            error: (jqXHr, textStatus, errorThrown) => { failure(jqXHr, textStatus, errorThrown) }
-        });
+        var movieRequest = new Ajax.Request(this.address, success, failure);
+        movieRequest.get({ name: name, id: id });
     }
     
     post(movie:IMovie, success:Function, failure:Function):void {
         console.log(movie);
         
-        $.ajax({
-            type: "POST",
-            url: this.address,
-            data: movie,
-            success: jqXHr => { success(jqXHr); },
-            error: (jqXHr, textStatus, errorThrown) => { failure(jqXHr, textStatus, errorThrown) }
-        });
+        var movieRequests = new Ajax.Request(this.address, success, failure);
+        movieRequests.post(movie);
     }
 }
 
