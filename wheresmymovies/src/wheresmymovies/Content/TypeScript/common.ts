@@ -1,4 +1,6 @@
 module Common{
+    
+
     export interface Renderable {
         render(): Element;
     }
@@ -24,10 +26,19 @@ module Common{
             inputElement.className = 'button'
             var textElement = document.createTextNode(this.buttonText);
             inputElement.appendChild(textElement);
-
-            inputElement.addEventListener('click', this.onclick)
+            
+            if (this.onclick !== void 0){
+                inputElement.addEventListener('click', this.onclick)
+            }
             
             return inputElement;
         }
+        
+        addOnClickEvent(onclick:EventListener){
+            this.onclick = onclick;
+            var elm = document.getElementById(this.buttonText.toLowerCase());
+            elm.addEventListener('click', onclick);
+        }
+        
     }
 }

@@ -31,6 +31,21 @@ module Alert {
         }
     }
     
+    class MessageBoxContent implements Common.Renderable{
+        private content: HTMLElement;
+        
+        constructor(content: HTMLElement){
+            this.content = content;
+        }
+        
+        render():HTMLElement{
+            var contentContaier = document.createElement('div');
+            contentContaier.className = 'middle';
+            contentContaier.appendChild(this.content);
+            return contentContaier;
+        }
+    }
+    
     class MessageBoxFooter implements Common.Renderable{
         private buttons: Common.Button[];
         
@@ -50,15 +65,17 @@ module Alert {
         }
     }
     
+    
+    
     export class MessageBox implements Common.Renderable{
         
         headerElement: MessageBoxHeader;
-        content: HTMLElement; 
+        contentElement: MessageBoxContent;
         footerElement: MessageBoxFooter;
         
         constructor(header: string, content: HTMLElement, buttons:Common.Button[]){
             this.headerElement = new MessageBoxHeader(header);
-            this.content = content;
+            this.contentElement = new MessageBoxContent(content);
             this.footerElement = new MessageBoxFooter(buttons);
         }
         
@@ -67,10 +84,26 @@ module Alert {
             container.className = 'messageBox';
             
             container.appendChild(this.headerElement.render());
-            container.appendChild(this.content);
+            container.appendChild(this.contentElement.render());
             container.appendChild(this.footerElement.render());
             
             return container;
+        }
+        
+        replaceContent(replacement:HTMLElement):void{
+            this.contentElement = new MessageBoxContent(replacement);
+            var container = document.getElementsByClassName('messageBox')[0];
+            
+            var oldContent = container.getElementsByClassName['middle'][0];
+            container.replaceChild(this.contentElement.render(), oldContent);
+        }
+        
+        replaceButtons(buttons:Common.Button[]):void{
+            this.footerElement = new MessageBoxFooter(buttons);
+            var container = document.getElementsByClassName('messageBox')[0];
+            
+            var oldContent = container.getElementsByClassName['footer'][0];
+            container.replaceChild(this.footerElement.render(), oldContent);
         }
     }
 }

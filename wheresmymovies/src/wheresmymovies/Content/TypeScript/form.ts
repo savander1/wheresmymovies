@@ -17,6 +17,7 @@ module Form {
         cls : string;
         name : string;
         id : string;
+        value: string;
         
         constructor(type: FieldValidationType, label: string, cls: string, name: string = '', id : string = ''){ 
             this.fieldType = type;
@@ -28,6 +29,7 @@ module Form {
                 id = type + '_' + Math.floor((Math.random() * 10) + 1);
             }
             this.id = id;
+            
         }
         
         render(): Element{
@@ -190,6 +192,24 @@ module Form {
                 }
             });
             return true;
+        }
+        
+        getValues():any{
+            
+            var values = ',';
+            
+            this.fields.forEach(field => {
+                var key = field.id;
+                var elm = document.getElementById(field.id) as HTMLInputElement;
+                var value = elm.value;
+                
+                var pair = '' + key + ':' + encodeURIComponent(value) + ',';
+                value += pair
+            });
+            
+            values = values.substr(0, values.length - 1);
+            
+            return JSON.parse('{' + values + '}');
         }
     }
 }
