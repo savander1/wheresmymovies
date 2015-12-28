@@ -11,6 +11,52 @@ $min-width: 370px;
 $fonts: 'Geneva', 'Gill Sans', Candara 'Tahoma', sans-serif;
 $header-fonts: 'Verdana', 'Gill Sans', Candara 'Tahoma', sans-serif;
 
+// Message Box
+
+.messageBox {
+    border: 1px solid black;
+    
+    .toolbar, .footer{
+        background: $active-color;
+        color: white;
+        font-weight: bold;
+        &::after{
+                content: "."; 
+                visibility: hidden; 
+                display: block; 
+                height: 0; 
+                clear: both;
+        }
+        
+        button.button {
+            float: right;
+            height: 25px;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+    }
+    
+    .toolbar{
+        border-bottom: 1px solid black;
+        padding: 0px 0px 0px 10px;
+        
+        span{
+            float: left;
+            padding-top: 4px;
+        }
+        button.close{
+            width: 25px;
+            margin:0px;
+        }
+    }
+    
+    .footer {
+        border-top: 1px solid black;
+        text-align: right;
+        padding-right: 5px;
+    }
+}
+
 body {
     font-family: $fonts;
     min-width: 390px;
@@ -109,7 +155,7 @@ body {
     }
 
     :-moz-placeholder { /* Firefox 18- */
-       text-align: center;  
+      text-align: center;  
     }
 
     ::-moz-placeholder {  /* Firefox 19+ */

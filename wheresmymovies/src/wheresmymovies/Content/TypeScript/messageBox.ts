@@ -13,12 +13,13 @@ module Alert {
         
         render(): Element {
             var headerContainer = document.createElement('div');
+            headerContainer.className = 'toolbar';
             var textContainer = document.createElement('span');
             var headerText = document.createTextNode(this.headerText);
             textContainer.appendChild(headerText);
             headerContainer.appendChild(textContainer);
             
-            var closeButton = new Common.Button('Close', function(){
+            var closeButton = new Common.Button('X', function(){
                 document.getElementsByClassName('messageBox')[0].remove();
             });        
             var button = closeButton.render();
@@ -39,6 +40,7 @@ module Alert {
         
         render():HTMLElement{
             var footerContent = document.createElement('div');
+            footerContent.className = 'footer';
             
             this.buttons.forEach(button => {
                 footerContent.appendChild(button.render());

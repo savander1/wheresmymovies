@@ -21,6 +21,7 @@ module Common{
             
             var inputElement = document.createElement('button') as HTMLButtonElement
             inputElement.id = this.buttonText.toLowerCase();
+            inputElement.className = 'button'
             var textElement = document.createTextNode(this.buttonText);
             inputElement.appendChild(textElement);
 
