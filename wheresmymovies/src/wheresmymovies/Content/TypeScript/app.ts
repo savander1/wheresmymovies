@@ -24,21 +24,24 @@ module Application {
     ];
     
     var buttons = [
-        new Common.Button('Check', null),
         new Common.Button('Clear', null),
-        new Common.Button('Submit', null),
-        
+        new Common.Button('Submit', null)
     ];
     
     
  
     window.onload = function(){
         
-        var form = new Form.Form(fields, []);
+        var movieForm = new Form.Form(fields, []);
+        var checkForm = new Form.Form(fields.slice(0,2), []);
         
-        var messageBox = new Alert.MessageBox('Add Movie', form.render(), buttons)
+        var messageBox = new Alert.MessageBox('Add Movie', movieForm.render(), buttons)
+        
+        var otherBox = new Alert.MessageBox('Search', checkForm.render(), [new Common.Button('Clear', null), new Common.Button('Search', null)])
+        
         
         var container = document.getElementById('poster');
-        container.appendChild(messageBox.render())
+        container.appendChild(messageBox.render());
+        container.appendChild(otherBox.render());
     }
 }
