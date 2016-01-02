@@ -59,13 +59,13 @@ gulp.task('tsc', function(){
             sourceMap: false,
             out: 'output.js'
         }))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(paths.ts.dest));
 });
 
 gulp.task('js', function(){
     gulp.src(paths.jq.src)
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(paths.jq.dest));
         
    gulp.src(paths.typeahead.src)

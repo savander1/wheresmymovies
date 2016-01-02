@@ -53,8 +53,12 @@ module Alert {
             this.buttons = buttons;
         }
         
-        render():HTMLElement{
-            var footerContent = document.createElement('div');
+        render():Element{
+            var footerContent = document.getElementsByClassName('footer')[0];
+            if (footerContent === void 0)
+            { 
+                footerContent = document.createElement('div'); 
+            }
             footerContent.className = 'footer';
             
             this.buttons.forEach(button => {
@@ -100,10 +104,11 @@ module Alert {
         
         replaceButtons(buttons:Common.Button[]):void{
             this.footerElement = new MessageBoxFooter(buttons);
-            var container = document.getElementsByClassName('messageBox')[0];
-            
-            var oldContent = container.getElementsByClassName['footer'][0];
-            container.replaceChild(this.footerElement.render(), oldContent);
+            this.render();
+        }
+        
+        close():void{
+            document.getElementsByClassName('messageBox')[0].remove();
         }
     }
 }

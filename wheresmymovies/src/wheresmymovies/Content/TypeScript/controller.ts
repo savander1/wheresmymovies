@@ -2,10 +2,12 @@
 ///<reference path="model.ts" />
 ///<reference path="ajax.ts" />
 
-module Controller{
+module Controllers{
     
     abstract class Controller{
-    constructor(protected address: string) {
+    protected address: string;
+    constructor(address: string) {
+        this.address = address;
     }
         
     public error(err:any): void {

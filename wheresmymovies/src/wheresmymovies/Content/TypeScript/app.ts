@@ -29,25 +29,35 @@ module Application {
         new Common.Button('Submit', null)
     ];
     
+    
+    var movieForm = new Form.Form(fields, []);
+    var checkForm = new Form.Form(fields.slice(0,2), []);
+    
+    var movieController = new Controllers.MovieController('/api/movies/');
+    var messageBox = new Alert.MessageBox('Add Movie', checkForm.render(), [])
+    
+ 
+    var searchButtonClick:EventListener = function(event) {
+        movieController.get(checkForm.getValues(), messageBox.close, function(resp){
+            movieController.error(resp);
+            messageBox.replaceButtons(addButtons);
+            messageBox.replaceContent(movieForm.render());
+        });
+    };
+
     var searchButtons = [
         new Common.Button('Clear', null), 
-        new Common.Button('Search', null)
+        new Common.Button('Search', searchButtonClick)
     ];
     
     
-    
- 
     window.onload = function(){
         
-        var movieController = new Controller.MovieController('/api/movies/');
-       
-        var movieForm = new Form.Form(fields, []);
-        var checkForm = new Form.Form(fields.slice(0,2), []);
-        
-        var messageBox = new Alert.MessageBox('Add Movie', checkForm.render(), searchButtons)
-        
+        messageBox.replaceButtons(searchButtons);
         
         var container = document.getElementById('poster');
         container.appendChild(messageBox.render());
     }
+    
+    
 }
