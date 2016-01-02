@@ -196,15 +196,15 @@ module Form {
         
         getValues():any{
             
-            var values = ',';
+            var values = '';
             
             this.fields.forEach(field => {
                 var key = field.id;
                 var elm = document.getElementById(field.id) as HTMLInputElement;
                 var value = elm.value;
                 
-                var pair = '' + key + ':' + encodeURIComponent(value) + ',';
-                value += pair
+                var pair = '"' + key + '":"' + encodeURIComponent(value) + '",';
+                values += pair
             });
             
             values = values.substr(0, values.length - 1);

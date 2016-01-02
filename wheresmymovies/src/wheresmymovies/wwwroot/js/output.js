@@ -223,13 +223,13 @@ var Form;
             return true;
         };
         Form.prototype.getValues = function () {
-            var values = ',';
+            var values = '';
             this.fields.forEach(function (field) {
                 var key = field.id;
                 var elm = document.getElementById(field.id);
                 var value = elm.value;
-                var pair = '' + key + ':' + encodeURIComponent(value) + ',';
-                value += pair;
+                var pair = '"' + key + '":"' + encodeURIComponent(value) + '",';
+                values += pair;
             });
             values = values.substr(0, values.length - 1);
             return JSON.parse('{' + values + '}');
