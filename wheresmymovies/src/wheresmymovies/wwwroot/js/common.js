@@ -1,1 +1,0 @@
-var Common;!function(t){var n=function(){function t(t,n){this.onclick=n,this.buttonText=t}return t.prototype.render=function(){var t=document.createElement("button");t.id=this.buttonText.toLowerCase();var n=document.createTextNode(this.buttonText);return t.appendChild(n),t.addEventListener("click",onclick),t},t}();t.Button=n}(Common||(Common={}));
