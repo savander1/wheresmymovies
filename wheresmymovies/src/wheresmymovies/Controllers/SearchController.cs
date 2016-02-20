@@ -13,15 +13,24 @@ namespace wheresmymovies.Controllers
     {
         private readonly IMovieRepository _movieRepository;
 
-        public SearchController(IMovieRepository movieRepository)
+        public SearchController(IMovieRepository movieRepository) 
         {
             _movieRepository = movieRepository;
         }
 
         [HttpGet]
-        public IEnumerable<Movie> Get([FromQuery] MovieSearchParameters searchParams)
+        public ObjectResult Get([FromQuery] MovieSearchParameters searchParams)
         {
-            return  _movieRepository.Get(searchParams);
+            if (searchParams != null && searchParams.IsValid())
+            {
+                var movies = _movieRepository.Get(searchParams);
+                if (movies == null || !movies.Any())
+                {
+                    return new HttpNotFoundObjectResult(new object());
+                }
+                return new ObjectResult(movies);
+            }
+            return new BadRequestObjectResult(new object());
         }
 
         [HttpGet("{id}")]

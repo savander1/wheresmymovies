@@ -21,7 +21,7 @@ module Ajax{
         }
         
         
-        private makeRequest(data:any, type:string):void{
+        private makeRequest(data:any, type:string, passAsQuery:boolean = false):void{
             var me = this;
             var request = new XMLHttpRequest();
             request.open(type, this.endPoint, true);
@@ -31,7 +31,7 @@ module Ajax{
                 }
                 me.onSuccess(request);
             };
-            request.send(JSON.stringify(data));
+            request.send(JSON.stringify(data);
         }
     }
     

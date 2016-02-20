@@ -6,11 +6,20 @@
 }
 // Colors
 
-$main-color: #2b415f;
-$secondary-color: #ffffff;
+$red: rgb(223,96,50);
+$blue: rgb(47, 127, 161);
+$green: rgb(199, 211, 82);
+$orange: rgb(228, 172, 47);
 
-$active-color: #4d6f9e;
+$main-color: $blue;
+$secondary-color: $green;
+
+$active-color: $red;
+$accent-color: $orange;
 $min-width: 370px;
+
+// Fonts
+
 $fonts: 'Geneva', 'Gill Sans', Candara 'Tahoma', sans-serif;
 $header-fonts: 'Verdana', 'Gill Sans', Candara 'Tahoma', sans-serif;
 
