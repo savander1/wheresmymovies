@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data;
@@ -28,7 +27,7 @@ namespace wheresmymovies.Controllers
                 {
                     return new HttpNotFoundObjectResult(new object());
                 }
-                return new ObjectResult(movies);
+                return new HttpOkObjectResult(movies);
             }
             return new BadRequestObjectResult(new object());
         }
@@ -36,13 +35,17 @@ namespace wheresmymovies.Controllers
         [HttpGet("{id}")]
         public async Task<ObjectResult> Get(string id)
         {
-            var movie =  await _movieRepository.Get(id);
-            if (movie == null)
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                return new HttpNotFoundObjectResult(new Movie());
-            }
+                var movie = await _movieRepository.Get(id);
+                if (movie == null)
+                {
+                    return new HttpNotFoundObjectResult(new object());
+                }
 
-            return new ObjectResult(movie);
+                return new HttpOkObjectResult(movie);
+            }
+            return new BadRequestObjectResult(new object());
         }
     }
 }
