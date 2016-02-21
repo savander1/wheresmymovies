@@ -22,13 +22,17 @@ namespace wheresmymovies.Controllers
         [HttpGet]
         public async Task<ObjectResult> Get([FromQuery]MovieSearchParameters searchParameters)
         {
-            var movie = await _searchRepository.Search(searchParameters);
-            if (movie == null)
+            if (searchParameters != null && searchParameters.IsValid())
             {
-                return new HttpNotFoundObjectResult(new Movie());
-            }
+                var movie = await _searchRepository.Search(searchParameters);
+                if (movie == null)
+                {
+                    return new HttpNotFoundObjectResult(new object());
+                }
 
-            return new ObjectResult(movie);
+                return new HttpOkObjectResult(movie);
+            }
+            return new BadRequestObjectResult(new object());
            
         }
 

@@ -18,11 +18,11 @@ namespace wheresmymovies.Controllers
         }
 
         [HttpGet]
-        public ObjectResult Get([FromQuery] MovieSearchParameters searchParams)
+        public async Task<ObjectResult> Get([FromQuery] MovieSearchParameters searchParams)
         {
             if (searchParams != null && searchParams.IsValid())
             {
-                var movies = _movieRepository.Get(searchParams);
+                var movies = await _movieRepository.Get(searchParams);
                 if (movies == null || !movies.Any())
                 {
                     return new HttpNotFoundObjectResult(new object());
