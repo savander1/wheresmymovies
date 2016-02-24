@@ -26,6 +26,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{273D49C4-B67D-4438-8D9D-65B9E08AA77F}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "test", "test\test.xproj", "{6FF760EC-28B9-4A53-8831-37346F8FA0A2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8AC256C1-9495-4505-97F4-2E1FA2E4E0FF} = {8AC256C1-9495-4505-97F4-2E1FA2E4E0FF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
