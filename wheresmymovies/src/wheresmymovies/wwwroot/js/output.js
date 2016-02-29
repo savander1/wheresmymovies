@@ -12,7 +12,8 @@ var Ajax;
         Request.prototype.post = function (data) {
             this.makeRequest(data, 'POST');
         };
-        Request.prototype.makeRequest = function (data, type) {
+        Request.prototype.makeRequest = function (data, type, passAsQuery) {
+            if (passAsQuery === void 0) { passAsQuery = false; }
             var me = this;
             var request = new XMLHttpRequest();
             request.open(type, this.endPoint, true);
