@@ -10,11 +10,11 @@ using System.Net;
 
 namespace test.UnitTests.Controllers
 {
-    public class AuthenticationControllerTests : ControllerTestBase
+    public class AuthenticationControllerTests
     {
         private AutenticationController _authController;
 
-        protected override void TestInitialize()
+        protected void TestInitialize()
         {
             _authController = new AutenticationController(null);
         }

@@ -11,19 +11,19 @@ using System.Net;
 
 namespace test.UnitTests.Controllers
 {
-    public class MoviesControllerTests : ControllerTestBase
+    public class MoviesControllerTests
     {
         private Mock<IMovieRepository> _movieRepo;
         private Mock<IMetaDataSearchRepository> _metaDataRepo;
         private MoviesController _moviesController;
 
-        protected override void TestInitialize()
+        public MoviesControllerTests()
         {
             _movieRepo = new Mock<IMovieRepository>();
             _metaDataRepo = new Mock<IMetaDataSearchRepository>();
 
-            _metaDataRepo.Setup(x => x.Search(It.Is<MovieSearchParameters>(search => search.Id == ID || search.Title == TITLE)))
-                      .ReturnsAsync(new Movie { Title = TITLE, Id = ID });
+            _metaDataRepo.Setup(x => x.Search(It.Is<MovieSearchParameters>(search => search.Id == Constants.Id || search.Title == Constants.Title)))
+                      .ReturnsAsync(new Movie { Title = Constants.Title, Id = Constants.Id });
 
             _moviesController = new MoviesController(_movieRepo.Object, _metaDataRepo.Object);
         }
@@ -47,75 +47,63 @@ namespace test.UnitTests.Controllers
         [Fact]
         public void Get_ValidIdPassed_MovieReturned()
         {
-            TestInitialize();
+            var result = _moviesController.Get(new MovieSearchParameters { Id = Constants.Id }).Result;
 
-            var result = _moviesController.Get(new MovieSearchParameters { Id = ID }).Result;
-
-            _metaDataRepo.Verify(x => x.Search(It.Is<MovieSearchParameters>(search => search.Id == ID)), Times.Once);
+            _metaDataRepo.Verify(x => x.Search(It.Is<MovieSearchParameters>(search => search.Id == Constants.Id)), Times.Once);
             Assert.Equal(200, result.StatusCode);
             var movie = (Movie)result.Value;
             Assert.NotNull(movie);
-            Assert.Equal(ID, movie.Id);
-            Assert.Equal(TITLE, movie.Title);
+            Assert.Equal(Constants.Id, movie.Id);
+            Assert.Equal(Constants.Title, movie.Title);
         }
 
         [Fact]
         public void Get_ValidTitlePassed_MovieReturned()
         {
-            TestInitialize();
+            var result = _moviesController.Get(new MovieSearchParameters { Title = Constants.Title }).Result;
 
-            var result = _moviesController.Get(new MovieSearchParameters { Title = TITLE }).Result;
-
-            _metaDataRepo.Verify(x => x.Search(It.Is<MovieSearchParameters>(search => search.Title == TITLE)), Times.Once);
+            _metaDataRepo.Verify(x => x.Search(It.Is<MovieSearchParameters>(search => search.Title == Constants.Title)), Times.Once);
             Assert.Equal(200, result.StatusCode);
             var movie = (Movie)result.Value;
             Assert.NotNull(movie);
-            Assert.Equal(ID, movie.Id);
-            Assert.Equal(TITLE, movie.Title);
+            Assert.Equal(Constants.Id, movie.Id);
+            Assert.Equal(Constants.Title, movie.Title);
         }
 
         [Fact]
         public void Get_EmptyParametersPassed_ReturnsBadRequest()
         {
-            TestInitialize();
-
             var result = _moviesController.Get(new MovieSearchParameters()).Result;
 
-            Assert.Equal(BAD_REQUEST, result.StatusCode);
+            Assert.Equal(400, result.StatusCode);
         }
 
         [Fact]
         public void Get_BothParametersPassed_ReturnsBadRequest()
         {
-            TestInitialize();
-
             var result = _moviesController.Get(new MovieSearchParameters
             {
                 Title = "Foo",
                 Id = "Bar"
             }).Result;
 
-            Assert.Equal(BAD_REQUEST, result.StatusCode);
+            Assert.Equal(400, result.StatusCode);
         }
 
         [Fact]
         public void Get_Null_ReturnsBadRequest()
         {
-            TestInitialize();
-
             var result = _moviesController.Get(null).Result;
 
-            Assert.Equal(BAD_REQUEST, result.StatusCode);
+            Assert.Equal(400, result.StatusCode);
         }
 
         [Fact]
         public void Get_NoMatchingMovies_ReturnsNotFound()
         {
-            TestInitialize();
-
             var result = _moviesController.Get(new MovieSearchParameters { Id = "x" }).Result;
 
-            Assert.Equal((int)HttpStatusCode.NotFound, result.StatusCode);
+            Assert.Equal(404, result.StatusCode);
         }
 
     }
