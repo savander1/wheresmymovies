@@ -5,6 +5,7 @@ using Xunit;
 using wheresmymovies.Controllers;
 using wheresmymovies.Models;
 using wheresmymovies.Entities;
+using System;
 using System.Net;
 using System.Linq;
 
@@ -23,6 +24,12 @@ namespace test.UnitTests.Controllers
             _movieRepo.Setup(x => x.Get(It.Is<string>(search => search == Constants.Id)))
                       .ReturnsAsync(new Movie { Title = Constants.Title, Id = Constants.Id });
             _searchController = new SearchController(_movieRepo.Object);
+        }
+        
+        [Fact]
+        public void Ctr_MovieRepoNull_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _searchController = new SearchController(null));
         }
 
         [Fact]

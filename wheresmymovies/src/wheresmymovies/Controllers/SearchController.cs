@@ -2,6 +2,7 @@
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace wheresmymovies.Controllers
 
         public SearchController(IMovieRepository movieRepository) 
         {
+            if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
             _movieRepository = movieRepository;
         }
 
