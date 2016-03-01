@@ -6,17 +6,29 @@ using wheresmymovies.Controllers;
 using Xunit;
 using wheresmymovies.Models;
 using wheresmymovies.Entities;
+using System;
 using System.Net;
 
 namespace test.UnitTests.Controllers
 {
     public class AuthenticationControllerTests
     {
-        private AutenticationController _authController;
+        private Mock<IAuthenticationService> _authService;
+        private AuthenticationController _authController;
 
-        protected void TestInitialize()
+        public AuthenticationControllerTests()
         {
-            _authController = new AutenticationController(null);
+            _authService = new Mock<IAuthenticationService>();
+            
+            _authController = new AuthenticationController(_authService.Object);
         }
+        
+        [Fact]
+        public void Ctr_AuthServiceNull_Throws()
+        {
+            Assert.Throws<ArgumentNullException>(() => _authController = new AuthenticationController(null));
+        }
+    
+    
     }
 }
