@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Mvc;
-using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data;
 using System;
@@ -13,7 +12,7 @@ namespace wheresmymovies.Controllers
     {
         private readonly IMovieRepository _movieRepository;
 
-        public SearchController(IMovieRepository movieRepository) 
+        public SearchController(IMovieRepository movieRepository)
         {
             if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
             _movieRepository = movieRepository;

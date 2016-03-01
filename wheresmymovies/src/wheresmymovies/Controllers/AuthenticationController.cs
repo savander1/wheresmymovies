@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using Microsoft.AspNet.Mvc;
-using wheresmymovies.Entities;
-using wheresmymovies.Models;
-using wheresmymovies.Data;
 using System;
-using System.Linq;
+using Microsoft.AspNet.Mvc;
+using wheresmymovies.Data;
 
 namespace wheresmymovies.Controllers
 {

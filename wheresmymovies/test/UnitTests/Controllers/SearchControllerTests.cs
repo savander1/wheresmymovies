@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
-using wheresmymovies.Data;
 using Xunit;
 using wheresmymovies.Controllers;
-using wheresmymovies.Models;
+using wheresmymovies.Data;
 using wheresmymovies.Entities;
-using System;
-using System.Net;
-using System.Linq;
+using wheresmymovies.Models;
 
 namespace test.UnitTests.Controllers
 {
