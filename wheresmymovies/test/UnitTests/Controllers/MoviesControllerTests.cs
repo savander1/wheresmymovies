@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using wheresmymovies.Data;
@@ -25,6 +26,22 @@ namespace test.UnitTests.Controllers
                       .ReturnsAsync(new Movie { Title = TITLE, Id = ID });
 
             _moviesController = new MoviesController(_movieRepo.Object, _metaDataRepo.Object);
+        }
+        
+        [Fact]
+        public void Ctr_MovieRepoNull_Throws()
+        {
+             _metaDataRepo = new Mock<IMetaDataSearchRepository>();
+             
+             Assert.Throws<ArgumentNullException>(() => _moviesController = new MoviesController(null, _metaDataRepo.Object));
+        }
+        
+        [Fact]
+        public void Ctr_MovieDataRepoNull_Throws()
+        {
+             _movieRepo = new Mock<IMovieRepository>();
+             
+             Assert.Throws<ArgumentNullException>(() => _moviesController = new MoviesController(_movieRepo.Object, null));
         }
 
         [Fact]
