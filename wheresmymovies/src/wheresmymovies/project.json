@@ -18,7 +18,8 @@
         "typeahead.TypeScript.DefinitelyTyped": "0.1.5",
         "handlebars.TypeScript.DefinitelyTyped": "0.1.9",
         "System.Net.Http": "4.0.0-beta-23019",
-        "Microsoft.AspNet.Hosting": "1.0.0-rc1-final"
+        "Microsoft.AspNet.Hosting": "1.0.0-rc1-final",
+        "AutoMapper": "4.2.1"
     },
 
     "commands": {
