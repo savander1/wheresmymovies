@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using System;
 using System.Threading.Tasks;
 using wheresmymovies.Data;
 using wheresmymovies.Entities;
@@ -14,6 +15,9 @@ namespace wheresmymovies.Controllers
 
         public MoviesController(IMovieRepository movieRepository, IMetaDataSearchRepository searchRepository)
         {
+            if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
+            if (searchRepository == null) throw new ArgumentNullException(nameof(searchRepository));
+            
             _movieRepository = movieRepository;
             _searchRepository = searchRepository;
         }
