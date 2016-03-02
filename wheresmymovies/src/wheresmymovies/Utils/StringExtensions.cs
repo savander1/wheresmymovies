@@ -26,20 +26,35 @@ namespace wheresmymovies.Utils
         private static List<int> GetYearRange(string s, string delimiter)
         {
             var yearParts = s.Split(delimiter.ToCharArray());
-            var start = int.Parse(yearParts[0]);
-
+            int start;
+            if (!int.TryParse(yearParts[0], out start))
+            {
+                return new List<int>();
+            }
+            
+            if (yearParts.Length == 1)
+            {
+                return new List<int>{start};
+            }
+            
             var second = yearParts[1];
-            var end = string.IsNullOrEmpty(second)
-                ? DateTime.Now.Year
-                : int.Parse(second);
+            int end;
+            if (string.IsNullOrEmpty(second))
+            {
+                end = DateTime.Now.Year;
+            } 
+            else if(!int.TryParse(second, out end))
+            {
+                return new List<int>();   
+            }
 
-            var range = new List<int>();
+            var range = new HashSet<int>();
             for (var i = start; i <= end; i++)
             {
                 range.Add(i);
             }
 
-            return range;
+            return range.ToList();
         }
 
         public static DateTime GetReleaseDate(this string s)
