@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using wheresmymovies.Data;
 
@@ -30,8 +31,10 @@ namespace wheresmymovies
             services.AddMvc();
         }
         
-        public void Configure(IApplicationBuilder  app)
+        public void Configure(IApplicationBuilder  app, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(minLevel: LogLevel.Verbose);
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();  

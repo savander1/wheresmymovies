@@ -1232,6 +1232,45 @@
           "lib/net451/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections.Concurrent",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -1443,7 +1482,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -2688,6 +2727,43 @@
           "lib/dotnet5.4/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+          "System.Console": "4.0.0-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.Reflection.Extensions": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Collections.Concurrent": "4.0.11-beta-23516",
+          "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -3168,18 +3244,18 @@
           "lib/DNXCore50/System.IO.dll": {}
         }
       },
-      "System.IO.Compression/4.0.0-beta-23019": {
+      "System.IO.Compression/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.0-beta-23019",
-          "System.IO": "4.0.0-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.0-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.0-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "System.Collections": "4.0.0",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.0",
+          "System.Runtime.Extensions": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Threading": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
         },
         "compile": {
           "ref/dotnet/System.IO.Compression.dll": {}
@@ -3267,25 +3343,24 @@
           "lib/dotnet/System.Linq.Queryable.dll": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Win32.Primitives": "4.0.0-beta-23019",
-          "System.Collections": "4.0.0-beta-23019",
-          "System.Diagnostics.Debug": "4.0.0-beta-23019",
-          "System.Globalization": "4.0.0-beta-23019",
-          "System.IO": "4.0.10-beta-23019",
-          "System.IO.Compression": "4.0.0-beta-23019",
-          "System.Net.Primitives": "4.0.10-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.20-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.Handles": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.20-beta-23019",
-          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.10-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "Microsoft.Win32.Primitives": "4.0.0",
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.IO.Compression": "4.0.0",
+          "System.Net.Primitives": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Runtime.Handles": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.20",
+          "System.Text.Encoding": "4.0.10",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
         },
         "compile": {
           "ref/dotnet/System.Net.Http.dll": {}
@@ -5082,6 +5157,45 @@
           "lib/net451/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections.Concurrent",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -5293,7 +5407,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -6669,6 +6783,45 @@
           "lib/net451/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Collections.Concurrent",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "frameworkAssemblies": [
@@ -6880,7 +7033,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "frameworkAssemblies": [
           "System.Net.Http"
@@ -8128,6 +8281,43 @@
           "lib/dotnet5.4/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+          "System.Console": "4.0.0-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.Reflection.Extensions": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Collections.Concurrent": "4.0.11-beta-23516",
+          "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -8851,18 +9041,18 @@
           "lib/DNXCore50/System.IO.dll": {}
         }
       },
-      "System.IO.Compression/4.0.0-beta-23019": {
+      "System.IO.Compression/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.0-beta-23019",
-          "System.IO": "4.0.0-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.0-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.0-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "System.Collections": "4.0.0",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.0",
+          "System.Runtime.Extensions": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Threading": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
         },
         "compile": {
           "ref/dotnet/System.IO.Compression.dll": {}
@@ -8871,7 +9061,7 @@
           "lib/dotnet/System.IO.Compression.dll": {}
         }
       },
-      "System.IO.Compression.clrcompression-x86/4.0.0-beta-23019": {
+      "System.IO.Compression.clrcompression-x86/4.0.0": {
         "type": "package",
         "native": {
           "runtimes/win7-x86/native/clrcompression.dll": {}
@@ -8956,25 +9146,24 @@
           "lib/dotnet/System.Linq.Queryable.dll": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Win32.Primitives": "4.0.0-beta-23019",
-          "System.Collections": "4.0.0-beta-23019",
-          "System.Diagnostics.Debug": "4.0.0-beta-23019",
-          "System.Globalization": "4.0.0-beta-23019",
-          "System.IO": "4.0.10-beta-23019",
-          "System.IO.Compression": "4.0.0-beta-23019",
-          "System.Net.Primitives": "4.0.10-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.20-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.Handles": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.20-beta-23019",
-          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.10-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "Microsoft.Win32.Primitives": "4.0.0",
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.IO.Compression": "4.0.0",
+          "System.Net.Primitives": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Runtime.Handles": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.20",
+          "System.Text.Encoding": "4.0.10",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
         },
         "compile": {
           "ref/dotnet/System.Net.Http.dll": {}
@@ -10761,6 +10950,43 @@
           "lib/dotnet5.4/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+          "System.Console": "4.0.0-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.Reflection.Extensions": "4.0.1-beta-23516",
+          "System.Runtime": "4.0.21-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Collections.Concurrent": "4.0.11-beta-23516",
+          "System.Diagnostics.TraceSource": "4.0.0-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.Linq": "4.0.1-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll": {}
+        }
+      },
       "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -11484,18 +11710,18 @@
           "lib/DNXCore50/System.IO.dll": {}
         }
       },
-      "System.IO.Compression/4.0.0-beta-23019": {
+      "System.IO.Compression/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections": "4.0.0-beta-23019",
-          "System.IO": "4.0.0-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.0-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.0-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "System.Collections": "4.0.0",
+          "System.IO": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.0",
+          "System.Runtime.Extensions": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Threading": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
         },
         "compile": {
           "ref/dotnet/System.IO.Compression.dll": {}
@@ -11504,7 +11730,7 @@
           "lib/dotnet/System.IO.Compression.dll": {}
         }
       },
-      "System.IO.Compression.clrcompression-x64/4.0.0-beta-23019": {
+      "System.IO.Compression.clrcompression-x64/4.0.0": {
         "type": "package",
         "native": {
           "runtimes/win7-x64/native/clrcompression.dll": {}
@@ -11589,25 +11815,24 @@
           "lib/dotnet/System.Linq.Queryable.dll": {}
         }
       },
-      "System.Net.Http/4.0.0-beta-23019": {
+      "System.Net.Http/4.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Win32.Primitives": "4.0.0-beta-23019",
-          "System.Collections": "4.0.0-beta-23019",
-          "System.Diagnostics.Debug": "4.0.0-beta-23019",
-          "System.Globalization": "4.0.0-beta-23019",
-          "System.IO": "4.0.10-beta-23019",
-          "System.IO.Compression": "4.0.0-beta-23019",
-          "System.Net.Primitives": "4.0.10-beta-23019",
-          "System.Resources.ResourceManager": "4.0.0-beta-23019",
-          "System.Runtime": "4.0.20-beta-23019",
-          "System.Runtime.Extensions": "4.0.0-beta-23019",
-          "System.Runtime.Handles": "4.0.0-beta-23019",
-          "System.Runtime.InteropServices": "4.0.20-beta-23019",
-          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23019",
-          "System.Text.Encoding": "4.0.10-beta-23019",
-          "System.Threading": "4.0.0-beta-23019",
-          "System.Threading.Tasks": "4.0.0-beta-23019"
+          "Microsoft.Win32.Primitives": "4.0.0",
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.IO.Compression": "4.0.0",
+          "System.Net.Primitives": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Runtime.Handles": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.20",
+          "System.Text.Encoding": "4.0.10",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
         },
         "compile": {
           "ref/dotnet/System.Net.Http.dll": {}
@@ -13309,6 +13534,38 @@
         "Microsoft.Extensions.Logging.Abstractions.nuspec"
       ]
     },
+    "Microsoft.Extensions.Logging.Console/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "zUklTASL2my5gp291VZuK6YMLit9ECmU7gDNN/gDwqO3EB1CDyKQtGQBtABNNgJw/0In8mFFNbsiGYhZ8xFUJA==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.dll",
+        "lib/dotnet5.4/Microsoft.Extensions.Logging.Console.xml",
+        "lib/net451/Microsoft.Extensions.Logging.Console.dll",
+        "lib/net451/Microsoft.Extensions.Logging.Console.xml",
+        "lib/netcore50/Microsoft.Extensions.Logging.Console.dll",
+        "lib/netcore50/Microsoft.Extensions.Logging.Console.xml",
+        "Microsoft.Extensions.Logging.Console.1.0.0-rc1-final.nupkg",
+        "Microsoft.Extensions.Logging.Console.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.Logging.Console.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Logging.TraceSource/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "wIxGpFxTKI+xvh/aVNCUh0tUEq24xmRW/OWpOJrE2c3QrIJJ6vSpvwGJ7cmgvMWK2Ul+HDd9Wxrcd0tUa8rHhg==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.dll",
+        "lib/dotnet5.4/Microsoft.Extensions.Logging.TraceSource.xml",
+        "lib/net451/Microsoft.Extensions.Logging.TraceSource.dll",
+        "lib/net451/Microsoft.Extensions.Logging.TraceSource.xml",
+        "lib/netcore50/Microsoft.Extensions.Logging.TraceSource.dll",
+        "lib/netcore50/Microsoft.Extensions.Logging.TraceSource.xml",
+        "Microsoft.Extensions.Logging.TraceSource.1.0.0-rc1-final.nupkg",
+        "Microsoft.Extensions.Logging.TraceSource.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.Extensions.Logging.TraceSource.nuspec"
+      ]
+    },
     "Microsoft.Extensions.MemoryPool/1.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -14884,41 +15141,65 @@
         "System.IO.nuspec"
       ]
     },
-    "System.IO.Compression/4.0.0-beta-23019": {
+    "System.IO.Compression/4.0.0": {
       "type": "package",
-      "sha512": "WpKuk7P9BIdyWYoslAahQJtyaMgCMZZx7MF+VeuUZaiLtvKR9c5Sx3rXviDpVzAQH7/6yuuu+FNP/k+546Qd5g==",
+      "serviceable": true,
+      "sha512": "S+ljBE3py8pujTrsOOYHtDg2cnAifn6kBu/pfh1hMWIXd8DoVh0ADTA6Puv4q+nYj+Msm6JoFLNwuRSmztbsDQ==",
       "files": [
         "lib/dotnet/System.IO.Compression.dll",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
         "lib/net45/_._",
         "lib/netcore50/System.IO.Compression.dll",
         "lib/win8/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "ref/dotnet/de/System.IO.Compression.xml",
+        "ref/dotnet/es/System.IO.Compression.xml",
+        "ref/dotnet/fr/System.IO.Compression.xml",
+        "ref/dotnet/it/System.IO.Compression.xml",
+        "ref/dotnet/ja/System.IO.Compression.xml",
+        "ref/dotnet/ko/System.IO.Compression.xml",
+        "ref/dotnet/ru/System.IO.Compression.xml",
         "ref/dotnet/System.IO.Compression.dll",
+        "ref/dotnet/System.IO.Compression.xml",
+        "ref/dotnet/zh-hans/System.IO.Compression.xml",
+        "ref/dotnet/zh-hant/System.IO.Compression.xml",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
         "ref/net45/_._",
         "ref/netcore50/System.IO.Compression.dll",
+        "ref/netcore50/System.IO.Compression.xml",
         "ref/win8/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
         "runtime.json",
-        "System.IO.Compression.4.0.0-beta-23019.nupkg",
-        "System.IO.Compression.4.0.0-beta-23019.nupkg.sha512",
+        "System.IO.Compression.4.0.0.nupkg",
+        "System.IO.Compression.4.0.0.nupkg.sha512",
         "System.IO.Compression.nuspec"
       ]
     },
-    "System.IO.Compression.clrcompression-x64/4.0.0-beta-23019": {
+    "System.IO.Compression.clrcompression-x64/4.0.0": {
       "type": "package",
-      "sha512": "81Yu0tq7qJXgtDnbRFpbYMGJE7X7XQt8CvACISW3i5C8lFcjhPglUXIu+c+3paYaBYeElzBdyGbM/Qfa4aeDpA==",
+      "sha512": "Lqr+URMwKzf+8HJF6YrqEqzKzDzFJTE4OekaxqdIns71r8Ufbd8SbZa0LKl9q+7nu6Em4SkIEXVMB7plSXekOw==",
       "files": [
+        "runtimes/win10-x64/native/ClrCompression.dll",
         "runtimes/win7-x64/native/clrcompression.dll",
-        "System.IO.Compression.clrcompression-x64.4.0.0-beta-23019.nupkg",
-        "System.IO.Compression.clrcompression-x64.4.0.0-beta-23019.nupkg.sha512",
+        "System.IO.Compression.clrcompression-x64.4.0.0.nupkg",
+        "System.IO.Compression.clrcompression-x64.4.0.0.nupkg.sha512",
         "System.IO.Compression.clrcompression-x64.nuspec"
       ]
     },
-    "System.IO.Compression.clrcompression-x86/4.0.0-beta-23019": {
+    "System.IO.Compression.clrcompression-x86/4.0.0": {
       "type": "package",
-      "sha512": "PITRz6SP3WeeXpXV+1hHiF7hcgq9Ncsrm26qrvdHVl24Yf95HTns6WbDB26iuhX2MGowDi5RhXNY+QTwUghluQ==",
+      "sha512": "GmevpuaMRzYDXHu+xuV10fxTO8DsP7OKweWxYtkaxwVnDSj9X6RBupSiXdiveq9yj/xjZ1NbG+oRRRb99kj+VQ==",
       "files": [
+        "runtimes/win10-x86/native/ClrCompression.dll",
         "runtimes/win7-x86/native/clrcompression.dll",
-        "System.IO.Compression.clrcompression-x86.4.0.0-beta-23019.nupkg",
-        "System.IO.Compression.clrcompression-x86.4.0.0-beta-23019.nupkg.sha512",
+        "System.IO.Compression.clrcompression-x86.4.0.0.nupkg",
+        "System.IO.Compression.clrcompression-x86.4.0.0.nupkg.sha512",
         "System.IO.Compression.clrcompression-x86.nuspec"
       ]
     },
@@ -15186,20 +15467,34 @@
         "System.Linq.Queryable.nuspec"
       ]
     },
-    "System.Net.Http/4.0.0-beta-23019": {
+    "System.Net.Http/4.0.0": {
       "type": "package",
-      "sha512": "8mt4X1eIjTMrKVINJuzuFYf7C4GrYFC+tlvc2zH5HtxKPpbFZamMUdJ19ORxZ9ds053aqQASdiha7eH86PN+eg==",
+      "serviceable": true,
+      "sha512": "mZuAl7jw/mFY8jUq4ITKECxVBh9a8SJt9BC/+lJbmo7cRKspxE3PsITz+KiaCEsexN5WYPzwBOx0oJH/0HlPyQ==",
       "files": [
         "lib/DNXCore50/System.Net.Http.dll",
         "lib/net45/_._",
         "lib/netcore50/System.Net.Http.dll",
         "lib/win8/_._",
+        "lib/wpa81/_._",
+        "ref/dotnet/de/System.Net.Http.xml",
+        "ref/dotnet/es/System.Net.Http.xml",
+        "ref/dotnet/fr/System.Net.Http.xml",
+        "ref/dotnet/it/System.Net.Http.xml",
+        "ref/dotnet/ja/System.Net.Http.xml",
+        "ref/dotnet/ko/System.Net.Http.xml",
+        "ref/dotnet/ru/System.Net.Http.xml",
         "ref/dotnet/System.Net.Http.dll",
+        "ref/dotnet/System.Net.Http.xml",
+        "ref/dotnet/zh-hans/System.Net.Http.xml",
+        "ref/dotnet/zh-hant/System.Net.Http.xml",
         "ref/net45/_._",
         "ref/netcore50/System.Net.Http.dll",
+        "ref/netcore50/System.Net.Http.xml",
         "ref/win8/_._",
-        "System.Net.Http.4.0.0-beta-23019.nupkg",
-        "System.Net.Http.4.0.0-beta-23019.nupkg.sha512",
+        "ref/wpa81/_._",
+        "System.Net.Http.4.0.0.nupkg",
+        "System.Net.Http.4.0.0.nupkg.sha512",
         "System.Net.Http.nuspec"
       ]
     },
@@ -17245,22 +17540,25 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "AutoMapper >= 4.2.1",
+      "handlebars.TypeScript.DefinitelyTyped >= 0.1.9",
+      "jquery.TypeScript.DefinitelyTyped >= 2.3.1",
+      "jqueryui.TypeScript.DefinitelyTyped >= 0.4.3",
+      "Microsoft.AspNet.Hosting >= 1.0.0-*",
+      "Microsoft.AspNet.Hosting.Abstractions >= 1.0.0-*",
       "Microsoft.AspNet.IISPlatformHandler >= 1.0.0-*",
       "Microsoft.AspNet.Mvc >= 6.0.0-*",
       "Microsoft.AspNet.Server.Kestrel >= 1.0.0-*",
       "Microsoft.AspNet.Session >= 1.0.0-*",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-*",
-      "Microsoft.AspNet.Hosting.Abstractions >= 1.0.0-*",
-      "Microsoft.Extensions.Configuration.Abstractions >= 1.0.0-rc1-final",
-      "Microsoft.Extensions.Configuration.Json >= 1.0.0-rc1-final",
-      "Microsoft.Extensions.Configuration.UserSecrets >= 1.0.0-rc1-final",
-      "jquery.TypeScript.DefinitelyTyped >= 2.3.1",
-      "jqueryui.TypeScript.DefinitelyTyped >= 0.4.3",
-      "typeahead.TypeScript.DefinitelyTyped >= 0.1.5",
-      "handlebars.TypeScript.DefinitelyTyped >= 0.1.9",
-      "System.Net.Http >= 4.0.0-beta-23019",
-      "Microsoft.AspNet.Hosting >= 1.0.0-rc1-final",
-      "AutoMapper >= 4.2.1"
+      "Microsoft.Extensions.Configuration.Abstractions >= 1.0.0-*",
+      "Microsoft.Extensions.Configuration.Json >= 1.0.0-*",
+      "Microsoft.Extensions.Configuration.UserSecrets >= 1.0.0-*",
+      "Microsoft.Extensions.Logging >= 1.0.0-*",
+      "Microsoft.Extensions.Logging.Console >= 1.0.0-*",
+      "Microsoft.Extensions.Logging.TraceSource >= 1.0.0-*",
+      "System.Net.Http >= 4.0.0-*",
+      "typeahead.TypeScript.DefinitelyTyped >= 0.1.5"
     ],
     "DNX,Version=v4.5.1": [
       "Microsoft.AspNet.Http.Extensions >= 1.0.0-rc1-final",
