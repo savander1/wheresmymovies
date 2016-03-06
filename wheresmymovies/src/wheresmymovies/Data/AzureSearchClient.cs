@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Net;
@@ -13,31 +12,24 @@ namespace wheresmymovies.Data
 {
     public class AzureSearchClient
     {
-        private static readonly string SearchUrl;
+        private readonly string _searchUrl;
+        private readonly string _apiKey;
         private readonly ILogger _logger;
 
-        static AzureSearchClient()
+    	public AzureSearchClient(AzureSearchConfiguration configuration, ILogger logger)
         {
-            var urlFormatter = Startup.Configuration.Get<string>("Data:search:searchUrl");
-            var index = Startup.Configuration.Get<string>("Data:search:indexName");
-            var apiVersion = Startup.Configuration.Get<string>("Data:search:apiVersion");
-            SearchUrl = string.Format(urlFormatter, index, apiVersion);
-        }
-
-    	public AzureSearchClient(string apiKey, ILogger logger)
-        {
-            if (string.IsNullOrEmpty(apiKey)) throw new ArgumentNullException(nameof(apiKey));
-            ApiKey = apiKey;
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
+            _apiKey = configuration.ApiKey;
+            _searchUrl = configuration.SearchEndpoint;
             _logger = logger;
         }
-
-        public string ApiKey { get; private set; }
         
         public async Task<HttpResponseMessage> Get()
         {
             using (var client = new HttpClient())
             {
-                return await client.GetAsync(SearchUrl);
+                return await client.GetAsync(_searchUrl);
             }
         }
 
@@ -46,7 +38,7 @@ namespace wheresmymovies.Data
             using (var client = new HttpClient())
             {
                 var azureMovie = new AzureMovie(movie, "mergeOrUpload");
-                var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
+                var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
                 _logger.LogInformation(await response.Content.ReadAsStringAsync());
                 return response.StatusCode;
             }
@@ -56,7 +48,7 @@ namespace wheresmymovies.Data
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(SearchUrl + "/" + id);
+                var response = await client.GetAsync($"{_searchUrl}/{id}");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -73,7 +65,7 @@ namespace wheresmymovies.Data
             {
                 var movie = new Movie() { Id = id };
                 var azureMovie = new AzureMovie(movie, "delete");
-                var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
+                var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
                 return response.StatusCode;
             }
         }
@@ -83,7 +75,7 @@ namespace wheresmymovies.Data
             var movieResponse = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(new AzureMovies(movie), Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver(), NullValueHandling = NullValueHandling.Ignore }));
             var content = new StringContent(movieResponse, Encoding.UTF8);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            content.Headers.Add("api-key", ApiKey);
+            content.Headers.Add("api-key", _searchUrl);
        
             return content;
         }

@@ -14,12 +14,13 @@ namespace wheresmymovies.Data
         private readonly AzureSearchClient _azureClient;
         private readonly ILogger _logger;
 
-        public MovieRepository(string azureApiKey, ILoggerFactory loggerfactory)
+        public MovieRepository(AzureSearchConfiguration configuration, ILoggerFactory loggerfactory)
         {
-            if (string.IsNullOrEmpty(azureApiKey)) throw new ArgumentNullException(nameof(azureApiKey));
+            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (loggerfactory == null) throw new ArgumentNullException(nameof(loggerfactory));
 
             var azureClientLogger = loggerfactory.CreateLogger<AzureSearchClient>();
-            _azureClient = new AzureSearchClient(azureApiKey, azureClientLogger);
+            _azureClient = new AzureSearchClient(configuration, azureClientLogger);
             _logger = loggerfactory.CreateLogger<MovieRepository>();
         }
         
