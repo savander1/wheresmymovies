@@ -204,3 +204,4 @@ PublishScripts/
 
 #Project Specific
 wheresmymovies/src/wheresmymovies/Content/TypeScript/*.js
+*.lock.json
