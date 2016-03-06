@@ -26,6 +26,7 @@ namespace test.UnitTests.Controllers
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void Ctr_MovieRepoNull_Throws()
         {
              _metaDataRepo = new Mock<IMetaDataSearchRepository>();
@@ -34,6 +35,7 @@ namespace test.UnitTests.Controllers
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void Ctr_MovieDataRepoNull_Throws()
         {
              _movieRepo = new Mock<IMovieRepository>();
@@ -42,6 +44,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_ValidIdPassed_MovieReturned()
         {
             var result = _moviesController.Get(new MovieSearchParameters { Id = Constants.Id }).Result;
@@ -55,6 +58,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_ValidTitlePassed_MovieReturned()
         {
             var result = _moviesController.Get(new MovieSearchParameters { Title = Constants.Title }).Result;
@@ -76,6 +80,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_BothParametersPassed_ReturnsBadRequest()
         {
             var result = _moviesController.Get(new MovieSearchParameters
@@ -88,6 +93,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_Null_ReturnsBadRequest()
         {
             var result = _moviesController.Get(null).Result;
@@ -96,6 +102,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_NoMatchingMovies_ReturnsNotFound()
         {
             var result = _moviesController.Get(new MovieSearchParameters { Id = "x" }).Result;

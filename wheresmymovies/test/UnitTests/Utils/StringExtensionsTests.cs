@@ -9,6 +9,7 @@ namespace test.UnitTests.Utils
     public class StringExtensionTests
     {
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_SingleYear_YearReturned()
         {
             var year = "1990".GetYear().Single();
@@ -17,6 +18,7 @@ namespace test.UnitTests.Utils
         } 
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_Range_YearsReturned()
         {
             var years = "1990-2000".GetYear();
@@ -39,6 +41,7 @@ namespace test.UnitTests.Utils
         } 
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_OpenRange_YearsReturned()
         {
             var expected = new List<int>();
@@ -53,6 +56,7 @@ namespace test.UnitTests.Utils
         } 
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_StringPassed_EmptyListReturned()
         {
             var expected = new List<int>();
@@ -63,6 +67,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_SentencePassed_EmptyListReturned()
         {
             var expected = new List<int>();
@@ -72,7 +77,8 @@ namespace test.UnitTests.Utils
             Assert.Equal(expected, years);     
         }
         
-         [Fact]
+        [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_MixedString_EmptyListReturned()
         {
             var expected = new List<int>();
@@ -87,6 +93,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_MixedYearInMiddleString_EmptyListReturned()
         {
             var expected = new List<int>();
@@ -107,6 +114,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetReleaseDate_DatePassed_DateReturned()
         {
             var expected = new DateTime(2014, 12, 25);
@@ -117,6 +125,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetReleaseDate_NaString_MinDateReturned()
         {
             var result = "N/A".GetReleaseDate();
@@ -125,18 +134,21 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetReleaseDate_EmptyString_Throws()
         {
             Assert.Throws<FormatException>(() => "".GetReleaseDate());
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetReleaseDate_StringPassed_Throws()
         {           
             Assert.Throws<FormatException>(() => "This is not a date".GetReleaseDate());
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetRuntime_TimePassed_TimeSpanReturned()
         {
             var expected = new TimeSpan(1,4,0);
@@ -146,8 +158,8 @@ namespace test.UnitTests.Utils
             Assert.Equal(expected, actual);
         }
         
-       
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetRuntime_EmptyString_EmptyTimespanReturned()
         {
             var expected = new TimeSpan();
@@ -158,6 +170,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetRuntime_StringPassed_Throws()
         {       
             var expected = new TimeSpan();
@@ -168,6 +181,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void SplitOnCommas_CSVPassed_ListReturned()
         {
             var expected = new List<string>{"a", "b", "c", "d"};
@@ -178,6 +192,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void SplitOnCommas_EmptyString_EmptyListReturned()
         {
             var expected = new List<string>();
@@ -188,6 +203,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetThumbImageUrl_FullSizePassed_ThumbnailReturned()
         {
             var expected = "SX100.jpg";
@@ -198,6 +214,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetThumbImageUrl_StringPassed_StringReturned()
         {
             var expected = "bob";
@@ -208,6 +225,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetThumbImageUrl_EmptyStringPassed_EmptyStringReturned()
         {
             var expected = "";

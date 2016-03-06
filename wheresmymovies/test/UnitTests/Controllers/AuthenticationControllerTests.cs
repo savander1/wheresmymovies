@@ -19,6 +19,7 @@ namespace test.UnitTests.Controllers
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void Ctr_AuthServiceNull_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _authController = new AuthenticationController(null));

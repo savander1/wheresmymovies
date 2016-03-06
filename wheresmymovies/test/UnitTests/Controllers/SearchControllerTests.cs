@@ -26,12 +26,14 @@ namespace test.UnitTests.Controllers
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void Ctr_MovieRepoNull_Throws()
         {
             Assert.Throws<ArgumentNullException>(() => _searchController = new SearchController(null));
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_ValidIdPassed_MovieReturned()
         {
             var result = _searchController.Get(new MovieSearchParameters { Id = Constants.Id }).Result;
@@ -45,6 +47,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_ValidTitlePassed_MovieReturned()
         {
             var result = _searchController.Get(new MovieSearchParameters { Title = Constants.Title }).Result;
@@ -58,6 +61,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_EmptyParametersPassed_ReturnsBadRequest()
         {
             var result = _searchController.Get(new MovieSearchParameters()).Result;
@@ -66,6 +70,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_BothParametersPassed_ReturnsBadRequest()
         {
             var result = _searchController.Get(new MovieSearchParameters
@@ -78,6 +83,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_Null_ReturnsBadRequest()
         {
             var result = _searchController.Get((MovieSearchParameters)null).Result;
@@ -86,6 +92,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_NoMatchingMovies_ReturnsNotFound()
         {
             var result = _searchController.Get(new MovieSearchParameters { Id = "x" }).Result;
@@ -94,6 +101,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetById_ValidIdPassed_MovieReturned()
         {
             var result = _searchController.Get(Constants.Id).Result;
@@ -107,6 +115,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetById_NullPassed_ReturnsBadRequest()
         {
             var result = _searchController.Get((string)null).Result;
@@ -115,6 +124,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetById_NoMatchingMovies_ReturnsNotFound()
         {
             var result = _searchController.Get("x").Result;

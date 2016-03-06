@@ -23,6 +23,7 @@ namespace test.IntegrationTests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void WorkFlow_HappyPath()
         {
             var searchParams = new MovieSearchParameters
