@@ -23,7 +23,9 @@ namespace wheresmymovies
         public void ConfigureServices(IServiceCollection services)
         {
             var apikey = "4559E002B817ECFCE1BE91F698620F10";//"foo";
-            services.AddInstance<IMovieRepository>(new MovieRepository(apikey));
+            var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
+            services.AddInstance<IMovieRepository>(new MovieRepository(apikey, loggerFactory));
 
             var oMovieUrl = Configuration.Get<string>("Data:omovieUrl");
             services.AddInstance<IMetaDataSearchRepository>(new MetaDataSearchRepository (oMovieUrl));

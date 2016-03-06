@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 
 namespace wheresmymovies.Data
@@ -13,6 +14,7 @@ namespace wheresmymovies.Data
     public class AzureSearchClient
     {
         private static readonly string SearchUrl;
+        private readonly ILogger _logger;
 
         static AzureSearchClient()
         {
@@ -22,10 +24,11 @@ namespace wheresmymovies.Data
             SearchUrl = string.Format(urlFormatter, index, apiVersion);
         }
 
-    	public AzureSearchClient(string apiKey)
+    	public AzureSearchClient(string apiKey, ILogger logger)
         {
             if (string.IsNullOrEmpty(apiKey)) throw new ArgumentNullException(nameof(apiKey));
             ApiKey = apiKey;
+            _logger = logger;
         }
 
         public string ApiKey { get; private set; }
@@ -44,6 +47,7 @@ namespace wheresmymovies.Data
             {
                 var azureMovie = new AzureMovie(movie, "mergeOrUpload");
                 var response = await client.PostAsync(SearchUrl, await GetHttpContent(azureMovie));
+                _logger.LogInformation(await response.Content.ReadAsStringAsync());
                 return response.StatusCode;
             }
         }

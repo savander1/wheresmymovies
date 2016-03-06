@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 
@@ -11,11 +12,15 @@ namespace wheresmymovies.Data
     {
         private const int RETRIES = 9;
         private readonly AzureSearchClient _azureClient;
+        private readonly ILogger _logger;
 
-        public MovieRepository(string azureApiKey)
+        public MovieRepository(string azureApiKey, ILoggerFactory loggerfactory)
         {
             if (string.IsNullOrEmpty(azureApiKey)) throw new ArgumentNullException(nameof(azureApiKey));
-            _azureClient = new AzureSearchClient(azureApiKey);
+
+            var azureClientLogger = loggerfactory.CreateLogger<AzureSearchClient>();
+            _azureClient = new AzureSearchClient(azureApiKey, azureClientLogger);
+            _logger = loggerfactory.CreateLogger<MovieRepository>();
         }
         
         public async Task<int> Add(Movie movie)
@@ -28,6 +33,7 @@ namespace wheresmymovies.Data
                 while (index <= RETRIES)
                 {
                     result = await _azureClient.Add(movie);
+                    _logger.LogInformation(result.ToString());
                     if (result == System.Net.HttpStatusCode.OK)
                     {
                         break;
