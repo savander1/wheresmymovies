@@ -40,9 +40,9 @@ namespace wheresmymovies.Entities
             Plot = oMovie.Plot;
             Language = oMovie.Language.SplitOnCommas();
             Country = oMovie.Country;
-            ThumbImgUrl = oMovie.Poster.GetThumbImageUrl();
+            ThumbImgUrl = oMovie.Poster?.GetThumbImageUrl();
             FullImgUrl = oMovie.Poster;
-            Location = string.Empty;
+            Location = null;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace wheresmymovies.Entities
         public List<string> Year { get; set; }
         [JsonProperty(PropertyName = "rated")]
         public string Rated { get; set; }
-        [JsonProperty(PropertyName = "releasedate")]
+        [JsonProperty(PropertyName = "released")]
         public string Released { get; set; }
         [JsonProperty(PropertyName = "runtime")]
         public string Runtime { get; set; }
@@ -51,12 +51,12 @@ namespace wheresmymovies.Entities
             Rated = movie.Rated;
             Released = movie.Released.ToString();
             Runtime = movie.Runtime.ToString();
-            Genre = movie.Genre != null ? movie.Genre.FirstOrDefault().SplitOnCommas() : null;
-            Director = movie.Director != null ? movie.Director.FirstOrDefault().SplitOnCommas() : null;
-            Writer = movie.Writer != null ? movie.Writer.FirstOrDefault().SplitOnCommas() : null;
-            Actors = movie.Actors != null ? movie.Actors.FirstOrDefault().SplitOnCommas() : null;
+            Genre = movie.Genre?.FirstOrDefault().SplitOnCommas();
+            Director = movie.Director?.FirstOrDefault().SplitOnCommas();
+            Writer = movie.Writer?.FirstOrDefault().SplitOnCommas();
+            Actors = movie.Actors?.FirstOrDefault().SplitOnCommas();
             Plot = movie.Plot;
-            Language = movie.Language != null ? movie.Language.FirstOrDefault().SplitOnCommas() : null;
+            Language = movie.Language?.FirstOrDefault().SplitOnCommas();
             Country = movie.Country;
             ThumbImgUrl = movie.ThumbImgUrl;
             FullImgUrl = movie.FullImgUrl;
