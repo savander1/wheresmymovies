@@ -31,7 +31,7 @@ module Ajax{
                 }
                 me.onSuccess(request);
             };
-            request.send(JSON.stringify(data);
+            request.send(JSON.stringify(data));
         }
     }
     
