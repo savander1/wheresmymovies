@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using System;
 using System.Threading.Tasks;
 using wheresmymovies.Data;
 using wheresmymovies.Entities;
@@ -14,6 +15,9 @@ namespace wheresmymovies.Controllers
 
         public MoviesController(IMovieRepository movieRepository, IMetaDataSearchRepository searchRepository)
         {
+            if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
+            if (searchRepository == null) throw new ArgumentNullException(nameof(searchRepository));
+            
             _movieRepository = movieRepository;
             _searchRepository = searchRepository;
         }
@@ -22,13 +26,17 @@ namespace wheresmymovies.Controllers
         [HttpGet]
         public async Task<ObjectResult> Get([FromQuery]MovieSearchParameters searchParameters)
         {
-            var movie = await _searchRepository.Search(searchParameters);
-            if (movie == null)
+            if (searchParameters != null && searchParameters.IsValid())
             {
-                return new HttpNotFoundObjectResult(new Movie());
-            }
+                var movie = await _searchRepository.Search(searchParameters);
+                if (movie == null)
+                {
+                    return new HttpNotFoundObjectResult(new object());
+                }
 
-            return new ObjectResult(movie);
+                return new HttpOkObjectResult(movie);
+            }
+            return new BadRequestObjectResult(new object());
            
         }
 

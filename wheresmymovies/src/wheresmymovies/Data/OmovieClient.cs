@@ -58,7 +58,7 @@ namespace wheresmymovies.Data
             }
             else
             {
-                builder.Append("?t=" + parameters.Name.Trim());
+                builder.Append("?t=" + parameters.Title.Trim());
             }
             builder.Append("&plot=full&r=json");
             return new Uri(builder.ToString());
