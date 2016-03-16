@@ -104,6 +104,7 @@ namespace test.UnitTests.Utils
         }
         
         [Fact]
+        [Trait("Category", "Unit")]
         public void GetYear_EmptyString_EmptyListReturned()
         {
             var expected = new List<int>();

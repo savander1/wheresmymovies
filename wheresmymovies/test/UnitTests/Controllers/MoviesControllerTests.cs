@@ -72,6 +72,7 @@ namespace test.UnitTests.Controllers
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void Get_EmptyParametersPassed_ReturnsBadRequest()
         {
             var result = _moviesController.Get(new MovieSearchParameters()).Result;
