@@ -8,7 +8,7 @@ module Form {
         'none'
     }
     
-    abstract class Field implements Common.Renderable, Common.Validatable{
+    abstract class Field implements Common.Renderable, Common.Validatable, Common.PropertyObserver{
         
         protected invalidClass : string = ' invalid';
         
@@ -60,6 +60,11 @@ module Form {
         
         createElement(tagName:string): HTMLElement {
             return document.createElement(tagName);
+        }
+        
+        updateValue(value: any){
+            var elem = document.getElementById(this.id) as HTMLInputElement;
+            elem.value = value;
         }
         
         private validateText(text:string):boolean{

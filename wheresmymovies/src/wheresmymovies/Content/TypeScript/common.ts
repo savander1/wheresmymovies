@@ -8,6 +8,10 @@ module Common{
         isValid():boolean;
     }
     
+    export interface PropertyObserver {
+        updateValue (value:any);
+    }
+    
     export class Button implements Renderable{
         
         onclick:EventListener;
