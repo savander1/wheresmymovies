@@ -5,20 +5,20 @@ module ViewModel {
 
     export class ObservableProperty<T> { 
         private observers : PropertyObserver [];
-        private propertyValue: T;
+        private _propertyValue: T;
 
         constructor(value: T) {
             this.observers = [];
-            this.setValue(value);
-        }
-        
-        setValue(value: T){
             this.propertyValue = value;
-            this.notifyObservers(value);
         }
         
-        getValue(): T{
-            return this.propertyValue;
+        public get propertyValue(): T{
+            return this._propertyValue;
+        }
+        
+        public set propertyValue(value: T){
+            this._propertyValue = value;
+            this.notifyObservers(value);
         }
 
         registerObserver (observer : PropertyObserver) : void {
@@ -91,10 +91,10 @@ module ViewModel {
         
         
         public get id(): string {
-            return this._id.getValue();
+            return this._id.propertyValue;
         }
         public set id(value: string){
-            this._id.setValue(value);
+            this._id.propertyValue = value;
         }
         public addIdListener(listener: PropertyObserver): void{
             this._id.registerObserver(listener);
@@ -105,10 +105,10 @@ module ViewModel {
         
         
         public get title(): string {
-            return this._title.getValue();
+            return this._title.propertyValue;
         }
         public set title(value: string){
-            this._title.setValue(value);
+            this._title.propertyValue = value;
         }
         public addTitleListener(listener: PropertyObserver): void{
             this._title.registerObserver(listener);
@@ -118,10 +118,10 @@ module ViewModel {
         }
         
         public get year(): number[] {
-            return this._year.getValue();
+            return this._year.propertyValue;
         }
         public set year(value: number[]){
-            this._year.setValue(value);
+            this._year.propertyValue = value;
         }
         public addYearListener(listener: PropertyObserver): void{
             this._year.registerObserver(listener);
@@ -131,10 +131,10 @@ module ViewModel {
         }
         
         public get rated(): string {
-            return this._rated.getValue();
+            return this._rated.propertyValue;
         }
         public set rated(value: string){
-            this._rated.setValue(value);
+            this._rated.propertyValue = value;
         }
         public addRatedListener(listener: PropertyObserver): void{
             this._rated.registerObserver(listener);
@@ -144,10 +144,10 @@ module ViewModel {
         }
         
         public get released(): string {
-            return this._released.getValue();
+            return this._released.propertyValue;
         }
         public set released(value: string){
-            this._released.setValue(value);
+            this._released.propertyValue = value;
         }
         public addReleasedListener(listener: PropertyObserver): void{
             this._released.registerObserver(listener);
@@ -157,10 +157,10 @@ module ViewModel {
         }
         
         public get runtime(): string {
-            return this._runtime.getValue();
+            return this._runtime.propertyValue;
         }
         public set runtime(value: string){
-            this._runtime.setValue(value);
+            this._runtime.propertyValue = value;
         }
         public addRuntimeListener(listener: PropertyObserver): void{
             this._runtime.registerObserver(listener);
@@ -170,10 +170,10 @@ module ViewModel {
         }
         
         public get genre(): string[] {
-            return this._genre.getValue();
+            return this._genre.propertyValue;
         }
         public set genre(value: string[]){
-            this._genre.setValue(value);
+            this._genre.propertyValue = value;
         }
         public addGenreListener(listener: PropertyObserver): void{
             this._genre.registerObserver(listener);
@@ -183,10 +183,10 @@ module ViewModel {
         }
         
         public get director(): string[] {
-            return this._director.getValue();
+            return this._director.propertyValue;
         }
         public set director(value: string[]){
-            this._director.setValue(value);
+            this._director.propertyValue = value;
         }
         public addDirectorListener(listener: PropertyObserver): void{
             this._director.registerObserver(listener);
@@ -196,10 +196,10 @@ module ViewModel {
         }
         
         public get writer(): string[] {
-            return this._writer.getValue();
+            return this._writer.propertyValue;
         }
         public set writer(value: string[]){
-            this._writer.setValue(value);
+            this._writer.propertyValue = value;
         }
         public addWriterListener(listener: PropertyObserver): void{
             this._writer.registerObserver(listener);
@@ -209,10 +209,10 @@ module ViewModel {
         }
         
         public get actors(): string[] {
-            return this._actors.getValue();
+            return this._actors.propertyValue;
         }
         public set actors(value: string[]){
-            this._actors.setValue(value);
+            this._actors.propertyValue = value;
         }
         public addActorsListener(listener: PropertyObserver): void{
             this._actors.registerObserver(listener);
@@ -222,10 +222,10 @@ module ViewModel {
         }
         
         public get plot(): string {
-            return this._plot.getValue();
+            return this._plot.propertyValue;
         }
         public set plot(value: string){
-            this._plot.setValue(value);
+            this._plot.propertyValue = value;
         }
         public addPlotListener(listener: PropertyObserver): void{
             this._plot.registerObserver(listener);
@@ -235,10 +235,10 @@ module ViewModel {
         }
         
         public get language(): string[] {
-            return this._language.getValue();
+            return this._language.propertyValue;
         }
         public set language(value: string[]){
-            this._language.setValue(value);
+            this._language.propertyValue = value;
         }
         public addLanguageListener(listener: PropertyObserver): void{
             this._language.registerObserver(listener);
@@ -248,10 +248,10 @@ module ViewModel {
         }
         
         public get country(): string {
-            return this._country.getValue();
+            return this._country.propertyValue;
         }
         public set country(value: string){
-            this._country.setValue(value);
+            this._country.propertyValue = value;
         }
         public addCountryListener(listener: PropertyObserver): void{
             this._country.registerObserver(listener);
@@ -261,10 +261,10 @@ module ViewModel {
         }
         
         public get thumbImgUrl(): string {
-            return this._thumbImgUrl.getValue();
+            return this._thumbImgUrl.propertyValue;
         }
         public set thumbImgUrl(value: string){
-            this._thumbImgUrl.setValue(value);
+            this._thumbImgUrl.propertyValue = value;
         }
         public addThumbImgUrlListener(listener: PropertyObserver): void{
             this._thumbImgUrl.registerObserver(listener);
@@ -274,10 +274,10 @@ module ViewModel {
         }
         
         public get fullImgUrl(): string {
-            return this._fullImgUrl.getValue();
+            return this._fullImgUrl.propertyValue;
         }
         public set fullImgUrl(value: string){
-            this._fullImgUrl.setValue(value);
+            this._fullImgUrl.propertyValue = value;
         }
         public addFullImgUrlListener(listener: PropertyObserver): void{
             this._fullImgUrl.registerObserver(listener);
@@ -287,10 +287,10 @@ module ViewModel {
         }
         
         public get location(): string {
-            return this._location.getValue();
+            return this._location.propertyValue;
         }
         public set location(value: string){
-            this._location.setValue(value);
+            this._location.propertyValue = value;
         }       
         public addLocationListener(listener: PropertyObserver): void{
             this._location.registerObserver(listener);
