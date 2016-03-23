@@ -67,6 +67,10 @@ module Form {
             elem.value = value;
         }
         
+        onChange(){
+            
+        }
+        
         private validateText(text:string):boolean{
             return this.isPopulated(text);
         }
