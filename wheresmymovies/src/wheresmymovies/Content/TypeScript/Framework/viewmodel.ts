@@ -36,8 +36,7 @@ module ViewModel {
             });
         }
     }
-
-
+    
     export class MovieViewModel {
         private _id: ObservableProperty<string>;
         private _title: ObservableProperty<string>;
