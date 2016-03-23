@@ -57,7 +57,18 @@ gulp.task('tsc', function(){
 
         .pipe(tsc({
             sourceMap: false,
-            out: 'output.js'
+            out: 'output.js',
+            target: 'ES5'
+        }))
+        //.pipe(uglify())
+        .pipe(gulp.dest(paths.ts.dest));
+        
+    gulp.src('Content/Typescript/Framework/*.ts')
+
+        .pipe(tsc({
+            sourceMap: false,
+            out: 'output.js',
+            target: 'ES5'
         }))
         //.pipe(uglify())
         .pipe(gulp.dest(paths.ts.dest));
