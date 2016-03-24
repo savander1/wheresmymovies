@@ -1,4 +1,7 @@
+///<reference path="exceptions.ts" />
+
 module ViewModel {
+    
     export interface PropertyObserver {
         updateValue (value:any);
     }
@@ -297,6 +300,90 @@ module ViewModel {
         }
         public removeLocationListener(listener: PropertyObserver): void{
             this._location.removeObserver(listener);
+        }
+        
+        public addListener(propertyName: string, listener: PropertyObserver){
+            
+            switch(propertyName){
+                case 'id':
+                    this._id.registerObserver(listener);
+                    break;
+                case 'title':
+                    break;
+                case 'year':
+                    break;
+                case 'rated':
+                    break;
+                case 'released':
+                    break;
+                case 'runtime':
+                    break;
+                case 'genre':
+                    break;
+                case 'director':
+                    break;
+                case 'writer':
+                    break;
+                case 'actors':
+                    break;
+                case 'plot':
+                    break;
+                case 'language':
+                    break;
+                case 'country':
+                    break;
+                case 'thumbImgUrl':
+                    break;
+                case 'fullImgUrl':
+                    break;
+                case 'location':
+                    break;
+                default:
+                    throw new Exceptions.PropertyNotFoundException(propertyName);
+            }
+           
+        }
+        
+        public removeListener(propertyName: string, listener: PropertyObserver){
+            
+            switch(propertyName){
+                case 'id':
+                    this._id.removeObserver(listener);
+                    break;
+                case 'title':
+                    break;
+                case 'year':
+                    break;
+                case 'rated':
+                    break;
+                case 'released':
+                    break;
+                case 'runtime':
+                    break;
+                case 'genre':
+                    break;
+                case 'director':
+                    break;
+                case 'writer':
+                    break;
+                case 'actors':
+                    break;
+                case 'plot':
+                    break;
+                case 'language':
+                    break;
+                case 'country':
+                    break;
+                case 'thumbImgUrl':
+                    break;
+                case 'fullImgUrl':
+                    break;
+                case 'location':
+                    break;
+                default:
+                    throw new Exceptions.PropertyNotFoundException(propertyName);
+            }
+           
         }
         
     }
