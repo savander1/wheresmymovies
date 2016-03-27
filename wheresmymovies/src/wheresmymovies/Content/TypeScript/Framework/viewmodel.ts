@@ -309,34 +309,49 @@ module ViewModel {
                     this._id.registerObserver(listener);
                     break;
                 case 'title':
+                    this._title.registerObserver(listener);
                     break;
                 case 'year':
+                    this._year.registerObserver(listener);
                     break;
                 case 'rated':
+                    this._rated.registerObserver(listener);
                     break;
                 case 'released':
+                    this._released.registerObserver(listener);
                     break;
                 case 'runtime':
+                    this._runtime.registerObserver(listener);
                     break;
                 case 'genre':
+                    this._genre.registerObserver(listener);
                     break;
                 case 'director':
+                    this._director.registerObserver(listener);
                     break;
                 case 'writer':
+                    this._writer.registerObserver(listener);
                     break;
                 case 'actors':
+                    this._actors.registerObserver(listener);
                     break;
                 case 'plot':
+                    this._plot.registerObserver(listener);
                     break;
                 case 'language':
+                    this._language.registerObserver(listener);
                     break;
                 case 'country':
+                    this._country.registerObserver(listener);
                     break;
                 case 'thumbImgUrl':
+                    this._thumbImgUrl.registerObserver(listener);
                     break;
                 case 'fullImgUrl':
+                    this._fullImgUrl.registerObserver(listener);
                     break;
                 case 'location':
+                    this._location.registerObserver(listener);
                     break;
                 default:
                     throw new Exceptions.PropertyNotFoundException(propertyName);
@@ -351,34 +366,49 @@ module ViewModel {
                     this._id.removeObserver(listener);
                     break;
                 case 'title':
+                    this._title.removeObserver(listener);
                     break;
                 case 'year':
+                    this._year.removeObserver(listener);
                     break;
                 case 'rated':
+                    this._rated.removeObserver(listener);
                     break;
                 case 'released':
+                    this._released.removeObserver(listener);
                     break;
                 case 'runtime':
+                    this._runtime.removeObserver(listener);
                     break;
                 case 'genre':
+                    this._genre.removeObserver(listener);
                     break;
                 case 'director':
+                    this._director.removeObserver(listener);
                     break;
                 case 'writer':
+                    this._writer.removeObserver(listener);
                     break;
                 case 'actors':
+                    this._actors.removeObserver(listener);
                     break;
                 case 'plot':
+                    this._plot.removeObserver(listener);
                     break;
                 case 'language':
+                    this._language.removeObserver(listener);
                     break;
                 case 'country':
+                    this._country.removeObserver(listener);
                     break;
                 case 'thumbImgUrl':
+                    this._thumbImgUrl.removeObserver(listener);
                     break;
                 case 'fullImgUrl':
+                    this._fullImgUrl.removeObserver(listener);
                     break;
                 case 'location':
+                    this._location.removeObserver(listener);
                     break;
                 default:
                     throw new Exceptions.PropertyNotFoundException(propertyName);
