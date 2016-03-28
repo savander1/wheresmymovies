@@ -2,6 +2,7 @@
 ///<reference path="form.ts" />
 ///<reference path="controller.ts" />
 ///<reference path="messageBox.ts" />
+///<reference path="Models/model.ts" />
 
 module Application {
     var fields = [

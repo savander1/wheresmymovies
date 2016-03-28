@@ -1,6 +1,6 @@
 ///<reference path="common.ts" />
-///<reference path="model.ts" />
 ///<reference path="ajax.ts" />
+///<reference path="Models/model.ts"" />
 
 module Controllers{
     
@@ -29,7 +29,7 @@ module Controllers{
             movieRequest.get(idName);
         }
         
-        post(movie:Models.Movie, success:Function, failure:Function):void {
+        post(movie:Models.MovieViewModel, success:Function, failure:Function):void {
             console.log(movie);
             
             var movieRequests = new Ajax.Request(this.address, success, failure);
