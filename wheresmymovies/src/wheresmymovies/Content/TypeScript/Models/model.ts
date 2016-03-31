@@ -3,8 +3,8 @@
 module Models{
     
     export interface ViewModel {
-        getHtmlElements() : HTMLElement[];
-        isValid() : boolean;
+        getHtmlElements() : Element[];
+        isValid() : Boolean;
     }
     
     export class MovieViewModel implements ViewModel {
@@ -304,8 +304,31 @@ module Models{
     }
     
     export class MovieSearchCriteria implements ViewModel{
-        id:string;
-        name:string;
+        private _fields: Form.Field<any>[];
+        private _id: ViewModel.ObservableProperty<string>;
+        private _name: ViewModel.ObservableProperty<string>;
+        
+        public constructor(id: ViewModel.ObservableProperty<string>,
+                           name: ViewModel.ObservableProperty<string>){
+            this._id = id;
+            this._name = name;                   
+        }
+        
+        public getHtmlElements() : Element[]{
+            var elements: Element[];
+            
+            this._fields.forEach(formField => {
+                elements.push(formField.render());
+            });
+            
+            return elements;
+        }
+        
+        public isValid() : Boolean{
+            return this._fields.every(formField => {
+                return formField.isValid();
+            });
+        }
     }
     
 }
