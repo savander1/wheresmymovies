@@ -1,4 +1,5 @@
 ///<reference path="common.ts" />
+///<reference path="Models/model.ts" />
 
 module Form {
     export enum FieldValidationType {
@@ -8,7 +9,7 @@ module Form {
         'none'
     }
     
-    abstract class Field implements Common.Renderable, Common.Validatable, Common.PropertyObserver{
+    export abstract class Field<T> implements Common.Renderable, Common.Validatable, ViewModel.PropertyObserver<T>{
         
         protected invalidClass : string = ' invalid';
         
@@ -80,7 +81,7 @@ module Form {
         }
     }
     
-    export class TextField  extends Field{
+    export class TextField<T>  extends Field<T>{
         
         render(): Element{
             var me = this;
@@ -122,7 +123,7 @@ module Form {
         }
     }
     
-    export class TextAreaField extends Field{
+    export class TextAreaField<T> extends Field<T>{
         render(): Element{
             var me = this;
             
@@ -166,13 +167,13 @@ module Form {
     
     
     export class Form implements Common.Validatable, Common.Renderable{
-        fields: Field[];
-        buttons: Common.Button[];
-        rootElement: HTMLElement;
+        private _model: Models.ViewModel;
+        private _buttons: Common.Button[];
+        private _rootElement: HTMLElement;
         
-        constructor(fields: Field[], buttons: Common.Button[]){
-            this.fields = fields;
-            this.buttons = buttons;
+        constructor(model: Models.ViewModel, buttons: Common.Button[]){
+            this._model = model;
+            this._buttons = buttons;
         }
         
         render(name: string = null, id:string = null, method:string = null, action:string = null): HTMLElement{
@@ -183,11 +184,11 @@ module Form {
             formElement.name = name;
             formElement.id = id;
             
-            this.fields.forEach(element => {
-                formElement.appendChild(element.render());
+            this._model.getHtmlElements().forEach(element => {
+                formElement.appendChild(element);
             });
             
-            this.buttons.forEach(button => {
+            this._buttons.forEach(button => {
                 formElement.appendChild(button.render());
             });
             
@@ -195,30 +196,11 @@ module Form {
         }
         
         isValid() :boolean{
-            this.fields.forEach(element => {
-                if (element.isValid() !== true){
-                    return false;
-                }
-            });
-            return true;
+            return this._model.isValid();
         }
         
-        getValues():any{
-            
-            var values = '';
-            
-            this.fields.forEach(field => {
-                var key = field.id;
-                var elm = document.getElementById(field.id) as HTMLInputElement;
-                var value = elm.value;
-                
-                var pair = '"' + key + '":"' + encodeURIComponent(value) + '",';
-                values += pair
-            });
-            
-            values = values.substr(0, values.length - 1);
-            
-            return JSON.parse('{' + values + '}');
+        getValues(): Models.ViewModel{
+            return this._model;
         }
     }
 }

@@ -24,6 +24,7 @@ module Ajax{
         private makeRequest(data:any, type:string, passAsQuery:boolean = false):void{
             var me = this;
             var request = new XMLHttpRequest();
+            request.setRequestHeader('API-VERSION', '1.0')
             request.open(type, this.endPoint, true);
             request.onreadystatechange = function () {
                 if (request.readyState != 4 || request.status != 200){
@@ -31,7 +32,7 @@ module Ajax{
                 }
                 me.onSuccess(request);
             };
-            request.send(JSON.stringify(data));
+            request.send(data);
         }
     }
     

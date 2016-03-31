@@ -1,7 +1,14 @@
 /// <reference path="../Framework/viewmodel.ts" />
 
 module Models{
-    export class MovieViewModel {
+    
+    export interface ViewModel {
+        getHtmlElements() : HTMLElement[];
+        isValid() : boolean;
+    }
+    
+    export class MovieViewModel implements ViewModel {
+        private _fields: Form.Field<any>[];
         private _id: ViewModel.ObservableProperty<string>;
         private _title: ViewModel.ObservableProperty<string>;
         private _year: ViewModel.ObservableProperty<number[]>; 
@@ -60,25 +67,12 @@ module Models{
         public set id(value: string){
             this._id.propertyValue = value;
         }
-        public addIdListener(listener: ViewModel.PropertyObserver): void{
-            this._id.registerObserver(listener);
-        }
-        public removeIdListener(listener: ViewModel.PropertyObserver): void{
-            this._id.removeObserver(listener);
-        }
-        
-        
+       
         public get title(): string {
             return this._title.propertyValue;
         }
         public set title(value: string){
             this._title.propertyValue = value;
-        }
-        public addTitleListener(listener: ViewModel.PropertyObserver): void{
-            this._title.registerObserver(listener);
-        }
-        public removeTitleListener(listener: ViewModel.PropertyObserver): void{
-            this._title.removeObserver(listener);
         }
         
         public get year(): number[] {
@@ -87,24 +81,12 @@ module Models{
         public set year(value: number[]){
             this._year.propertyValue = value;
         }
-        public addYearListener(listener: ViewModel.PropertyObserver): void{
-            this._year.registerObserver(listener);
-        }
-        public removeYearListener(listener: ViewModel.PropertyObserver): void{
-            this._year.removeObserver(listener);
-        }
         
         public get rated(): string {
             return this._rated.propertyValue;
         }
         public set rated(value: string){
             this._rated.propertyValue = value;
-        }
-        public addRatedListener(listener: ViewModel.PropertyObserver): void{
-            this._rated.registerObserver(listener);
-        }
-        public removeRatedListener(listener: ViewModel.PropertyObserver): void{
-            this._rated.removeObserver(listener);
         }
         
         public get released(): string {
@@ -113,24 +95,12 @@ module Models{
         public set released(value: string){
             this._released.propertyValue = value;
         }
-        public addReleasedListener(listener: ViewModel.PropertyObserver): void{
-            this._released.registerObserver(listener);
-        }
-        public removeReleasedListener(listener: ViewModel.PropertyObserver): void{
-            this._released.removeObserver(listener);
-        }
         
         public get runtime(): string {
             return this._runtime.propertyValue;
         }
         public set runtime(value: string){
             this._runtime.propertyValue = value;
-        }
-        public addRuntimeListener(listener: ViewModel.PropertyObserver): void{
-            this._runtime.registerObserver(listener);
-        }
-        public removeRuntimeListener(listener: ViewModel.PropertyObserver): void{
-            this._runtime.removeObserver(listener);
         }
         
         public get genre(): string[] {
@@ -139,24 +109,12 @@ module Models{
         public set genre(value: string[]){
             this._genre.propertyValue = value;
         }
-        public addGenreListener(listener: ViewModel.PropertyObserver): void{
-            this._genre.registerObserver(listener);
-        }
-        public removeGenreListener(listener: ViewModel.PropertyObserver): void{
-            this._genre.removeObserver(listener);
-        }
         
         public get director(): string[] {
             return this._director.propertyValue;
         }
         public set director(value: string[]){
             this._director.propertyValue = value;
-        }
-        public addDirectorListener(listener: ViewModel.PropertyObserver): void{
-            this._director.registerObserver(listener);
-        }
-        public removeDirectorListener(listener: ViewModel.PropertyObserver): void{
-            this._director.removeObserver(listener);
         }
         
         public get writer(): string[] {
@@ -165,24 +123,12 @@ module Models{
         public set writer(value: string[]){
             this._writer.propertyValue = value;
         }
-        public addWriterListener(listener: ViewModel.PropertyObserver): void{
-            this._writer.registerObserver(listener);
-        }
-        public removeWriterListener(listener: ViewModel.PropertyObserver): void{
-            this._writer.removeObserver(listener);
-        }
         
         public get actors(): string[] {
             return this._actors.propertyValue;
         }
         public set actors(value: string[]){
             this._actors.propertyValue = value;
-        }
-        public addActorsListener(listener: ViewModel.PropertyObserver): void{
-            this._actors.registerObserver(listener);
-        }
-        public removeActorsListener(listener: ViewModel.PropertyObserver): void{
-            this._actors.removeObserver(listener);
         }
         
         public get plot(): string {
@@ -191,24 +137,12 @@ module Models{
         public set plot(value: string){
             this._plot.propertyValue = value;
         }
-        public addPlotListener(listener: ViewModel.PropertyObserver): void{
-            this._plot.registerObserver(listener);
-        }
-        public removePlotListener(listener: ViewModel.PropertyObserver): void{
-            this._plot.removeObserver(listener);
-        }
         
         public get language(): string[] {
             return this._language.propertyValue;
         }
         public set language(value: string[]){
             this._language.propertyValue = value;
-        }
-        public addLanguageListener(listener: ViewModel.PropertyObserver): void{
-            this._language.registerObserver(listener);
-        }
-        public removeLanguageListener(listener: ViewModel.PropertyObserver): void{
-            this._language.removeObserver(listener);
         }
         
         public get country(): string {
@@ -217,24 +151,12 @@ module Models{
         public set country(value: string){
             this._country.propertyValue = value;
         }
-        public addCountryListener(listener: ViewModel.PropertyObserver): void{
-            this._country.registerObserver(listener);
-        }
-        public removeCountryListener(listener: ViewModel.PropertyObserver): void{
-            this._country.removeObserver(listener);
-        }
         
         public get thumbImgUrl(): string {
             return this._thumbImgUrl.propertyValue;
         }
         public set thumbImgUrl(value: string){
             this._thumbImgUrl.propertyValue = value;
-        }
-        public addThumbImgUrlListener(listener: ViewModel.PropertyObserver): void{
-            this._thumbImgUrl.registerObserver(listener);
-        }
-        public removeThumbImgUrlListener(listener: ViewModel.PropertyObserver): void{
-            this._thumbImgUrl.removeObserver(listener);
         }
         
         public get fullImgUrl(): string {
@@ -243,27 +165,15 @@ module Models{
         public set fullImgUrl(value: string){
             this._fullImgUrl.propertyValue = value;
         }
-        public addFullImgUrlListener(listener: ViewModel.PropertyObserver): void{
-            this._fullImgUrl.registerObserver(listener);
-        }
-        public removeFullImgUrlListener(listener: ViewModel.PropertyObserver): void{
-            this._fullImgUrl.removeObserver(listener);
-        }
-        
+       
         public get location(): string {
             return this._location.propertyValue;
         }
         public set location(value: string){
             this._location.propertyValue = value;
         }       
-        public addLocationListener(listener: ViewModel.PropertyObserver): void{
-            this._location.registerObserver(listener);
-        }
-        public removeLocationListener(listener: ViewModel.PropertyObserver): void{
-            this._location.removeObserver(listener);
-        }
         
-        public addListener(propertyName: string, listener: ViewModel.PropertyObserver){
+        public addListener(propertyName: string, listener: ViewModel.PropertyObserver<any>){
             
             switch(propertyName){
                 case 'id':
@@ -320,7 +230,7 @@ module Models{
            
         }
         
-        public removeListener(propertyName: string, listener: ViewModel.PropertyObserver){
+        public removeListener(propertyName: string, listener: ViewModel.PropertyObserver<any>){
             
             switch(propertyName){
                 case 'id':
@@ -374,11 +284,26 @@ module Models{
                 default:
                     throw new Exceptions.PropertyNotFoundException(propertyName);
             }
-           
         } 
+        
+        public getHtmlElements() : Element[]{
+            var elements: Element[];
+            
+            this._fields.forEach(formField => {
+                elements.push(formField.render());
+            });
+            
+            return elements;
+        }
+        
+        public isValid() : Boolean{
+            return this._fields.every(formField => {
+                return formField.isValid();
+            });
+        }
     }
     
-    export class MovieSearchCriteria{
+    export class MovieSearchCriteria implements ViewModel{
         id:string;
         name:string;
     }
