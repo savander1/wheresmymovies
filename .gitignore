@@ -207,4 +207,4 @@ wheresmymovies/src/wheresmymovies/Content/TypeScript/*.js
 wheresmymovies/src/wheresmymovies/wwwroot/css/
 wheresmymovies/src/wheresmymovies/wwwroot/js/
 wheresmymovies/src/wheresmymovies/wwwroot/*.html
-*.lock.json
+project.lock.json
