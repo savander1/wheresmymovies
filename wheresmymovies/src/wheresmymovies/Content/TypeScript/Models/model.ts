@@ -26,38 +26,38 @@ module Models{
         private _fullImgUrl: ViewModel.ObservableProperty<string>;
         private _location: ViewModel.ObservableProperty<string>;
         
-        public constructor (id: ViewModel.ObservableProperty<string>,
-                            title: ViewModel.ObservableProperty<string>,
-                            year: ViewModel.ObservableProperty<number[]>, 
-                            rated: ViewModel.ObservableProperty<string>,
-                            released: ViewModel.ObservableProperty<string>,
-                            runtime: ViewModel.ObservableProperty<string>, 
-                            genre: ViewModel.ObservableProperty<string[]>, 
-                            director: ViewModel.ObservableProperty<string[]>,
-                            writer: ViewModel.ObservableProperty<string[]>,
-                            actors: ViewModel.ObservableProperty<string[]>,
-                            plot: ViewModel.ObservableProperty<string>,
-                            language: ViewModel.ObservableProperty<string[]>, 
-                            country: ViewModel.ObservableProperty<string>,
-                            thumbImgUrl: ViewModel.ObservableProperty<string>,
-                            fullImgUrl: ViewModel.ObservableProperty<string>,
-                            location: ViewModel.ObservableProperty<string>){
-            this._id = id;
-            this._title = title;
-            this._year = year;
-            this._rated = rated;
-            this._released = released;
-            this._runtime = runtime;
-            this._genre = genre;
-            this._director = director;
-            this._writer = writer;
-            this._actors = actors;
-            this._plot = plot;
-            this._language = language;
-            this._country = country;
-            this._thumbImgUrl = thumbImgUrl;
-            this._fullImgUrl = fullImgUrl;
-            this._location = location;
+        public constructor (id?: string,
+                            title?: string,
+                            year?: number[], 
+                            rated?: string,
+                            released?: string,
+                            runtime?: string, 
+                            genre?: string[], 
+                            director?: string[],
+                            writer?: string[],
+                            actors?: string[],
+                            plot?: string,
+                            language?: string[], 
+                            country?: string,
+                            thumbImgUrl?: string,
+                            fullImgUrl?: string,
+                            location?: string){
+            this._id = new ViewModel.ObservableProperty<string>(id);
+            this._title = new ViewModel.ObservableProperty<string>(title);
+            this._year =  new ViewModel.ObservableProperty<number[]>(year);
+            this._rated = new ViewModel.ObservableProperty<string>(rated);
+            this._released = new ViewModel.ObservableProperty<string>(released);
+            this._runtime = new ViewModel.ObservableProperty<string>(runtime);
+            this._genre = new ViewModel.ObservableProperty<string[]>(genre);
+            this._director =  new ViewModel.ObservableProperty<string[]>(director);
+            this._writer =  new ViewModel.ObservableProperty<string[]>(writer);
+            this._actors =  new ViewModel.ObservableProperty<string[]>(actors);
+            this._plot = new ViewModel.ObservableProperty<string>(plot);
+            this._language =  new ViewModel.ObservableProperty<string[]>(language);
+            this._country =  new ViewModel.ObservableProperty<string>(country);
+            this._thumbImgUrl =  new ViewModel.ObservableProperty<string>(thumbImgUrl);
+            this._fullImgUrl =  new ViewModel.ObservableProperty<string>(fullImgUrl);
+            this._location =  new ViewModel.ObservableProperty<string>(location);
         } 
         
         
@@ -308,10 +308,10 @@ module Models{
         private _id: ViewModel.ObservableProperty<string>;
         private _name: ViewModel.ObservableProperty<string>;
         
-        public constructor(id: ViewModel.ObservableProperty<string>,
-                           name: ViewModel.ObservableProperty<string>){
-            this._id = id;
-            this._name = name;                   
+        public constructor(id?: string,
+                           name?: string){
+            this._id = new ViewModel.ObservableProperty<string>(id);
+            this._name = new ViewModel.ObservableProperty<string>(name);                   
         }
         
         public getHtmlElements() : Element[]{

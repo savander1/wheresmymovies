@@ -31,8 +31,8 @@ module Application {
     ];
     
      
-    //var movieForm = new Form.Form(new Models.MovieViewModel(new Framework.), []);
-    //var checkForm = new Form.Form(fields.slice(0,2), []);
+    var movieForm = new Form.Form(new Models.MovieViewModel(), []);
+    var checkForm = new Form.Form(new Models.MovieSearchCriteria(), []);
     
     // var movieController = new Controllers.MovieController('/api/movies/');
     // var messageBox = new Alert.MessageBox('Add Movie', checkForm.render(), [])
