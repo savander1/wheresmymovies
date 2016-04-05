@@ -195,7 +195,7 @@ module Form {
             return formElement;
         }
         
-        isValid() :boolean{
+        isValid(): boolean{
             return this._model.isValid();
         }
         

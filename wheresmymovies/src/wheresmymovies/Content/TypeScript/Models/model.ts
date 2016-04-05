@@ -4,7 +4,7 @@ module Models{
     
     export interface ViewModel {
         getHtmlElements() : Element[];
-        isValid() : Boolean;
+        isValid() : boolean;
     }
     
     export class MovieViewModel implements ViewModel {
@@ -296,7 +296,7 @@ module Models{
             return elements;
         }
         
-        public isValid() : Boolean{
+        public isValid() : boolean{
             return this._fields.every(formField => {
                 return formField.isValid();
             });
@@ -324,7 +324,7 @@ module Models{
             return elements;
         }
         
-        public isValid() : Boolean{
+        public isValid() : boolean{
             return this._fields.every(formField => {
                 return formField.isValid();
             });

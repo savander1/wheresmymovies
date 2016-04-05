@@ -10,7 +10,7 @@ namespace ViewModel {
         updatePropertyValue (value: T);
     }
 
-    export class ObservableProperty<T> implements TwoWayBindable { 
+    export class ObservableProperty<T> implements TwoWayBindable<T> { 
         private observers : PropertyObserver<T> [];
         private _propertyValue: T;
 
