@@ -3,4 +3,4 @@ Things that need to be done:
 	1) Design a UI and workflow
 	2) Pick a UI framework (Angular, Ember, VanillaJS)
 	3) Write a data script to add locations to all movies
-	4) Investigate the use of JWT to secure the API
+	4) Investigate the use of JWT to secure the API -> IdenityServer!
