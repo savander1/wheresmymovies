@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "jshint": "^2.9.4",
+    "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "gulp": "3.9.1",
+    "gulp-sass": "3.1.0",
+    "gulp-sourcemaps": "2.4.1",
+    "gulp-typescript": "3.1.5",
+    "gulp-uglify": "2.1.0",
+    "gulp-minify-html": "1.0.6",
+    "gulp-jshint": "2.0.4"
+  }
+}
