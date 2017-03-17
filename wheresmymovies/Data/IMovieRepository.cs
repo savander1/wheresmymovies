@@ -11,6 +11,6 @@ namespace wheresmymovies.Data
         Task<int> Update(string id, Movie movie);
         Task<int> Delete(string id);
         Task<Movie> Get(string id);
-        Task<ICollection<Movie>> Get(MovieSearchParameters searchParams);
+        Task<ICollection<Movie>> Get(SearchParameters searchParams);
     }
 }

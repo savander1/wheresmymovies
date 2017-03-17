@@ -11,7 +11,7 @@ namespace wheresmymovies.Data
 {
     public class OMovieDatabaseReader
     {
-        public Movie GetMovie(MovieSearchParameters parameters)
+        public Movie GetMovie(SearchParameters parameters)
         {
            return GetData(parameters).ContinueWith((antecedent) =>
            {
@@ -28,7 +28,7 @@ namespace wheresmymovies.Data
            }).Result;
         }
          
-        private async Task<string> GetData(MovieSearchParameters parameters)
+        private async Task<string> GetData(SearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
             using (var client = new HttpClient())
@@ -43,7 +43,7 @@ namespace wheresmymovies.Data
             }
         }
 
-        private Uri GetEndpoint(MovieSearchParameters parameters)
+        private Uri GetEndpoint(SearchParameters parameters)
         {
             var builder = new StringBuilder("http://www.omdbapi.com/");
             if (!string.IsNullOrEmpty(parameters.Id))

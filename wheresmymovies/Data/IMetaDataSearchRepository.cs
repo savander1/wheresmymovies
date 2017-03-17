@@ -6,6 +6,6 @@ namespace wheresmymovies.Data
 {
     public interface IMetaDataSearchRepository
     {
-        Task<Movie> Search(MovieSearchParameters searchParams);
+        Task<Movie> Search(SearchParameters searchParams);
     }
 }

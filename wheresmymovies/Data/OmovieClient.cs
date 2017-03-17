@@ -17,7 +17,7 @@ namespace wheresmymovies.Data
             _omdbUrl = omdbUrl;
         }
 
-        public async Task<Movie> GetMovie(MovieSearchParameters parameters)
+        public async Task<Movie> GetMovie(SearchParameters parameters)
         {
             return await GetData(parameters).ContinueWith((antecedent) =>
             {
@@ -34,7 +34,7 @@ namespace wheresmymovies.Data
             });
         }
 
-        private async Task<string> GetData(MovieSearchParameters parameters)
+        private async Task<string> GetData(SearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
             using (var client = new HttpClient())
@@ -49,7 +49,7 @@ namespace wheresmymovies.Data
             }
         }
 
-        private Uri GetEndpoint(MovieSearchParameters parameters)
+        private Uri GetEndpoint(SearchParameters parameters)
         {
             var builder = new StringBuilder(_omdbUrl);
             if (!string.IsNullOrEmpty(parameters.Id))

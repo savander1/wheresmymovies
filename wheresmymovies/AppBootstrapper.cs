@@ -1,6 +1,6 @@
 ﻿using Nancy;
 using Nancy.TinyIoc;
-using wheresmymovies.Data;
+using wheresmymovies.Services;
 
 namespace wheresmymovies
 {
@@ -10,8 +10,7 @@ namespace wheresmymovies
         {
             base.ConfigureApplicationContainer(container);
 
-            //container.Register<IMovieRepository>(new MovieRepository());
-            //container.Register
+            container.Register<IMovieService>(new MovieService());
         }
     }
 }

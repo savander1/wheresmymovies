@@ -1,34 +1,25 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using wheresmymovies.Data;
 using wheresmymovies.Models;
+using wheresmymovies.Services;
 
 namespace wheresmymovies.Controllers
 {
     public class MovieModule : NancyModule
     {
-        public MovieModule(IMovieRepository movieRepository, IMetaDataSearchRepository metaDataRepository) : base("/movie")
+        public MovieModule(IMovieService movieService) : base("/api/movie")
         {
-            if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
-            if (metaDataRepository == null) throw new ArgumentNullException(nameof(metaDataRepository));
-
             Get("/", async (x, ctx) =>
             {
-                MovieSearchParameters searchParameters = this.BindTo((MovieSearchParameters)x);
-                if (!searchParameters.IsValid())
-                    return HttpStatusCode.BadRequest;
-
-                var movie = await metaDataRepository.Search(searchParameters);
-                if (movie == null)
+                var searchFilters = this.BindTo((SearchFilters)x);
+                var movies = await movieService.SearchAllMovies(searchFilters);
+                if (movies == null || !movies.Any())
                 {
                     return HttpStatusCode.NotFound;
                 }
 
-                return movie;
+                return movies;
             });
 
             //Post("/", movie =>

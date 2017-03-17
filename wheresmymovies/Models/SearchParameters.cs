@@ -2,12 +2,12 @@
 
 namespace wheresmymovies.Models
 {
-    public class MovieSearchParameters
+    public class SearchParameters
     {
         public string Id { get; set; }
         public string Title { get; set; }
 
-        public MovieSearchParameters Decode()
+        public SearchParameters Decode()
         {
             Title = WebUtility.UrlDecode(Title);
 
