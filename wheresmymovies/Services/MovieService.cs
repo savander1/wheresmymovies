@@ -25,17 +25,18 @@ namespace wheresmymovies.Services
 
         public Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
         {
-            return new Task<IList<Movie>>(() =>
+            
+            return Task.Factory.StartNew<IList<Movie>>(() =>
             {
                 var retVal = new List<Movie>();
-                for (var i = 0; i < 100; i++)
-                {
-                    var movie = new Movie
-                    {
-                        Id = i.ToString()
-                    };
-                    retVal.Add(movie);
-                }
+                //for (var i = 0; i < 100; i++)
+                //{
+                //    var movie = new Movie
+                //    {
+                //        Id = i.ToString()
+                //    };
+                //    retVal.Add(movie);
+                //}
                 return retVal;
             });
         }

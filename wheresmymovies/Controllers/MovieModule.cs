@@ -12,13 +12,14 @@ namespace wheresmymovies.Controllers
         {
             Get("/", async (x, ctx) =>
             {
-                var searchFilters = this.BindTo((SearchFilters)x);
+                SearchFilters searchFilters = new SearchFilters();
+                this.BindTo(searchFilters);
                 var movies = await movieService.SearchAllMovies(searchFilters);
                 if (movies == null || !movies.Any())
                 {
                     return HttpStatusCode.NotFound;
                 }
-
+                
                 return movies;
             });
 
