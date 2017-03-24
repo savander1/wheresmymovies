@@ -10,7 +10,7 @@ namespace wheresmymovies
         {
             base.ConfigureApplicationContainer(container);
 
-            container.Register<IMovieService>(new MovieService());
+            //container.Register<IMovieService>(new MovieService());
         }
     }
 }
