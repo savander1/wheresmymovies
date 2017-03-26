@@ -9,24 +9,24 @@ namespace wheresmymovies.Services
 {
     public class MovieService : IMovieService
     {
-        private IMovieRepository _moveRepository;
+        private IMovieRepository _movieRepository;
         private IMetaDataSearchRepository _metaDataRepository;
         public MovieService(IMovieRepository movieRepository, IMetaDataSearchRepository metaDataRepository)
         {
             if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
             if (metaDataRepository == null) throw new ArgumentNullException(nameof(metaDataRepository));
 
-            _metaDataRepository = metaDataRepository;
+            _movieRepository = movieRepository;
             _metaDataRepository = metaDataRepository;
         }
         public void AddMovie(Movie movie)
         {
-             _moveRepository.Add(movie).Start();
+             _movieRepository.Add(movie).Start();
         }
 
         public void DeleteMovie(Movie movie)
         {
-            _moveRepository.Delete(movie.Id).Start();
+            _movieRepository.Delete(movie.Id).Start();
         }
 
         public Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
@@ -54,7 +54,7 @@ namespace wheresmymovies.Services
 
         public void UpdateMovie(Movie movie)
         {
-            _moveRepository.Update(movie.Id, movie).Start();
+            _movieRepository.Update(movie.Id, movie).Start();
         }
     }
 }
