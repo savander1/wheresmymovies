@@ -26,38 +26,40 @@ namespace wheresmymovies.Services
             return await _movieRepository.Add(movie).ContinueWith((i) => true);
         }
 
+        public async Task<bool> UpdateMovie(Movie movie)
+        {
+            if (movie == null) throw new ArgumentNullException(nameof(movie));
+
+            return await _movieRepository.Update(movie.Id, movie).ContinueWith((i) => true);
+        }
+
         public async Task<bool> DeleteMovie(Movie movie)
         {
+            if (movie == null) throw new ArgumentNullException(nameof(movie));
+
             return await _movieRepository.Delete(movie.Id).ContinueWith((i) => true);
         }
 
-        public Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
+        public async Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
         {
-            return _metaDataRepository.Search(paremeters);
+            return await _metaDataRepository.Search(paremeters);
         }
 
-        public Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
+        public async Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
         {
-            
-            return Task.Factory.StartNew<IList<Movie>>(() =>
+            return await new Task<IList<Movie>>(() =>
             {
                 var retVal = new List<Movie>();
                 for (var i = 0; i < 100; i++)
                 {
-                   var movie = new Movie
-                   {
-                       Id = i.ToString()
-                   };
-                   retVal.Add(movie);
+                    var movie = new Movie
+                    {
+                        Id = i.ToString()
+                    };
+                    retVal.Add(movie);
                 }
                 return retVal;
             });
-        }
-
-        public Task<bool> UpdateMovie(Movie movie)
-        {
-            return Task.Factory.StartNew(() => true);
-            _movieRepository.Update(movie.Id, movie).Start();
         }
     }
 }

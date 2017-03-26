@@ -39,7 +39,7 @@ namespace wheresmymovies.test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task AddMovie_MovieNull_ThrowsAsync()
+        public async void AddMovie_MovieNull_ThrowsAsync()
         {
             await _movieService.AddMovie(null);
         }
@@ -56,6 +56,48 @@ namespace wheresmymovies.test
             await _movieService.AddMovie(movie);
 
             _movieRepo.Verify(x => x.Add(It.Is<Movie>(m => m.Id == movieId)), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async System.Threading.Tasks.Task DeleteMovie_MovieNull_ThrowsAsync()
+        {
+            await _movieService.DeleteMovie(null);
+        }
+
+        [TestMethod]
+        public async System.Threading.Tasks.Task DeleteMovie_ValidMovie_MovieDeletedAsync()
+        {
+            var movieId = Guid.NewGuid().ToString();
+            var movie = new Movie
+            {
+                Id = movieId
+            };
+
+            await _movieService.DeleteMovie(movie);
+
+            _movieRepo.Verify(x => x.Delete(It.Is<string>(m => m == movieId)), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async System.Threading.Tasks.Task UpdateMovie_MovieNull_ThrowsAsync()
+        {
+            await _movieService.UpdateMovie(null);
+        }
+
+        [TestMethod]
+        public async System.Threading.Tasks.Task UpdateMovieMovie_ValidMovie_MovieDeletedAsync()
+        {
+            var movieId = Guid.NewGuid().ToString();
+            var movie = new Movie
+            {
+                Id = movieId
+            };
+
+            await _movieService.UpdateMovie(movie);
+
+            _movieRepo.Verify(x => x.Update(It.Is<string>(m => m == movieId), It.Is<Movie>(m => m.Id == movieId)), Times.Once);
         }
     }
 }
