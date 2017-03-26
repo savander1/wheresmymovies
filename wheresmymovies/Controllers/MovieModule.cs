@@ -8,7 +8,7 @@ namespace wheresmymovies.Controllers
 {
     public class MovieModule : NancyModule
     {
-        public MovieModule(IMovieService movieService) : base("/api/movie")
+        public MovieModule(IMovieServiceAsync movieService) : base("/api/movie")
         {
             Get("/", async (x, ctx) =>
             {

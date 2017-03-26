@@ -5,12 +5,12 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Services
 {
-    public interface IMovieService
+    public interface IMovieServiceAsync
     {
         Task<Movie> FetchMovieMetadata(SearchParameters paremeters);
-        void AddMovie(Movie movie);
-        void DeleteMovie(Movie movie);
-        void UpdateMovie(Movie movie);
+        Task<bool> AddMovie(Movie movie);
+        Task<bool> DeleteMovie(Movie movie);
+        Task<bool> UpdateMovie(Movie movie);
         Task<IList<Movie>> SearchAllMovies(SearchFilters filters);
 
     }

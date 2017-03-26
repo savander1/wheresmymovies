@@ -7,11 +7,11 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Services
 {
-    public class MovieService : IMovieService
+    public class MovieServiceAsync : IMovieServiceAsync
     {
         private IMovieRepository _movieRepository;
         private IMetaDataSearchRepository _metaDataRepository;
-        public MovieService(IMovieRepository movieRepository, IMetaDataSearchRepository metaDataRepository)
+        public MovieServiceAsync(IMovieRepository movieRepository, IMetaDataSearchRepository metaDataRepository)
         {
             if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
             if (metaDataRepository == null) throw new ArgumentNullException(nameof(metaDataRepository));
@@ -19,14 +19,16 @@ namespace wheresmymovies.Services
             _movieRepository = movieRepository;
             _metaDataRepository = metaDataRepository;
         }
-        public void AddMovie(Movie movie)
+        public async Task<bool> AddMovie(Movie movie)
         {
-             _movieRepository.Add(movie).Start();
+            if (movie == null) throw new ArgumentNullException(nameof(movie));
+
+            return await _movieRepository.Add(movie).ContinueWith((i) => true);
         }
 
-        public void DeleteMovie(Movie movie)
+        public async Task<bool> DeleteMovie(Movie movie)
         {
-            _movieRepository.Delete(movie.Id).Start();
+            return await _movieRepository.Delete(movie.Id).ContinueWith((i) => true);
         }
 
         public Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
@@ -52,8 +54,9 @@ namespace wheresmymovies.Services
             });
         }
 
-        public void UpdateMovie(Movie movie)
+        public Task<bool> UpdateMovie(Movie movie)
         {
+            return Task.Factory.StartNew(() => true);
             _movieRepository.Update(movie.Id, movie).Start();
         }
     }
