@@ -62,7 +62,7 @@ namespace wheresmymovies.test
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async void AddMovie_MovieNull_ThrowsAsync()
+        public async System.Threading.Tasks.Task AddMovie_MovieNull_ThrowsAsync()
         {
             await _movieService.AddMovie(null);
         }
