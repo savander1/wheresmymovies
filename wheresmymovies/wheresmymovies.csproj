@@ -5,6 +5,10 @@
     <PostBuildEvent>gulp</PostBuildEvent>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Controllers\AuthenticationController.cs" />
     <Compile Remove="Controllers\MoviesController.cs" />
