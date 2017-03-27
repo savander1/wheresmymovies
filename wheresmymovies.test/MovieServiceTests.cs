@@ -4,6 +4,9 @@ using wheresmymovies.Data;
 using Moq;
 using wheresmymovies.Services;
 using wheresmymovies.Entities;
+using wheresmymovies.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace wheresmymovies.test
 {
@@ -13,12 +16,32 @@ namespace wheresmymovies.test
         private Mock<IMovieRepository> _movieRepo;
         private Mock<IMetaDataSearchRepository> _metaRepo;
         private MovieServiceAsync _movieService;
+        private const string Id = "1234";
+        private const string Title = "Expected";
 
         [TestInitialize]
         public void Setup()
         {
             _movieRepo = new Mock<IMovieRepository>();
+
+            _movieRepo.Setup(repo => repo.Get(It.Is<SearchFilters>(f => f.Title == Title)))
+                      .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new List<Movie>
+                      {
+                         new Movie
+                         {
+                             Title = Title,
+                             Id = Id
+                         }
+                      }));
+
             _metaRepo = new Mock<IMetaDataSearchRepository>();
+
+            _metaRepo.Setup(repo => repo.Search(It.Is<SearchParameters>(p => p.Id == Id)))
+                     .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new Movie
+                     {
+                         Title = Title,
+                         Id = Id
+                     }));
 
             _movieService = new MovieServiceAsync(_movieRepo.Object, _metaRepo.Object);
         }
@@ -98,6 +121,63 @@ namespace wheresmymovies.test
             await _movieService.UpdateMovie(movie);
 
             _movieRepo.Verify(x => x.Update(It.Is<string>(m => m == movieId), It.Is<Movie>(m => m.Id == movieId)), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async System.Threading.Tasks.Task FetchMovieMetadata_NullPassed_ThrowsAsync()
+        {
+            await _movieService.FetchMovieMetadata(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidSearchParametersException))]
+        public async System.Threading.Tasks.Task FetchMovieMetadata_InvalidSearchParameters_ThrowsAsync()
+        {
+            var invalidParams = new SearchParameters();
+            await _movieService.FetchMovieMetadata(invalidParams);
+        }
+
+        [TestMethod]
+        public async System.Threading.Tasks.Task FetchMovieMetadata_ValidParametersPassed_DataReturnedAsync()
+        {
+
+            var validParams = new SearchParameters { Id = Id };
+
+            var result = await _movieService.FetchMovieMetadata(validParams);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(Title, result.Title);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async System.Threading.Tasks.Task SearchAllMovies_NullPassed_ThrowsAsync()
+        {
+            await _movieService.SearchAllMovies(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidSearchFilterException))]
+        public async System.Threading.Tasks.Task SearchAllMovies_InvalidParameters_ThrowsAsync()
+        {
+            var invalidParameters = new SearchFilters();
+            await _movieService.SearchAllMovies(invalidParameters);
+        }
+
+        [TestMethod]
+        public async System.Threading.Tasks.Task SearchAllMovies_ValidParamters_ReturnsMoviesAsync()
+        {
+            var validSearchFilters = new SearchFilters
+            {
+                Title = Title
+            };
+
+            var result = await _movieService.SearchAllMovies(validSearchFilters);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Any());
+            Assert.AreEqual(Title, result.Single().Title);
         }
     }
 }

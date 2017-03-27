@@ -74,7 +74,7 @@ namespace wheresmymovies.Data
             return  await _azureClient.Get(id);
         }
 
-        public Task<ICollection<Movie>> Get(SearchParameters searchParams)
+        public Task<List<Movie>> Get(SearchFilters searchFilters)
         {
             throw new NotImplementedException();
         }

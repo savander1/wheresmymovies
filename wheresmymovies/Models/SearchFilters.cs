@@ -7,5 +7,11 @@ namespace wheresmymovies.Models
 {
     public class SearchFilters
     {
+        public string Title { get; set; }
+
+        internal bool IsValid()
+        {
+            return !string.IsNullOrWhiteSpace(Title);
+        }
     }
 }

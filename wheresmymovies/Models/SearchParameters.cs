@@ -21,5 +21,10 @@ namespace wheresmymovies.Models
 
             return (idIsSet || titleIsSet) && !(idIsSet && titleIsSet);
         }
+
+        public override string ToString()
+        {
+            return $"Id: [{Id}] Title: [{Title}]";
+        }
     } 
 }

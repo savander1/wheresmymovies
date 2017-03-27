@@ -42,24 +42,18 @@ namespace wheresmymovies.Services
 
         public async Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
         {
+            if (paremeters == null) throw new ArgumentNullException(nameof(paremeters));
+            if (!paremeters.IsValid()) throw new InvalidSearchParametersException(paremeters.ToString());
+
             return await _metaDataRepository.Search(paremeters);
         }
 
         public async Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
         {
-            return await new Task<IList<Movie>>(() =>
-            {
-                var retVal = new List<Movie>();
-                for (var i = 0; i < 100; i++)
-                {
-                    var movie = new Movie
-                    {
-                        Id = i.ToString()
-                    };
-                    retVal.Add(movie);
-                }
-                return retVal;
-            });
+            if (filters == null) throw new ArgumentNullException(nameof(filters));
+            if (!filters.IsValid()) throw new InvalidSearchFilterException(filters.ToString());
+
+            return await _movieRepository.Get(filters);
         }
     }
 }
