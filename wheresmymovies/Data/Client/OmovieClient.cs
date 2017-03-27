@@ -7,33 +7,39 @@ using Newtonsoft.Json;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 
-namespace wheresmymovies.Data
+namespace wheresmymovies.Data.Client
 {
-    public class OMovieDatabaseReader
+    public class OmovieClient
     {
-        public Movie GetMovie(SearchParameters parameters)
+        private readonly string _omdbUrl;
+        public OmovieClient(string omdbUrl)
         {
-           return GetData(parameters).ContinueWith((antecedent) =>
-           {
-               try
-               {
-                   var data = antecedent.Result;
-                   var oMovie = JsonConvert.DeserializeObject<Omovie>(data);
-                   return new Movie(oMovie);
-               }
-               catch
-               {
-                   return new Movie();
-               }
-           }).Result;
+            _omdbUrl = omdbUrl;
         }
-         
+
+        public async Task<Movie> GetMovie(SearchParameters parameters)
+        {
+            return await GetData(parameters).ContinueWith((antecedent) =>
+            {
+                try
+                {
+                    var data = antecedent.Result;
+                    var oMovie = JsonConvert.DeserializeObject<Omovie>(data);
+                    return new Movie(oMovie);
+                }
+                catch
+                {
+                    return null;
+                }
+            });
+        }
+
         private async Task<string> GetData(SearchParameters parameters)
         {
             var endPoint = GetEndpoint(parameters);
             using (var client = new HttpClient())
             {
-                using (var stream = await client.GetStreamAsync(GetEndpoint(parameters)))
+                using (var stream = await client.GetStreamAsync(endPoint))
                 {
                     using (var reader = new StreamReader(stream))
                     {
@@ -45,7 +51,7 @@ namespace wheresmymovies.Data
 
         private Uri GetEndpoint(SearchParameters parameters)
         {
-            var builder = new StringBuilder("http://www.omdbapi.com/");
+            var builder = new StringBuilder(_omdbUrl);
             if (!string.IsNullOrEmpty(parameters.Id))
             {
                 builder.Append("?i=" + parameters.Id.Trim());

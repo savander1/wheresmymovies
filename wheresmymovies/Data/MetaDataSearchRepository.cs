@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
+using wheresmymovies.Data.Client;
 
 namespace wheresmymovies.Data
 {

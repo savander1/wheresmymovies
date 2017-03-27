@@ -8,21 +8,18 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 
-namespace wheresmymovies.Data
+namespace wheresmymovies.Data.Client
 {
     public class AzureSearchClient
     {
         private readonly string _searchUrl;
         private readonly string _apiKey;
-        private readonly ILogger _logger;
 
-    	public AzureSearchClient(AzureSearchConfiguration configuration, ILogger logger)
+    	public AzureSearchClient(AzureSearchConfiguration configuration)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            if (logger == null) throw new ArgumentNullException(nameof(logger));
             _apiKey = configuration.ApiKey;
             _searchUrl = configuration.SearchEndpoint;
-            _logger = logger;
         }
         
         public async Task<HttpResponseMessage> Get()
@@ -39,7 +36,6 @@ namespace wheresmymovies.Data
             {
                 var azureMovie = new AzureMovie(movie, "mergeOrUpload");
                 var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
-                _logger.LogInformation(await response.Content.ReadAsStringAsync());
                 return response.StatusCode;
             }
         }

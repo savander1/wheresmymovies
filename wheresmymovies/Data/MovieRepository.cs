@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
+using wheresmymovies.Data.Client;
 
 namespace wheresmymovies.Data
 {
@@ -12,16 +13,11 @@ namespace wheresmymovies.Data
     {
         private const int RETRIES = 9;
         private readonly AzureSearchClient _azureClient;
-        private readonly ILogger _logger;
 
-        public MovieRepository(AzureSearchConfiguration configuration, ILoggerFactory loggerfactory)
+        public MovieRepository(AzureSearchConfiguration configuration)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            if (loggerfactory == null) throw new ArgumentNullException(nameof(loggerfactory));
-
-            var azureClientLogger = loggerfactory.CreateLogger<AzureSearchClient>();
-            _azureClient = new AzureSearchClient(configuration, azureClientLogger);
-            _logger = loggerfactory.CreateLogger<MovieRepository>();
+            _azureClient = new AzureSearchClient(configuration);
         }
         
         public async Task<int> Add(Movie movie)
@@ -34,7 +30,6 @@ namespace wheresmymovies.Data
                 while (index <= RETRIES)
                 {
                     result = await _azureClient.Add(movie);
-                    _logger.LogInformation(result.ToString());
                     if (result == System.Net.HttpStatusCode.OK)
                     {
                         break;
