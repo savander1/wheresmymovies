@@ -14,7 +14,7 @@ namespace wheresmymovies.test
     public class MovieServiceTests
     {
         private Mock<IMovieRepository> _movieRepo;
-        private Mock<IMetaDataSearchRepository> _metaRepo;
+        private Mock<IMetaDataSearchRepositoryAsync> _metaRepo;
         private MovieServiceAsync _movieService;
         private const string Id = "1234";
         private const string Title = "Expected";
@@ -34,9 +34,9 @@ namespace wheresmymovies.test
                          }
                       }));
 
-            _metaRepo = new Mock<IMetaDataSearchRepository>();
+            _metaRepo = new Mock<IMetaDataSearchRepositoryAsync>();
 
-            _metaRepo.Setup(repo => repo.Search(It.Is<SearchParameters>(p => p.Id == Id)))
+            _metaRepo.Setup(repo => repo.SearchAsync(It.Is<SearchParameters>(p => p.Id == Id)))
                      .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new Movie
                      {
                          Title = Title,
