@@ -10,8 +10,8 @@ namespace wheresmymovies.Services
     public class MovieServiceAsync : IMovieServiceAsync
     {
         private IMovieRepository _movieRepository;
-        private IMetaDataSearchRepository _metaDataRepository;
-        public MovieServiceAsync(IMovieRepository movieRepository, IMetaDataSearchRepository metaDataRepository)
+        private IMetaDataSearchRepositoryAsync _metaDataRepository;
+        public MovieServiceAsync(IMovieRepository movieRepository, IMetaDataSearchRepositoryAsync metaDataRepository)
         {
             if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
             if (metaDataRepository == null) throw new ArgumentNullException(nameof(metaDataRepository));
@@ -45,7 +45,7 @@ namespace wheresmymovies.Services
             if (paremeters == null) throw new ArgumentNullException(nameof(paremeters));
             if (!paremeters.IsValid()) throw new InvalidSearchParametersException(paremeters.ToString());
 
-            return await _metaDataRepository.Search(paremeters);
+            return await _metaDataRepository.SearchAsync(paremeters);
         }
 
         public async Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
