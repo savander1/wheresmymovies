@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 
 namespace wheresmymovies.Data.Client
@@ -24,7 +23,7 @@ namespace wheresmymovies.Data.Client
         
         public async Task<HttpResponseMessage> Get()
         {
-            using (var client = new HttpClient())
+            using (var client = new HttpClientEx())
             {
                 return await client.GetAsync(_searchUrl);
             }
@@ -32,7 +31,7 @@ namespace wheresmymovies.Data.Client
 
         public async Task<HttpStatusCode> Add(Movie movie)
         {
-            using (var client = new HttpClient())
+            using (var client = new HttpClientEx())
             {
                 var azureMovie = new AzureMovie(movie, "mergeOrUpload");
                 var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
@@ -42,7 +41,7 @@ namespace wheresmymovies.Data.Client
         
         public async Task<Movie> Get(string id)
         {
-            using (var client = new HttpClient())
+            using (var client = new HttpClientEx())
             {
                 var response = await client.GetAsync($"{_searchUrl}/{id}");
 
@@ -57,7 +56,7 @@ namespace wheresmymovies.Data.Client
 
         public async Task<HttpStatusCode> Delete(string id)
         {
-            using (var client = new HttpClient())
+            using (var client = new HttpClientEx())
             {
                 var movie = new Movie() { Id = id };
                 var azureMovie = new AzureMovie(movie, "delete");

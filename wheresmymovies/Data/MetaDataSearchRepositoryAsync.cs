@@ -20,7 +20,7 @@ namespace wheresmymovies.Data
 
         public async Task<Movie> SearchAsync(SearchParameters searchParams)
         {
-            var client = new OmovieClient(_oMovieUrl);
+            var client = new OmovieClient(_oMovieUrl, new HttpClientEx());
             return await client.GetMovie(searchParams.Decode());
         }
     }
