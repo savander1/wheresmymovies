@@ -6,8 +6,10 @@ using System.Collections.Generic;
 
 namespace wheresmymovies
 {
-    public class Config
+    public static class Config
     {
+        public static string IInfoUrl => "http://www.omdbapi.com/";
+
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>

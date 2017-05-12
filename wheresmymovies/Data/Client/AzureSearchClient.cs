@@ -9,7 +9,7 @@ using wheresmymovies.Entities;
 
 namespace wheresmymovies.Data.Client
 {
-    public class AzureSearchClient
+    public class AzureSearchClient : ISearchClient
     {
         private readonly string _searchUrl;
         private readonly string _apiKey;
@@ -21,7 +21,7 @@ namespace wheresmymovies.Data.Client
             _searchUrl = configuration.SearchEndpoint;
         }
         
-        public async Task<HttpResponseMessage> Get()
+        public async Task<HttpResponseMessage> GetAsync()
         {
             using (var client = new HttpClientEx())
             {
@@ -29,7 +29,7 @@ namespace wheresmymovies.Data.Client
             }
         }
 
-        public async Task<HttpStatusCode> Add(Movie movie)
+        public async Task<HttpStatusCode> AddAsync(Movie movie)
         {
             using (var client = new HttpClientEx())
             {
@@ -39,7 +39,7 @@ namespace wheresmymovies.Data.Client
             }
         }
         
-        public async Task<Movie> Get(string id)
+        public async Task<Movie> GetAsync(string id)
         {
             using (var client = new HttpClientEx())
             {
@@ -54,7 +54,7 @@ namespace wheresmymovies.Data.Client
             }
         }
 
-        public async Task<HttpStatusCode> Delete(string id)
+        public async Task<HttpStatusCode> DeleteAsync(string id)
         {
             using (var client = new HttpClientEx())
             {

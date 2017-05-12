@@ -8,7 +8,7 @@ using wheresmymovies.Models;
 
 namespace wheresmymovies.Data.Client
 {
-    public class OmovieClient
+    public class OmovieClient : IInfoClient
     {
         private readonly string _omdbUrl;
         private readonly IHttpClient _httpClient;
@@ -20,7 +20,7 @@ namespace wheresmymovies.Data.Client
             _httpClient = client;
         }
 
-        public async Task<Movie> GetMovie(SearchParameters parameters)
+        public async Task<Movie> GetMovieAsync(SearchParameters parameters)
         {
             var data = await GetData(parameters);
             var movie = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<Omovie>(data));

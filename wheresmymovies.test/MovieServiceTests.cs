@@ -13,8 +13,7 @@ namespace wheresmymovies.test
     [TestClass]
     public class MovieServiceTests
     {
-        private Mock<IMovieRepository> _movieRepo;
-        private Mock<IMetaDataSearchRepositoryAsync> _metaRepo;
+        private Mock<IMovieRepositoryAsync> _movieRepo;
         private MovieServiceAsync _movieService;
         private const string Id = "1234";
         private const string Title = "Expected";
@@ -22,9 +21,9 @@ namespace wheresmymovies.test
         [TestInitialize]
         public void Setup()
         {
-            _movieRepo = new Mock<IMovieRepository>();
+            _movieRepo = new Mock<IMovieRepositoryAsync>();
 
-            _movieRepo.Setup(repo => repo.Get(It.Is<SearchFilters>(f => f.Title == Title)))
+            _movieRepo.Setup(repo => repo.GetAsync(It.Is<SearchFilters>(f => f.Title == Title)))
                       .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new List<Movie>
                       {
                          new Movie
@@ -34,30 +33,21 @@ namespace wheresmymovies.test
                          }
                       }));
 
-            _metaRepo = new Mock<IMetaDataSearchRepositoryAsync>();
-
-            _metaRepo.Setup(repo => repo.SearchAsync(It.Is<SearchParameters>(p => p.Id == Id)))
+            _movieRepo.Setup(repo => repo.SearchAsync(It.Is<SearchParameters>(p => p.Id == Id)))
                      .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new Movie
                      {
                          Title = Title,
                          Id = Id
                      }));
 
-            _movieService = new MovieServiceAsync(_movieRepo.Object, _metaRepo.Object);
+            _movieService = new MovieServiceAsync(_movieRepo.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctr_MovieRepoNull_Throws()
         {
-            _movieService = new MovieServiceAsync(null, _metaRepo.Object);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Ctr_MetaRepoNull_Throws()
-        {
-            _movieService = new MovieServiceAsync(_movieRepo.Object, null);
+            _movieService = new MovieServiceAsync(null);
         }
 
         [TestMethod]
@@ -78,7 +68,7 @@ namespace wheresmymovies.test
 
             await _movieService.AddMovie(movie);
 
-            _movieRepo.Verify(x => x.Add(It.Is<Movie>(m => m.Id == movieId)), Times.Once);
+            _movieRepo.Verify(x => x.AddAsync(It.Is<Movie>(m => m.Id == movieId)), Times.Once);
         }
 
         [TestMethod]
@@ -99,7 +89,7 @@ namespace wheresmymovies.test
 
             await _movieService.DeleteMovie(movie);
 
-            _movieRepo.Verify(x => x.Delete(It.Is<string>(m => m == movieId)), Times.Once);
+            _movieRepo.Verify(x => x.DeleteAsync(It.Is<string>(m => m == movieId)), Times.Once);
         }
 
         [TestMethod]
@@ -120,7 +110,7 @@ namespace wheresmymovies.test
 
             await _movieService.UpdateMovie(movie);
 
-            _movieRepo.Verify(x => x.Update(It.Is<string>(m => m == movieId), It.Is<Movie>(m => m.Id == movieId)), Times.Once);
+            _movieRepo.Verify(x => x.UpdateAsync(It.Is<string>(m => m == movieId), It.Is<Movie>(m => m.Id == movieId)), Times.Once);
         }
 
         [TestMethod]

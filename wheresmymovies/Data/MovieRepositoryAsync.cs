@@ -9,27 +9,31 @@ using wheresmymovies.Data.Client;
 
 namespace wheresmymovies.Data
 {
-    public class MovieRepository : IMovieRepository
+    public class MovieRepositoryAsync : IMovieRepositoryAsync
     {
         private const int RETRIES = 9;
-        private readonly AzureSearchClient _azureClient;
+        private readonly ISearchClient _azureClient;
+        private readonly IInfoClient _infoClient;
 
-        public MovieRepository(AzureSearchConfiguration configuration)
+        public MovieRepositoryAsync(ISearchClient azureClient, IInfoClient infoClient)
         {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            _azureClient = new AzureSearchClient(configuration);
+            if (azureClient == null) throw new ArgumentNullException(nameof(azureClient));
+            if (infoClient == null) throw new ArgumentNullException(nameof(infoClient));
+
+            _azureClient = azureClient;
+            _infoClient = infoClient;
         }
         
-        public async Task<int> Add(Movie movie)
+        public async Task<int> AddAsync(Movie movie)
         {
-            var result = await _azureClient.Add(movie);
+            var result = await _azureClient.AddAsync(movie);
             if (result != System.Net.HttpStatusCode.OK)
             {
                 var index = 1;
                 
                 while (index <= RETRIES)
                 {
-                    result = await _azureClient.Add(movie);
+                    result = await _azureClient.AddAsync(movie);
                     if (result == System.Net.HttpStatusCode.OK)
                     {
                         break;
@@ -42,16 +46,16 @@ namespace wheresmymovies.Data
             return (int)result;
         }
 
-        public async Task<int> Delete(string movieId)
+        public async Task<int> DeleteAsync(string movieId)
         {
-            var result = await _azureClient.Delete(movieId);
+            var result = await _azureClient.DeleteAsync(movieId);
             if (result != System.Net.HttpStatusCode.OK)
             {
                 var index = 1;
 
                 while (index <= RETRIES)
                 {
-                    result = await _azureClient.Delete(movieId);
+                    result = await _azureClient.DeleteAsync(movieId);
                     if (result == System.Net.HttpStatusCode.OK)
                     {
                         break;
@@ -64,19 +68,24 @@ namespace wheresmymovies.Data
             return (int)result;
         }
 
-        public async Task<Movie> Get(string id)
+        public async Task<Movie> GetAsync(string id)
         {
-            return  await _azureClient.Get(id);
+            return  await _azureClient.GetAsync(id);
         }
 
-        public Task<List<Movie>> Get(SearchFilters searchFilters)
+        public Task<List<Movie>> GetAsync(SearchFilters searchFilters)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<int> Update(string id, Movie movie)
+        public Task<Movie> SearchAsync(SearchParameters searchParams)
         {
-            return await Add(movie);
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> UpdateAsync(string id, Movie movie)
+        {
+            return await AddAsync(movie);
         }
     }
 }

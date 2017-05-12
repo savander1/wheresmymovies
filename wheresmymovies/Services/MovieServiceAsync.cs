@@ -9,35 +9,32 @@ namespace wheresmymovies.Services
 {
     public class MovieServiceAsync : IMovieServiceAsync
     {
-        private IMovieRepository _movieRepository;
-        private IMetaDataSearchRepositoryAsync _metaDataRepository;
-        public MovieServiceAsync(IMovieRepository movieRepository, IMetaDataSearchRepositoryAsync metaDataRepository)
+        private IMovieRepositoryAsync _movieRepository;
+        public MovieServiceAsync(IMovieRepositoryAsync movieRepository)
         {
             if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
-            if (metaDataRepository == null) throw new ArgumentNullException(nameof(metaDataRepository));
 
             _movieRepository = movieRepository;
-            _metaDataRepository = metaDataRepository;
         }
         public async Task<bool> AddMovie(Movie movie)
         {
             if (movie == null) throw new ArgumentNullException(nameof(movie));
 
-            return await _movieRepository.Add(movie).ContinueWith((i) => true);
+            return await _movieRepository.AddAsync(movie).ContinueWith((i) => true);
         }
 
         public async Task<bool> UpdateMovie(Movie movie)
         {
             if (movie == null) throw new ArgumentNullException(nameof(movie));
 
-            return await _movieRepository.Update(movie.Id, movie).ContinueWith((i) => true);
+            return await _movieRepository.UpdateAsync(movie.Id, movie).ContinueWith((i) => true);
         }
 
         public async Task<bool> DeleteMovie(Movie movie)
         {
             if (movie == null) throw new ArgumentNullException(nameof(movie));
 
-            return await _movieRepository.Delete(movie.Id).ContinueWith((i) => true);
+            return await _movieRepository.DeleteAsync(movie.Id).ContinueWith((i) => true);
         }
 
         public async Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
@@ -45,7 +42,7 @@ namespace wheresmymovies.Services
             if (paremeters == null) throw new ArgumentNullException(nameof(paremeters));
             if (!paremeters.IsValid()) throw new InvalidSearchParametersException(paremeters.ToString());
 
-            return await _metaDataRepository.SearchAsync(paremeters);
+            return await _movieRepository.SearchAsync(paremeters);
         }
 
         public async Task<IList<Movie>> SearchAllMovies(SearchFilters filters)
@@ -53,7 +50,7 @@ namespace wheresmymovies.Services
             if (filters == null) throw new ArgumentNullException(nameof(filters));
             if (!filters.IsValid()) throw new InvalidSearchFilterException(filters.ToString());
 
-            return await _movieRepository.Get(filters);
+            return await _movieRepository.GetAsync(filters);
         }
     }
 }

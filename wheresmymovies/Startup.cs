@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Nancy.Owin;
+using wheresmymovies.Data.Client;
 
 namespace wheresmymovies
 {
@@ -15,6 +16,9 @@ namespace wheresmymovies
              .AddTemporarySigningCredential()
              .AddInMemoryApiResources(Config.GetApiResources())
              .AddInMemoryClients(Config.GetClients());
+
+            
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -26,7 +30,7 @@ namespace wheresmymovies
                 app.UseDeveloperExceptionPage();
             }
 
-
+            
             app.UseDefaultFiles(Config.GetDefaultFileOptions());
             app.UseStaticFiles();
             
