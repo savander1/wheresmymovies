@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Nancy;
 using Nancy.Owin;
 using System.Collections.Generic;
+using System;
+using wheresmymovies.Data;
 
 namespace wheresmymovies
 {
@@ -33,6 +35,11 @@ namespace wheresmymovies
             };
         }
 
+        internal static AzureSearchConfiguration GetAzureSearchConfiguration()
+        {
+            return new AzureSearchConfiguration("", "");
+        }
+
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
@@ -50,15 +57,6 @@ namespace wheresmymovies
                     "where.html"
                 }
             };
-        }
-
-        public static NancyOptions GetNancyOptions()
-        {
-            var options = new NancyOptions();
-            options.Bootstrapper = new AppBootstrapper();
-            options.PassThroughWhenStatusCodesAre(HttpStatusCode.NotFound);
-
-            return options;
         }
     }
 }

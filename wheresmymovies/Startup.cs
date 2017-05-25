@@ -37,7 +37,10 @@ namespace wheresmymovies
 
             app.UseIdentityServer();
             
-            app.UseOwin(x => x.UseNancy(Config.GetNancyOptions()));
+            app.UseOwin(x => x.UseNancy((options) =>
+            {
+                options.Bootstrapper = new AppBootstrapper(env);
+            }));
         }
 
         
