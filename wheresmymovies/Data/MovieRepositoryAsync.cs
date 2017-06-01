@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data.Client;
+using Newtonsoft.Json;
 
 namespace wheresmymovies.Data
 {
@@ -73,9 +74,18 @@ namespace wheresmymovies.Data
             return  await _azureClient.GetAsync(id);
         }
 
-        public Task<List<Movie>> GetAsync(SearchFilters searchFilters)
+        public async Task<List<Movie>> GetAsync(SearchFilters searchFilters)
         {
-            throw new NotImplementedException();
+            var response = await _azureClient.GetAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(response.ReasonPhrase);
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            return await Task.Factory.StartNew<List<Movie>>(() =>
+            {
+                return JsonConvert.DeserializeObject<List<Movie>>(content);
+            });
         }
 
         public Task<Movie> SearchAsync(SearchParameters searchParams)

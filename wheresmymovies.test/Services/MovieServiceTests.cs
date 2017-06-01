@@ -8,7 +8,7 @@ using wheresmymovies.Models;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace wheresmymovies.test
+namespace wheresmymovies.test.Services
 {
     [TestClass]
     public class MovieServiceTests

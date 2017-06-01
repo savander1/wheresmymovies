@@ -1,6 +1,5 @@
 ﻿using Nancy.ErrorHandling;
 using Nancy;
-using System;
 using Microsoft.AspNetCore.Hosting;
 
 namespace wheresmymovies
@@ -9,8 +8,8 @@ namespace wheresmymovies
     {
         public void Handle(HttpStatusCode statusCode, NancyContext context)
         {
-            context.Response.StatusCode = statusCode;
             context.Response.WithContentType("application/json");
+            context.Response.WithStatusCode(statusCode);
         }
 
         public bool HandlesStatusCode(HttpStatusCode statusCode, NancyContext context)

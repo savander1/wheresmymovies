@@ -25,10 +25,14 @@ namespace wheresmymovies.Utils
 
         private static List<int> GetYearRange(string s, string delimiter)
         {
-            var yearParts = s.Split(delimiter.ToCharArray());
-            var start = int.Parse(yearParts[0]);
+            var yearParts = s.Split(delimiter.ToCharArray()).ToList();
+            int start;
+            if (!int.TryParse(yearParts.First(), out start))
+            {
+                return new List<int>();
+            }
 
-            var second = yearParts[1];
+            var second = yearParts.Last();
             var end = string.IsNullOrEmpty(second)
                 ? DateTime.Now.Year
                 : int.Parse(second);
