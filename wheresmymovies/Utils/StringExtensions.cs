@@ -16,26 +16,19 @@ namespace wheresmymovies.Utils
                 return GetYearRange(s, regex.Match(s).Value);
             }
 
-            int year;
-            if (int.TryParse(s, out year))
-                return new List<int> { year };
-
-            return new List<int>();
+            var year = ParseYear(s);
+            return new List<int> { year };
         }
 
         private static List<int> GetYearRange(string s, string delimiter)
         {
             var yearParts = s.Split(delimiter.ToCharArray()).ToList();
-            int start;
-            if (!int.TryParse(yearParts.First(), out start))
-            {
-                return new List<int>();
-            }
 
+            var first = yearParts.First();
             var second = yearParts.Last();
-            var end = string.IsNullOrEmpty(second)
-                ? DateTime.Now.Year
-                : int.Parse(second);
+
+            var start = ParseYear(first);
+            var end = ParseYear(second);
 
             var range = new List<int>();
             for (var i = start; i <= end; i++)
@@ -72,6 +65,25 @@ namespace wheresmymovies.Utils
         public static string GetThumbImageUrl(this string poster)
         {
             return poster.Replace("SX300.jpg", "SX100.jpg");
+        }
+
+        private static void ValidateYear(int year)
+        {
+            var valid = year > 0 && year < (DateTime.Now.Year + 1);
+
+            if (!valid)
+                throw new InvalidYearException(year);
+        }
+
+        private static int ParseYear(string year)
+        {
+            int retVal;
+            if (!int.TryParse(year, out retVal))
+                throw new InvalidOperationException();
+
+            ValidateYear(retVal);
+
+            return retVal;
         }
     }
 }
