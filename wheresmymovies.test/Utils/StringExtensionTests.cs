@@ -6,7 +6,7 @@ using wheresmymovies.Utils;
 namespace wheresmymovies.test.Utils
 {
     [TestClass]
-    public class StringExtensionTests
+    public class StringExtensionTests : BaseTest
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]

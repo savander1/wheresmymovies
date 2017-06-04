@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Moq;
 using wheresmymovies.Data.Client;
 using wheresmymovies.Data;
@@ -9,7 +7,7 @@ using wheresmymovies.Data;
 namespace wheresmymovies.test.Data
 {
     [TestClass]
-    public class MovieSearchRepositoryTests
+    public class MovieSearchRepositoryTests : BaseTest
     {
         private Mock<ISearchClient> _searchClient;
         private Mock<IInfoClient> _infoClient;

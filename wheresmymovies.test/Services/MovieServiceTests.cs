@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace wheresmymovies.test.Services
 {
     [TestClass]
-    public class MovieServiceTests
+    public class MovieServiceTests : BaseTest
     {
         private Mock<IMovieRepositoryAsync> _movieRepo;
         private MovieServiceAsync _movieService;
