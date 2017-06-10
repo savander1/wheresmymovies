@@ -15,7 +15,6 @@ namespace wheresmymovies.test
 
         public BaseTest()
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
             if (!Trace.Listeners.Contains(Listener))
                 Trace.Listeners.Add(Listener);
         }
@@ -25,7 +24,6 @@ namespace wheresmymovies.test
         {
             Trace.WriteLine($"({TestContext.CurrentTestOutcome}) - {Class}.{Method}");
             Trace.Flush();
-            
         }
     }
 }

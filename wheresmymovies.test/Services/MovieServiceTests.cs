@@ -7,6 +7,7 @@ using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace wheresmymovies.test.Services
 {
@@ -24,7 +25,7 @@ namespace wheresmymovies.test.Services
             _movieRepo = new Mock<IMovieRepositoryAsync>();
 
             _movieRepo.Setup(repo => repo.GetAsync(It.Is<SearchFilters>(f => f.Title == Title)))
-                      .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new List<Movie>
+                      .Returns(() => Task.Factory.StartNew(() => new List<Movie>
                       {
                          new Movie
                          {
@@ -34,7 +35,7 @@ namespace wheresmymovies.test.Services
                       }));
 
             _movieRepo.Setup(repo => repo.SearchAsync(It.Is<SearchParameters>(p => p.Id == Id)))
-                     .Returns(() => System.Threading.Tasks.Task.Factory.StartNew(() => new Movie
+                     .Returns(() => Task.Factory.StartNew(() => new Movie
                      {
                          Title = Title,
                          Id = Id
@@ -52,13 +53,13 @@ namespace wheresmymovies.test.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task AddMovie_MovieNull_ThrowsAsync()
+        public async Task AddMovie_MovieNull_ThrowsAsync()
         {
             await _movieService.AddMovie(null);
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task AddMovie_ValidMovie_MovieAddedAsync()
+        public async Task AddMovie_ValidMovie_MovieAddedAsync()
         {
             var movieId = Guid.NewGuid().ToString();
             var movie = new Movie
@@ -73,13 +74,13 @@ namespace wheresmymovies.test.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task DeleteMovie_MovieNull_ThrowsAsync()
+        public async Task DeleteMovie_MovieNull_ThrowsAsync()
         {
             await _movieService.DeleteMovie(null);
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task DeleteMovie_ValidMovie_MovieDeletedAsync()
+        public async Task DeleteMovie_ValidMovie_MovieDeletedAsync()
         {
             var movieId = Guid.NewGuid().ToString();
             var movie = new Movie
@@ -94,13 +95,13 @@ namespace wheresmymovies.test.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task UpdateMovie_MovieNull_ThrowsAsync()
+        public async Task UpdateMovie_MovieNull_ThrowsAsync()
         {
             await _movieService.UpdateMovie(null);
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task UpdateMovieMovie_ValidMovie_MovieDeletedAsync()
+        public async Task UpdateMovieMovie_ValidMovie_MovieDeletedAsync()
         {
             var movieId = Guid.NewGuid().ToString();
             var movie = new Movie
@@ -115,21 +116,21 @@ namespace wheresmymovies.test.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task FetchMovieMetadata_NullPassed_ThrowsAsync()
+        public async Task FetchMovieMetadata_NullPassed_ThrowsAsync()
         {
             await _movieService.FetchMovieMetadata(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidSearchParametersException))]
-        public async System.Threading.Tasks.Task FetchMovieMetadata_InvalidSearchParameters_ThrowsAsync()
+        public async Task FetchMovieMetadata_InvalidSearchParameters_ThrowsAsync()
         {
             var invalidParams = new SearchParameters();
             await _movieService.FetchMovieMetadata(invalidParams);
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task FetchMovieMetadata_ValidParametersPassed_DataReturnedAsync()
+        public async Task FetchMovieMetadata_ValidParametersPassed_DataReturnedAsync()
         {
 
             var validParams = new SearchParameters { Id = Id };
@@ -142,21 +143,21 @@ namespace wheresmymovies.test.Services
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async System.Threading.Tasks.Task SearchAllMovies_NullPassed_ThrowsAsync()
+        public async Task SearchAllMovies_NullPassed_ThrowsAsync()
         {
             await _movieService.SearchAllMovies(null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidSearchFilterException))]
-        public async System.Threading.Tasks.Task SearchAllMovies_InvalidParameters_ThrowsAsync()
+        public async Task SearchAllMovies_InvalidParameters_ThrowsAsync()
         {
             var invalidParameters = new SearchFilters();
             await _movieService.SearchAllMovies(invalidParameters);
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task SearchAllMovies_ValidParamters_ReturnsMoviesAsync()
+        public async Task SearchAllMovies_ValidParamters_ReturnsMoviesAsync()
         {
             var validSearchFilters = new SearchFilters
             {

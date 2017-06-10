@@ -27,6 +27,8 @@ namespace wheresmymovies.Data
         
         public async Task<int> AddAsync(Movie movie)
         {
+            if (movie == null) throw new ArgumentNullException(nameof(movie));
+
             var result = await _azureClient.AddAsync(movie);
             if (result != System.Net.HttpStatusCode.OK)
             {
@@ -49,6 +51,8 @@ namespace wheresmymovies.Data
 
         public async Task<int> DeleteAsync(string movieId)
         {
+            if (string.IsNullOrWhiteSpace(movieId)) throw new ArgumentNullException(nameof(movieId));
+
             var result = await _azureClient.DeleteAsync(movieId);
             if (result != System.Net.HttpStatusCode.OK)
             {
@@ -71,6 +75,8 @@ namespace wheresmymovies.Data
 
         public async Task<Movie> GetAsync(string id)
         {
+            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
             return  await _azureClient.GetAsync(id);
         }
 
@@ -90,11 +96,16 @@ namespace wheresmymovies.Data
 
         public Task<Movie> SearchAsync(SearchParameters searchParams)
         {
-            throw new NotImplementedException();
+            if (searchParams == null) throw new ArgumentNullException(nameof(searchParams));
+            if (!searchParams.IsValid()) throw new ArgumentOutOfRangeException(nameof(searchParams), searchParams, "Invalid");
+
+            return _infoClient.GetMovieAsync(searchParams);
         }
 
         public async Task<int> UpdateAsync(string id, Movie movie)
         {
+            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
             return await AddAsync(movie);
         }
     }
