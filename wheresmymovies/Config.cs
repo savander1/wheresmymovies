@@ -35,11 +35,6 @@ namespace wheresmymovies
             };
         }
 
-        internal static AzureSearchConfiguration GetAzureSearchConfiguration()
-        {
-            return new AzureSearchConfiguration("", "");
-        }
-
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
