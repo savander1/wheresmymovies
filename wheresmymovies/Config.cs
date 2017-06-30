@@ -10,8 +10,6 @@ namespace wheresmymovies
 {
     public static class Config
     {
-        public static string IInfoUrl => "http://www.omdbapi.com/";
-
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>

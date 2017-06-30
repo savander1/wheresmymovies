@@ -12,7 +12,7 @@ namespace wheresmymovies.Controllers
         {
             Get("/", async (x, ctx) =>
             {
-                SearchFilters searchFilters = new SearchFilters();
+                var searchFilters = new SearchFilters();
                 this.BindTo(searchFilters);
                 var movies = await movieService.SearchAllMovies(searchFilters);
                 if (movies == null || !movies.Any())
@@ -21,6 +21,17 @@ namespace wheresmymovies.Controllers
                 }
                 
                 return movies;
+            });
+
+            Get("/search", async (x, ctx) =>
+            {
+                var searchParams = new SearchParameters();
+                this.BindTo(searchParams);
+                var movie = await movieService.FetchMovieMetadata(searchParams.Decode());
+                if (movie == null)
+                    return HttpStatusCode.NotFound;
+
+                return movie;
             });
 
             //Post("/", movie =>
