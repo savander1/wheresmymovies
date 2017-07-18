@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace wheresmymovies.test
 {
@@ -24,6 +25,34 @@ namespace wheresmymovies.test
         {
             Trace.WriteLine($"({TestContext.CurrentTestOutcome}) - {Class}.{Method}");
             Trace.Flush();
+        }
+
+        public static async Task CheckExeceptionMessageAsync(Func<Task> action, string message)
+        {
+            try
+            {
+                await action();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(!string.IsNullOrEmpty(ex.Message) && ex.Message.Contains(message),
+                $"Exception.Message expected to contain {message} but found {ex.Message}.");
+                throw ex;
+            }
+        }
+
+        public static async Task CheckExeceptionMessageAsync(Action action, string message)
+        {
+            try
+            {
+                await Task.Run(action);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(!string.IsNullOrEmpty(ex.Message) && ex.Message.Contains(message),
+                $"Exception.Message expected to contain {message} but found {ex.Message}.");
+                throw ex;
+            }
         }
     }
 }

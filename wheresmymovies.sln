@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wheresmymovies", "wheresmymovies\wheresmymovies.csproj", "{D4B2F5E7-D52D-4D26-BDCB-F1C08E00303F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wheresmymovies", "wheresmymovies\wheresmymovies.csproj", "{D4B2F5E7-D52D-4D26-BDCB-F1C08E00303F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wheresmymovies.test", "wheresmymovies.test\wheresmymovies.test.csproj", "{EA3AD402-99B3-4A8E-B665-3E71C795D87A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wheresmymovies.test", "wheresmymovies.test\wheresmymovies.test.csproj", "{EA3AD402-99B3-4A8E-B665-3E71C795D87A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{F5D3D163-AD63-412A-B7AD-3B7828E383F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

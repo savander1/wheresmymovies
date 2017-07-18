@@ -7,6 +7,8 @@ using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Data.Client;
 using Newtonsoft.Json;
+using System.Linq;
+using System.Net;
 
 namespace wheresmymovies.Data
 {
@@ -30,14 +32,14 @@ namespace wheresmymovies.Data
             if (movie == null) throw new ArgumentNullException(nameof(movie));
 
             var result = await _azureClient.AddAsync(movie);
-            if (result != System.Net.HttpStatusCode.OK)
+            if (!result.Results.All(x => x.Succeeded))
             {
                 var index = 1;
                 
                 while (index <= RETRIES)
                 {
                     result = await _azureClient.AddAsync(movie);
-                    if (result == System.Net.HttpStatusCode.OK)
+                    if (!result.Results.All(x => x.Succeeded))
                     {
                         break;
                     }
@@ -46,7 +48,7 @@ namespace wheresmymovies.Data
                 }
             }
             
-            return (int)result;
+            return result.Results.FirstOrDefault()?.StatusCode ?? (int)HttpStatusCode.OK;
         }
 
         public async Task<int> DeleteAsync(string movieId)
@@ -54,14 +56,14 @@ namespace wheresmymovies.Data
             if (string.IsNullOrWhiteSpace(movieId)) throw new ArgumentNullException(nameof(movieId));
 
             var result = await _azureClient.DeleteAsync(movieId);
-            if (result != System.Net.HttpStatusCode.OK)
+            if (!result.Results.All(x => x.Succeeded))
             {
                 var index = 1;
 
                 while (index <= RETRIES)
                 {
                     result = await _azureClient.DeleteAsync(movieId);
-                    if (result == System.Net.HttpStatusCode.OK)
+                    if (!result.Results.All(x => x.Succeeded))
                     {
                         break;
                     }
@@ -70,7 +72,7 @@ namespace wheresmymovies.Data
                 }
             }
 
-            return (int)result;
+            return result.Results.FirstOrDefault()?.StatusCode ?? (int)HttpStatusCode.OK; 
         }
 
         public async Task<Movie> GetAsync(string id)
@@ -83,15 +85,9 @@ namespace wheresmymovies.Data
         public async Task<List<Movie>> GetAsync(SearchFilters searchFilters)
         {
             var response = await _azureClient.GetAsync();
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception(response.ReasonPhrase);
-            }
-            var content = await response.Content.ReadAsStringAsync();
-            return await Task.Factory.StartNew<List<Movie>>(() =>
-            {
-                return JsonConvert.DeserializeObject<List<Movie>>(content);
-            });
+
+            var content = response.Results.Select(x => x.Document).ToList();
+            return content;
         }
 
         public Task<Movie> SearchAsync(SearchParameters searchParams)

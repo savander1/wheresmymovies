@@ -1,6 +1,7 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
 using System.Linq;
+using wheresmymovies.Entities;
 using wheresmymovies.Models;
 using wheresmymovies.Services;
 
@@ -34,11 +35,29 @@ namespace wheresmymovies.Controllers
                 return movie;
             });
 
-            //Post("/", movie =>
-            //{
-            //    movieRepository.Add(movie);
-            //    return HttpStatusCode.OK;
-            //});
+            Post("/", async (x, ctx) =>
+            {
+                var movie = new Movie();
+                this.BindTo(movie);
+                var success =await movieService.AddMovie(movie);
+                return success ? HttpStatusCode.OK : HttpStatusCode.NotModified;
+            });
+
+            Put("/", async (x, ctx) =>
+            {
+                var movie = new Movie();
+                this.BindTo(movie);
+                var success = await movieService.UpdateMovie(movie);
+                return success ? HttpStatusCode.OK : HttpStatusCode.NotModified;
+            });
+
+            Delete("/", async (x, ctx) =>
+            {
+                var movie = new Movie();
+                this.BindTo(movie);
+                var success = await movieService.DeleteMovie(movie);
+                return success ? HttpStatusCode.OK : HttpStatusCode.NotModified;
+            });
 
         }
     }

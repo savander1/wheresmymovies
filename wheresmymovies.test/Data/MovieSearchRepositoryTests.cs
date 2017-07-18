@@ -6,6 +6,7 @@ using wheresmymovies.Data;
 using System.Threading.Tasks;
 using wheresmymovies.Entities;
 using System.Net;
+using Microsoft.Azure.Search.Models;
 
 namespace wheresmymovies.test.Data
 {
@@ -50,7 +51,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.AddAsync(It.Is<Movie>(m => m.Id == movieId)))
-                         .Returns(Task.FromResult(HttpStatusCode.OK));
+                         .Returns(Task.FromResult(new DocumentIndexResult()));
 
             var result = await _movieRepo.AddAsync(new Movie { Id = movieId });
 
@@ -84,7 +85,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.DeleteAsync(movieId))
-                         .Returns(Task.FromResult(HttpStatusCode.OK));
+                         .Returns(Task.FromResult(new DocumentIndexResult()));
 
             var result = await _movieRepo.DeleteAsync(movieId);
 
@@ -134,21 +135,29 @@ namespace wheresmymovies.test.Data
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentOutOfRangeException), "Invalid")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public async Task Search_ParametersEmpty_ThrowsExeption()
         {
-            await _movieRepo.SearchAsync(new Models.SearchParameters());
+            await CheckExeceptionMessageAsync(async () =>
+            {
+                await _movieRepo.SearchAsync(new Models.SearchParameters());
+            }, "Invalid");
+            
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentOutOfRangeException), "Invalid")]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public async Task Search_ParametersOverPopulated_ThrowsExeption()
         {
-            await _movieRepo.SearchAsync(new Models.SearchParameters
+            await CheckExeceptionMessageAsync(async () =>
             {
-                Title = "foo",
-                Id = "bar"
-            });
+                await _movieRepo.SearchAsync(new Models.SearchParameters
+                {
+                    Title = "foo",
+                    Id = "bar"
+                });
+            }, "Invalid");
+            
         }
 
         [TestMethod]
@@ -160,31 +169,43 @@ namespace wheresmymovies.test.Data
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "id")]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task Update_IdNull_ThrowsException()
         {
-            await _movieRepo.UpdateAsync(null, new Movie());
+            await CheckExeceptionMessageAsync( async () => 
+                {
+                    await _movieRepo.UpdateAsync(null, new Movie());
+                }, "id");
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "id")]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task Update_IdEmpty_ThrowsException()
         {
-            await _movieRepo.UpdateAsync("", new Movie());
+            await CheckExeceptionMessageAsync(async () =>
+            {
+                await _movieRepo.UpdateAsync("", new Movie());
+            }, "id"); 
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "id")]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task Update_IdWhiteSpace_ThrowsException()
         {
-            await _movieRepo.UpdateAsync(" ", new Movie());
+            await CheckExeceptionMessageAsync(async () =>
+            {
+                await _movieRepo.UpdateAsync(" ", new Movie());
+            }, "id");
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "movie")]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task Update_MovieNull_ThrowsException()
         {
-            await _movieRepo.UpdateAsync("1", null);
+            await CheckExeceptionMessageAsync(async () =>
+            {
+                await _movieRepo.UpdateAsync("1", null);
+            }, "movie");
         }
 
         [TestMethod]
@@ -192,7 +213,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.AddAsync(It.Is<Movie>(m => m.Id == movieId)))
-                         .Returns(Task.FromResult(HttpStatusCode.OK));
+                         .Returns(Task.FromResult(new DocumentIndexResult()));
 
             var result = await _movieRepo.UpdateAsync(movieId, new Movie { Id = movieId });
 

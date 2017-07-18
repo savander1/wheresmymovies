@@ -2,13 +2,13 @@
 {
     public class AzureSearchConfiguration
     {
-        public string SearchEndpoint { get; private set; }
+        public string AdminApiKey { get; private set; }
         public string ApiKey { get; private set; }
 
-        public AzureSearchConfiguration(string apikey, string searchEndpoint)
+        public AzureSearchConfiguration(string apikey, string adminApiKey)
         {
             ApiKey = apikey;
-            SearchEndpoint = searchEndpoint;
+            AdminApiKey = adminApiKey;
         }
     }
 }

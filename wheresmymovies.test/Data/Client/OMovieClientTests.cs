@@ -3,42 +3,55 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using wheresmymovies.Data.Client;
 
 namespace wheresmymovies.test.Data.Client
 {
     [TestClass]
-    public class OmovieClientTests
+    public class OmovieClientTests : BaseTest
     {
         private Mock<IHttpClient> _client = new Mock<IHttpClient>();
         private const string _url = "http://www.zzz.com";
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "omdbUrl")]
-        public void Ctr_UrlNull_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task Ctr_UrlNull_ThrowsExceptionAsync()
         {
-            new OmovieClient(null, _client.Object);
+            await CheckExeceptionMessageAsync(() =>
+            {
+                new OmovieClient(null, _client.Object);
+            }, "omdbUrl");
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "omdbUrl")]
-        public void Ctr_UrlEmpty_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task Ctr_UrlEmpty_ThrowsExceptionAsync()
         {
-            new OmovieClient("", _client.Object);
+            await CheckExeceptionMessageAsync(() =>
+            {
+                new OmovieClient("", _client.Object);
+            }, "omdbUrl");
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "omdbUrl")]
-        public void Ctr_UrlWhitespace_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task Ctr_UrlWhitespace_ThrowsExceptionAsync()
         {
-            new OmovieClient(" ", _client.Object);
+            await CheckExeceptionMessageAsync(() =>
+            {
+                new OmovieClient(" ", _client.Object);
+            }, "omdbUrl");
         }
 
         [TestMethod]
-        [ExpectedExceptionMessage(typeof(ArgumentNullException), "client")]
-        public void Ctr_ClientNull_ThrowsException()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task Ctr_ClientNull_ThrowsExceptionAsync()
         {
-            new OmovieClient(_url, null);
+            await CheckExeceptionMessageAsync(() =>
+            {
+                new OmovieClient(_url, null);
+            }, "client");
         }
 
     }

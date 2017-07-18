@@ -15,11 +15,16 @@ namespace wheresmymovies.test
             _type = type;
         }
 
+
         protected override void Verify(Exception exception)
         {
-            var message = exception.Message.Trim();
+            var baseException = exception.GetBaseException();
+            var message = exception.GetBaseException().Message.Trim();
             Assert.IsTrue(!string.IsNullOrEmpty(message) && message.Contains(_message), 
                 $"Exception.Message expected to contain {_message} but found {message}.");
+            if (baseException.GetType().Equals(_type))
+                return;
+            RethrowIfAssertException(exception);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace wheresmymovies
 
         private AzureSearchConfiguration GetAzureSearchConfiguration()
         {
-            return new AzureSearchConfiguration(_config.GetValue<string>("AzureSearchApiKey"), _config.GetValue<string>("AzureApiEndpoint"));
+            return new AzureSearchConfiguration(_config.GetValue<string>("AzureSearchApiKey"), _config.GetValue<string>("AzureAdminApiKey"));
         }
 
         public override void Configure(INancyEnvironment environment)

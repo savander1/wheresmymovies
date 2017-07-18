@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using System;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using wheresmymovies.Entities;
 
@@ -11,68 +8,77 @@ namespace wheresmymovies.Data.Client
 {
     public class AzureSearchClient : ISearchClient
     {
-        private readonly string _searchUrl;
         private readonly string _apiKey;
+        private readonly string _adminKey;
 
-    	public AzureSearchClient(AzureSearchConfiguration configuration)
+        private ISearchIndexClient _azure;
+        public ISearchIndexClient Azure
+        {
+            get
+            {
+                if (_azure == null)
+                {
+                    _azure = new SearchIndexClient("wheresmymovies", "movies", new SearchCredentials(_apiKey));
+                }
+                return _azure;
+            }
+            set
+            {
+                _azure = value;
+            }
+        }
+
+        private ISearchIndexClient _admin;
+        public ISearchIndexClient Admin
+        {
+            get
+            {
+                if (_admin == null)
+                {
+                    _admin = new SearchIndexClient("wheresmymovies", "movies", new SearchCredentials(_adminKey));
+                }
+                return _admin;
+            }
+            set
+            {
+                _admin = value;
+            }
+        }
+
+        public AzureSearchClient(AzureSearchConfiguration configuration)
         {
             if (configuration == null) throw new ArgumentNullException(nameof(configuration));
             _apiKey = configuration.ApiKey;
-            _searchUrl = configuration.SearchEndpoint;
+            _adminKey = configuration.AdminApiKey;
         }
         
-        public async Task<HttpResponseMessage> GetAsync()
+        public async Task<DocumentSearchResult<Movie>> GetAsync()
         {
-            using (var client = new HttpClientEx())
-            {
-                return await client.GetAsync(_searchUrl);
-            }
+            return await Azure.Documents.SearchAsync<Movie>("*");
         }
 
-        public async Task<HttpStatusCode> AddAsync(Movie movie)
+        public async Task<DocumentIndexResult> AddAsync(Movie movie)
         {
-            using (var client = new HttpClientEx())
+            var action = IndexAction.MergeOrUpload(movie);
+            return await Admin.Documents.IndexAsync(new IndexBatch<Movie>(new[]
             {
-                var azureMovie = new AzureMovie(movie, "mergeOrUpload");
-                var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
-                return response.StatusCode;
-            }
+                action
+            }));
         }
         
         public async Task<Movie> GetAsync(string id)
         {
-            using (var client = new HttpClientEx())
-            {
-                var response = await client.GetAsync($"{_searchUrl}/{id}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
-
-                return JsonConvert.DeserializeObject<Movie>(await response.Content.ReadAsStringAsync());
-            }
+            return await Azure.Documents.GetAsync<Movie>(id);
         }
 
-        public async Task<HttpStatusCode> DeleteAsync(string id)
+        public async Task<DocumentIndexResult> DeleteAsync(string id)
         {
-            using (var client = new HttpClientEx())
+            var movie = await GetAsync(id);
+            var action = IndexAction.Delete(movie);
+            return await Admin.Documents.IndexAsync(new IndexBatch<Movie>(new[]
             {
-                var movie = new Movie() { Id = id };
-                var azureMovie = new AzureMovie(movie, "delete");
-                var response = await client.PostAsync(_searchUrl, await GetHttpContent(azureMovie));
-                return response.StatusCode;
-            }
-        }
-
-        private async Task<HttpContent> GetHttpContent(AzureMovie movie)
-        {
-            var movieResponse = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(new AzureMovies(movie), Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver(), NullValueHandling = NullValueHandling.Ignore }));
-            var content = new StringContent(movieResponse, Encoding.UTF8);
-            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            content.Headers.Add("api-key", _apiKey);
-       
-            return content;
+                action
+            }));
         }
     }
 }
