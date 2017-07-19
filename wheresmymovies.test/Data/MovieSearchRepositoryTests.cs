@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using wheresmymovies.Entities;
 using System.Net;
 using Microsoft.Azure.Search.Models;
+using System.Collections.Generic;
 
 namespace wheresmymovies.test.Data
 {
@@ -16,6 +17,7 @@ namespace wheresmymovies.test.Data
         private Mock<ISearchClient> _searchClient;
         private Mock<IInfoClient> _infoClient;
         private IMovieRepositoryAsync _movieRepo;
+        private static DocumentIndexResult _indexResult = new DocumentIndexResult(new List<IndexingResult>());
 
         [TestInitialize]
         public void Initialize()
@@ -51,7 +53,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.AddAsync(It.Is<Movie>(m => m.Id == movieId)))
-                         .Returns(Task.FromResult(new DocumentIndexResult()));
+                         .Returns(Task.FromResult(_indexResult));
 
             var result = await _movieRepo.AddAsync(new Movie { Id = movieId });
 
@@ -85,7 +87,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.DeleteAsync(movieId))
-                         .Returns(Task.FromResult(new DocumentIndexResult()));
+                         .Returns(Task.FromResult(_indexResult));
 
             var result = await _movieRepo.DeleteAsync(movieId);
 
@@ -213,7 +215,7 @@ namespace wheresmymovies.test.Data
         {
             const string movieId = "12345&*";
             _searchClient.Setup(x => x.AddAsync(It.Is<Movie>(m => m.Id == movieId)))
-                         .Returns(Task.FromResult(new DocumentIndexResult()));
+                         .Returns(Task.FromResult(_indexResult));
 
             var result = await _movieRepo.UpdateAsync(movieId, new Movie { Id = movieId });
 

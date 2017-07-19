@@ -54,5 +54,10 @@ namespace wheresmymovies.test
                 throw ex;
             }
         }
+
+        public static string Uuid()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }

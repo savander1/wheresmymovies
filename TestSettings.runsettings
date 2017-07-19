@@ -14,7 +14,7 @@
     <TargetFrameworkVersion>Framework45</TargetFrameworkVersion>
 
     <!-- Path to Test Adapters -->
-    <TestAdaptersPaths>C:\git\wheresmymovies\wheresmymovies.test\bin\Debug\netcoreapp1.1\</TestAdaptersPaths>
+    <TestAdaptersPaths>Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll</TestAdaptersPaths>
   </RunConfiguration>
 
   <!-- Configurations for data collectors -->

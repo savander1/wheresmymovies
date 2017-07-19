@@ -17,10 +17,8 @@ namespace wheresmymovies.Data.Client
         public OmovieClient(string omdbUrl, IHttpClient client)
         {
             if (string.IsNullOrWhiteSpace(omdbUrl)) throw new ArgumentNullException(nameof(omdbUrl));
-            if (client == null) throw new ArgumentNullException(nameof(client));
-
             _omdbUrl = omdbUrl;
-            _httpClient = client;
+            _httpClient = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public async Task<Movie> GetMovieAsync(SearchParameters parameters)

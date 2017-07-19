@@ -12,9 +12,7 @@ namespace wheresmymovies.Services
         private IMovieRepositoryAsync _movieRepository;
         public MovieServiceAsync(IMovieRepositoryAsync movieRepository)
         {
-            if (movieRepository == null) throw new ArgumentNullException(nameof(movieRepository));
-
-            _movieRepository = movieRepository;
+            _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
         }
         public async Task<bool> AddMovie(Movie movie)
         {
