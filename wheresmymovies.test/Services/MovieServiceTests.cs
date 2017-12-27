@@ -35,10 +35,13 @@ namespace wheresmymovies.test.Services
                       }));
 
             _movieRepo.Setup(repo => repo.SearchAsync(It.Is<SearchParameters>(p => p.Id == Id)))
-                     .Returns(() => Task.Factory.StartNew(() => new Movie
+                     .Returns(() => Task<IList<Movie>>.Factory.StartNew(() => new List<Movie>
                      {
-                         Title = Title,
-                         Id = Id
+                         new Movie
+                         {
+                             Title = Title,
+                             Id = Id
+                         }
                      }));
 
             _movieService = new MovieServiceAsync(_movieRepo.Object);
@@ -138,7 +141,7 @@ namespace wheresmymovies.test.Services
             var result = await _movieService.FetchMovieMetadata(validParams);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(Title, result.Title);
+            Assert.AreEqual(Title, result.First().Title);
         }
 
         [TestMethod]

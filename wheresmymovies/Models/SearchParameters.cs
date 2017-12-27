@@ -7,12 +7,7 @@ namespace wheresmymovies.Models
         public string Id { get; set; }
         public string Title { get; set; }
 
-        public SearchParameters Decode()
-        {
-            Title = WebUtility.UrlDecode(Title);
-
-            return this;
-        }
+        public bool IsTitleSearch => !string.IsNullOrEmpty(Title);
 
         internal bool IsValid()
         {

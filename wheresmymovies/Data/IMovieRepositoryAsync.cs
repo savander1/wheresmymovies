@@ -12,6 +12,6 @@ namespace wheresmymovies.Data
         Task<int> DeleteAsync(string id);
         Task<Movie> GetAsync(string id);
         Task<List<Movie>> GetAsync(SearchFilters searchFilters);
-        Task<Movie> SearchAsync(SearchParameters searchParams);
+        Task<IList<Movie>> SearchAsync(SearchParameters searchParams);
     }
 }

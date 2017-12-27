@@ -35,7 +35,7 @@ namespace wheresmymovies.Services
             return await _movieRepository.DeleteAsync(movie.Id).ContinueWith((i) => true);
         }
 
-        public async Task<Movie> FetchMovieMetadata(SearchParameters paremeters)
+        public async Task<IList<Movie>> FetchMovieMetadata(SearchParameters paremeters)
         {
             if (paremeters == null) throw new ArgumentNullException(nameof(paremeters));
             if (!paremeters.IsValid()) throw new InvalidSearchParametersException(paremeters.ToString());
