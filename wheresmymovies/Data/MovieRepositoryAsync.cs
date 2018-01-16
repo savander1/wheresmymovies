@@ -90,12 +90,12 @@ namespace wheresmymovies.Data
             return content;
         }
 
-        public Task<Movie> SearchAsync(SearchParameters searchParams)
+        public Task<IList<Movie>> SearchAsync(SearchParameters searchParams)
         {
             if (searchParams == null) throw new ArgumentNullException(nameof(searchParams));
             if (!searchParams.IsValid()) throw new ArgumentOutOfRangeException(nameof(searchParams), searchParams, "Invalid");
 
-            return _infoClient.GetMovieAsync(searchParams);
+            return _infoClient.SearchForMoviesAsync(searchParams);
         }
 
         public async Task<int> UpdateAsync(string id, Movie movie)

@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
+<PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TargetFramework>netcoreapp1.1</TargetFramework>
     <PostBuildEvent>gulp</PostBuildEvent>
+    <UserSecretsId>46682cf4-5ff1-48fd-9713-e5ba839a383c</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PostBuildEvent>gulp release</PostBuildEvent>
     <UserSecretsId>46682cf4-5ff1-48fd-9713-e5ba839a383c</UserSecretsId>
   </PropertyGroup>
 

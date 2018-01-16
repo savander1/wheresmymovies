@@ -21,18 +21,17 @@ namespace wheresmymovies.Controllers
                     return HttpStatusCode.NotFound;
                 }
                 
-                return movies;
+                return Response.AsJson(movies);
             });
 
             Get("/search", async (x, ctx) =>
             {
-                var searchParams = new SearchParameters();
+                var searchParams = new SearchParameters();                       
                 this.BindTo(searchParams);
-                var movie = await movieService.FetchMovieMetadata(searchParams.Decode());
+                var movie = await movieService.FetchMovieMetadata(searchParams);
                 if (movie == null)
                     return HttpStatusCode.NotFound;
-
-                return movie;
+                return Response.AsJson(movie);
             });
 
             Post("/", async (x, ctx) =>

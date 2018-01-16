@@ -29,7 +29,7 @@ namespace wheresmymovies
             base.ConfigureApplicationContainer(container);
 
             container.Register<IHttpClient>(new HttpClientEx());
-            container.Register<IInfoClient>(new DefaultInfoClient());
+            container.Register<IInfoClient>(new ImdbInfoClient(container.Resolve<IHttpClient>()));
             container.Register<ISearchClient>(new AzureSearchClient(GetAzureSearchConfiguration()));
             container.Register<IMovieRepositoryAsync>(new MovieRepositoryAsync(container.Resolve<ISearchClient>(), container.Resolve<IInfoClient>()));
             container.Register<IMovieServiceAsync>(new MovieServiceAsync(container.Resolve<IMovieRepositoryAsync>()));

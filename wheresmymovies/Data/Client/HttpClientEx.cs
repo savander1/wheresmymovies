@@ -15,6 +15,6 @@ namespace wheresmymovies.Data.Client
 
     public class HttpClientEx : HttpClient, IHttpClient
     {
-        
+
     }
 }

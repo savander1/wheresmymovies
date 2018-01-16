@@ -167,7 +167,7 @@ namespace wheresmymovies.test.Data
         {
             await _movieRepo.SearchAsync(new Models.SearchParameters { Id = "1" });
 
-            _infoClient.Verify(x => x.GetMovieAsync(It.Is<Models.SearchParameters>(p => p.Id.Equals("1"))));
+            _infoClient.Verify(x => x.SearchForMoviesAsync(It.Is<Models.SearchParameters>(p => p.Id.Equals("1"))));
         }
 
         [TestMethod]

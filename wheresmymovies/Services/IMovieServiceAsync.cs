@@ -7,7 +7,7 @@ namespace wheresmymovies.Services
 {
     public interface IMovieServiceAsync
     {
-        Task<Movie> FetchMovieMetadata(SearchParameters paremeters);
+        Task<IList<Movie>> FetchMovieMetadata(SearchParameters paremeters);
         Task<bool> AddMovie(Movie movie);
         Task<bool> DeleteMovie(Movie movie);
         Task<bool> UpdateMovie(Movie movie);
