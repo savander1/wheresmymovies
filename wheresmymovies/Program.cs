@@ -14,6 +14,7 @@ namespace wheresmymovies
             var host = new WebHostBuilder()
                 .UseKestrel(x => x.AddServerHeader = false)
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseEnvironment("Development")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
