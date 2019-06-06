@@ -9,3 +9,5 @@ h5. TODO
 # FE - Create a web frontend to search and add movies
 # FE - Create a thick client (Windows Universal) and install on XBox
 
+
+look at: AngleSharp
