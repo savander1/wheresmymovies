@@ -180,6 +180,7 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 /.DS_Store
+/.vscode
 
 /node_modules
 
@@ -231,3 +232,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+
