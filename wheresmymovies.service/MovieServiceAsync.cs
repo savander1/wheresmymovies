@@ -26,6 +26,11 @@ namespace wheresmymovies.service
             throw new NotImplementedException();
         }
 
+        public Task<PagedResult<Movie>> Find(MovieQuery query, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Movie> Get(int id, CancellationToken token)
         {
             throw new NotImplementedException();
