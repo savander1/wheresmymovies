@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace wheresmymoves.host.tests
+namespace wheresmymovies.host.tests
 {
     [TestClass]
     public class UnitTest1
