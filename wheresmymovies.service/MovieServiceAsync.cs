@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using wheresmymovies.entities;
-using wheresmymovies.service.Validator;
+using wheresmymovies.service.Validation;
 
 namespace wheresmymovies.service
 {
@@ -17,7 +17,7 @@ namespace wheresmymovies.service
 
         public Task<Movie> Create(Movie movie, CancellationToken token)
         {
-            _validator.Validate(movie, GetCreateValidationParameters());
+            _validator.Validate(movie);
             throw new NotImplementedException();
         }
 
@@ -39,26 +39,6 @@ namespace wheresmymovies.service
         public Task<Movie> Update(int id, Movie movie, CancellationToken token)
         {
             throw new NotImplementedException();
-        }
-
-        private string[] GetCreateValidationParameters()
-        {
-            var parameters = new List<string>
-            {
-                nameof(Movie.Actors),
-                nameof(Movie.Description),
-                nameof(Movie.Directors),
-                nameof(Movie.FormatLocations),
-                nameof(Movie.FullImgUrl),
-                nameof(Movie.Genres),
-                nameof(Movie.Runtime),
-                nameof(Movie.ThumbImgUrl),
-                nameof(Movie.Title),
-                nameof(Movie.Writers),
-                nameof(Movie.Years)
-            };
-
-            return parameters.ToArray();
         }
     }
 }

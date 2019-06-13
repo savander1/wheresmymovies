@@ -5,6 +5,7 @@ namespace wheresmymovies.entities
     public class MovieQuery
     {
         private readonly Dictionary<string, string> _properties;
+
         public MovieQuery()
         {
             _properties = new Dictionary<string, string>();

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace wheresmymovies.service.Validator
+namespace wheresmymovies.service.Validation
 {
     public interface IValidator<T> where T : class
     {

@@ -1,4 +1,4 @@
-namespace wheresmymovies.service.Validator
+namespace wheresmymovies.service.Validation
 {
     public class Violation
     {
