@@ -9,8 +9,8 @@ namespace wheresmymovies.service
 {
     public class MovieServiceAsync : IMovieServiceAsync
     {
-        private readonly IMovieValidatorAsync _validator;
-        public MovieServiceAsync(IMovieValidatorAsync validator)
+        private readonly MovieValidatorAsync _validator;
+        public MovieServiceAsync(MovieValidatorAsync validator)
         {
             _validator = validator;
         }

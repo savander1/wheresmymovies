@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using wheresmymovies.service;
 
 namespace wheresmymovies.host
 {
@@ -21,6 +22,7 @@ namespace wheresmymovies.host
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<IMovieServiceAsync, MovieServiceAsync>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
