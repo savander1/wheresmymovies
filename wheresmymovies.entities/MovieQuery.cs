@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace wheresmymovies.entities
 {
-    public class MovieQuery
+    public class MovieQuery : IQuery<Movie>
     {
         private readonly Dictionary<string, string> _properties;
 
@@ -11,7 +11,7 @@ namespace wheresmymovies.entities
             _properties = new Dictionary<string, string>();
         }
 
-        public MovieQuery WithProperty(string name, string value)
+        public IQuery<Movie> WithProperty(string name, string value)
         {
             _properties.Add(name, value);
             return this;
