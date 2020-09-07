@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E90A3930
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wheresmymovies.entities", "wheresmymovies.entities\wheresmymovies.entities.csproj", "{143A2765-5011-48A0-AC45-70C721351C95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wheresmymovies.data", "wheresmymovies.data\wheresmymovies.data.csproj", "{2F8BDD69-8314-45D3-9CF7-071C95FCF44A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wheresmymovies.data", "wheresmymovies.data\wheresmymovies.data.csproj", "{2F8BDD69-8314-45D3-9CF7-071C95FCF44A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wheresmymovies.migration", "wheresmymovies.migration\wheresmymovies.migration.csproj", "{5C9806EF-5C3C-4811-8E53-B72D33AAE902}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,18 @@ Global
 		{2F8BDD69-8314-45D3-9CF7-071C95FCF44A}.Release|x64.Build.0 = Release|Any CPU
 		{2F8BDD69-8314-45D3-9CF7-071C95FCF44A}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F8BDD69-8314-45D3-9CF7-071C95FCF44A}.Release|x86.Build.0 = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|x64.Build.0 = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Debug|x86.Build.0 = Debug|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|x64.ActiveCfg = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|x64.Build.0 = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C9806EF-5C3C-4811-8E53-B72D33AAE902}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

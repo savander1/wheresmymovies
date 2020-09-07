@@ -1,0 +1,51 @@
+﻿CREATE TABLE Movie (
+	Id int IDENTITY (0,0) PRIMARY KEY NOT NULL,
+	Title NVARCHAR(256),
+	ThumbImgUrl NVARCHAR(512),
+	[Description] NVARCHAR(MAX),
+	Runtime bigint,
+	FullImgUrl NVARCHAR(512)
+)
+
+CREATE TABLE MovieActor (
+	Id int PRIMARY KEY NOT NULL,
+	Actor NVARCHAR(256),
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE MovieDirector (
+	Id int PRIMARY KEY NOT NULL,
+	Director NVARCHAR(256),
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE MovieGenre (
+	Id int PRIMARY KEY NOT NULL,
+	Genre NVARCHAR(256),
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE MovieWriter (
+	Id int PRIMARY KEY NOT NULL,
+	Writer NVARCHAR(256),
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE MovieYear (
+	Id int PRIMARY KEY NOT NULL,
+	[Year] int,
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE MovieFormatLocation (
+	Id int PRIMARY KEY NOT NULL,
+	[Format] NVARCHAR(256),
+	[Location] NVARCHAR(256)
+	FOREIGN KEY(Id) REFERENCES Movie(Id)
+)
+
+CREATE TABLE [Schema] (
+	[Version] int PRIMARY KEY
+)
+
+INSERT INTO [Schema] ([Version]) VALUES (1)
