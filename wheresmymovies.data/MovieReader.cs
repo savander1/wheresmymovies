@@ -48,7 +48,7 @@ namespace wheresmymovies.data
             {
                 years.Add(new MovieYear
                 {
-                    MovieId = GetInt(nameof(MovieYear.MovieId), reader),
+                    Id = GetInt(nameof(MovieYear.Id), reader),
                     Year = GetInt(nameof(MovieYear.Year), reader)
                 });
             }
@@ -62,7 +62,7 @@ namespace wheresmymovies.data
             {
                 genres.Add(new MovieGenre
                 {
-                    MovieId = GetInt(nameof(MovieGenre.MovieId), reader),
+                    Id = GetInt(nameof(MovieGenre.Id), reader),
                     Genre = GetString(nameof(MovieGenre.Genre), reader)
                 });
             }
@@ -76,7 +76,7 @@ namespace wheresmymovies.data
             {
                 directors.Add(new MovieDirector
                 {
-                    MovieId = GetInt(nameof(MovieDirector.MovieId), reader),
+                    Id = GetInt(nameof(MovieDirector.Id), reader),
                     Director = GetString(nameof(MovieDirector.Director), reader)
                 });
             }
@@ -90,7 +90,7 @@ namespace wheresmymovies.data
             {
                 writers.Add(new MovieWriter
                 {
-                    MovieId = GetInt(nameof(MovieWriter.MovieId), reader),
+                    Id = GetInt(nameof(MovieWriter.Id), reader),
                     Writer = GetString(nameof(MovieWriter.Writer), reader)
                 });
             }
@@ -104,7 +104,7 @@ namespace wheresmymovies.data
             {
                 actors.Add(new MovieActor
                 {
-                    MovieId = GetInt(nameof(MovieActor.MovieId), reader),
+                    Id = GetInt(nameof(MovieActor.Id), reader),
                     Actor = GetString(nameof(MovieActor.Actor), reader)
                 }); ;
             }
@@ -118,7 +118,7 @@ namespace wheresmymovies.data
             {
                 locations.Add(new MovieFormatLocation
                 {
-                    MovieId = GetInt(nameof(MovieFormatLocation.MovieId), reader),
+                    Id = GetInt(nameof(MovieFormatLocation.Id), reader),
                     Format = GetString(nameof(MovieFormatLocation.Format), reader),
                     Location = GetString(nameof(MovieFormatLocation), reader)
                 });

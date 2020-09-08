@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace wheresmymovies.entities
 {
@@ -9,7 +8,7 @@ namespace wheresmymovies.entities
         public string Title { get; set; }
         public string ThumbImgUrl { get; set; }
         public string Description { get; set; }
-        public ICollection<MovieYear> Years { get; set; }
+        public ICollection<MovieYear> Years { get; set; }   
         public long Runtime { get; set; }
         public ICollection<MovieGenre> Genres { get; set; }
         public ICollection<MovieDirector> Directors { get; set; }

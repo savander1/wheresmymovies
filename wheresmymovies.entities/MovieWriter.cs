@@ -2,7 +2,7 @@
 {
     public class MovieWriter
     {
-        public int MovieId { get;set; }
+        public int Id { get;set; }
         public string Writer { get;set; }
     }
 }
