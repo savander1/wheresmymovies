@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Sql\DeleteMovie.sql" />
     <None Remove="Sql\GetMovieById.sql" />
+    <None Remove="Sql\InsertMovie.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Sql\GetMovieById.sql" />
+    <EmbeddedResource Include="Sql\*.sql" />
   </ItemGroup>
 
   <ItemGroup>

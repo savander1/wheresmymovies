@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace wheresmymovies.entities
 {
     public class Page

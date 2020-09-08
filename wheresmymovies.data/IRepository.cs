@@ -11,4 +11,7 @@ namespace wheresmymovies.data
         void Delete(TId id);
         IEnumerable<T> Find(IQuery<T> query);
     }
+
+    public interface IMovieRepository : IRepository<Movie, int>
+    { }
 }

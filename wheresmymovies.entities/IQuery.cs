@@ -1,7 +1,11 @@
-﻿namespace wheresmymovies.entities
+﻿using System.Collections.Generic;
+
+namespace wheresmymovies.entities
 {
     public interface IQuery<T>
     {
-        IQuery<T> WithProperty(string name, string value);
+        IQuery<T> Equals(string name, string value);
+        IQuery<T> Contains(string name, string value);
+        IQuery<T> In(string name, ICollection<string> collection);
     }
 }
