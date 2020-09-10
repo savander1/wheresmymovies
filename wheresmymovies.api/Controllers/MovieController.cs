@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using wheresmymovies.api.Service;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,16 +12,14 @@ namespace wheresmymovies.api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
-    { 
-        public MovieController() { }
-
-        // GET: api/<MovieController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+    {
+        private readonly IMovieService _movieService;
+        public MovieController(IMovieService movieService) 
         {
-            return new string[] { "value1", "value2" };
+            _movieService = movieService;
         }
 
+        
         // GET api/<MovieController>/5
         [HttpGet("{id}")]
         public string Get(int id)
