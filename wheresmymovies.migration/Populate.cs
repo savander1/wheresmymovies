@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace wheresmymovies.migration
@@ -10,7 +11,9 @@ namespace wheresmymovies.migration
         internal static int CreateDb()
         {
             string commandText;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("PopulateDatabase.sql"))
+            var assembly = Assembly.GetExecutingAssembly();
+            var resource = assembly.GetManifestResourceNames().Single(x => x.Contains("PopulateDatabase.sql"));
+            using (var stream = assembly.GetManifestResourceStream(resource))
             using (var reader = new StreamReader(stream))
             {
                 commandText = reader.ReadToEnd();

@@ -1,6 +1,6 @@
 using System;
 
-namespace wheresmymovies.api
+namespace wheresmymovies.web
 {
     public class WeatherForecast
     {

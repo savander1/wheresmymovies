@@ -21,13 +21,13 @@ namespace wheresmymovies.migration
                 if (createOption.HasValue())
                 {
                     Console.WriteLine("Creating Database");
-                    return 0;
+                    return Create.CreateDb();
                 }
 
                 if (populateOption.HasValue())
                 {
                     Console.WriteLine("Populating Database");
-                    return 0;
+                    return Populate.CreateDb();
                 }
 
                 

@@ -1,101 +1,79 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using wheresmymovies.entities;
+using wheresmymovies.entities.Filter;
 
 namespace wheresmymovies.data
 {
     public class MovieRepository : IMovieRepository
     {
-        private readonly ISqlGenerator<Movie, int> _sqlGenerator;
-        private readonly IEntityReader<Movie> _entityReader;
-        private readonly string _connectionString;
-
-        protected MovieRepository(string connectionString, ISqlGenerator<Movie, int> sqlGenerator, IEntityReader<Movie> reader)
+        private readonly IDbContextFactory<MovieContext> _dbContextFactory;
+        protected MovieRepository(IDbContextFactory<MovieContext> dbContextFactory)
         {
-            _sqlGenerator = sqlGenerator;
-            _entityReader = reader;
-            _connectionString = connectionString;
+            _dbContextFactory = dbContextFactory ?? throw new ArgumentNullException(nameof(dbContextFactory));
         }
-        public MovieRepository(string connectionString) : this(connectionString, new MovieSqlGenerator(), new MovieReader()) { }
 
         public void Delete(int id)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var tran = conn.BeginTransaction(IsolationLevel.ReadCommitted))
+            using(var context = _dbContextFactory.GetContext())
             {
-                conn.Open();
-                _sqlGenerator.Connection = conn;
-                var command = _sqlGenerator.GenerateDelete(id);
-                command.ExecuteNonQuery();
+                var movie = context.Find<Movie>(id);
+                if (movie != null)
+                {
+                    context.Remove(movie);
+                }
+                context.SaveChanges();
             }
         }
 
-        public IEnumerable<Movie> Find(IQuery<Movie> query)
+        public IEnumerable<Movie> Find(IFilter<Movie> filter)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var tran = conn.BeginTransaction(IsolationLevel.ReadCommitted))
+            using (var context = _dbContextFactory.GetContext())
             {
-                conn.Open();
-                _sqlGenerator.Connection = conn;
-                var command = _sqlGenerator.GenerateFind(query);
-                using (var reader = command.ExecuteReader())
-                {
-                    return _entityReader.ReadList(reader);
-                }
+                var foo = context.Set<Movie>().Where(movie => movie.Id == 1).AsEnumerable();
             }
+            throw new NotImplementedException();
         }
 
         public Movie Get(int id)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var tran = conn.BeginTransaction(IsolationLevel.ReadCommitted))
+            using(var context = _dbContextFactory.GetContext())
             {
-                conn.Open();
-                _sqlGenerator.Connection = conn;
-                var command = _sqlGenerator.GenerateGet(id);
-                using (var reader = command.ExecuteReader())
-                {
-                    return _entityReader.Read(reader);
-                }
+                return context.Find<Movie>(id);
             }
         }
 
         public Movie Save(Movie t)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var tran = conn.BeginTransaction(IsolationLevel.ReadCommitted))
+            using(var context = _dbContextFactory.GetContext())
             {
-                conn.Open();
-                _sqlGenerator.Connection = conn;
-                var command = _sqlGenerator.GenerateSave(t);
-                int id = (int)command.ExecuteScalar();
-                var returnCommand = _sqlGenerator.GenerateGet(id);
-                using (var reader = returnCommand.ExecuteReader())
-                {
-                    return _entityReader.Read(reader);
-                }
+                var saved = context.Add(t);
+                context.SaveChanges();
+                return saved.Entity;
             }
         }
 
         public Movie Update(int id, Movie t)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var tran = conn.BeginTransaction(IsolationLevel.ReadCommitted))
+            using (var context = _dbContextFactory.GetContext())
             {
-                conn.Open();
-                _sqlGenerator.Connection = conn;
-                var command = _sqlGenerator.GenerateGet(id);
-                Movie original;
-                using (var reader = command.ExecuteReader())
-                {
-                    original = _entityReader.Read(reader);
-                }
-                var updateCmd = _sqlGenerator.GenerateUpdate(original, t);
-                using (var reader = updateCmd.ExecuteReader())
-                {
-                    return _entityReader.Read(reader);
-                }
+                var movie = context.Find<Movie>(id);
+                movie.Actors = t.Actors;
+                movie.Description = t.Description;
+                movie.Directors = t.Directors;
+                movie.FormatLocations = t.FormatLocations;
+                movie.FullImgUrl = t.FullImgUrl;
+                movie.Genres = t.Genres;
+                movie.Runtime = t.Runtime;
+                movie.ThumbImgUrl = t.ThumbImgUrl;
+                movie.Title = t.Title;
+                movie.Writers = t.Writers;
+                movie.Years = t.Years;
+
+                context.Update(movie);
+                context.SaveChanges();
+                return movie;
             }
         }
     }

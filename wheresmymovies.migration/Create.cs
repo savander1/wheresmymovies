@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace wheresmymovies.migration
@@ -10,33 +13,20 @@ namespace wheresmymovies.migration
         internal static int CreateDb()
         {
             string commandText;
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CreateDatabase.sql"))
+            var assembly = Assembly.GetExecutingAssembly();
+            var resource = assembly.GetManifestResourceNames().Single(x => x.Contains("CreateDatabase.sql"));
+            using (var stream = assembly.GetManifestResourceStream(resource))
             using (var reader = new StreamReader(stream))
             {
                 commandText = reader.ReadToEnd();
             }
 
+
             Console.WriteLine("Enter the connection string:");
             string line;
             while ((line = Console.ReadLine()) != string.Empty)
             {
-                try
-                {
-                    using (var conn = new SqlConnection(line))
-                    {
-                        conn.Open();
-                        var command = conn.CreateCommand();
-                        command.CommandText = commandText;
-
-                        command.ExecuteNonQuery();
-                        return 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                    return 1;
-                }
+                
             }
             return 0;
         }
