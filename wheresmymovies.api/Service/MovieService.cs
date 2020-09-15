@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using wheresmymovies.api.Models;
+using wheresmymovies.api.Service.Mapping;
 using wheresmymovies.data;
 
 namespace wheresmymovies.api.Service
@@ -9,11 +11,13 @@ namespace wheresmymovies.api.Service
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IMovieMapper _mapper;
+        private readonly IMovieQueryMapper _queryMapper;
 
-        public MovieService(IMovieRepository movieRepository, IMovieMapper mapper)
+        public MovieService(IMovieRepository movieRepository, IMovieMapper mapper, IMovieQueryMapper queryMapper)
         {
             _movieRepository = movieRepository ?? throw new ArgumentNullException(nameof(movieRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _queryMapper = queryMapper ?? throw new ArgumentNullException(nameof(queryMapper));
         }
 
         public void Delete(int id)
@@ -38,7 +42,10 @@ namespace wheresmymovies.api.Service
 
         public IEnumerable<Movie> Find(Movie value)
         {
-            throw new NotImplementedException();
+            var query = new MovieQuery(value);
+            var filter = _queryMapper.ToEntity(query);
+
+            return _movieRepository.Find(filter).Select(_mapper.ToModel);
         }
     }
 }

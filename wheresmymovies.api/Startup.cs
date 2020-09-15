@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using wheresmymovies.api.Service;
+using wheresmymovies.api.Service.Mapping;
 using wheresmymovies.data;
+using wheresmymovies.entities;
 
 namespace wheresmymovies.api
 {
@@ -24,6 +25,7 @@ namespace wheresmymovies.api
             services.AddControllers();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IMovieMapper, MovieMapper>();
+            services.AddTransient<IMovieQueryMapper, MovieQueryMapper>();
             services.AddTransient<IMovieRepository, MovieRepository>();
 
             services.AddDbContext<MovieContext>(options =>
@@ -33,16 +35,11 @@ namespace wheresmymovies.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseErrorHandler();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

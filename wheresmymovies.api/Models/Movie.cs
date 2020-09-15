@@ -15,6 +15,6 @@ namespace wheresmymovies.api.Models
         public IList<string> Writers { get; set; } = new List<string>();
         public IList<string> Actors { get; set; } = new List<string>();
         public string FullImgUrl { get; set; }
-        public IList<string> FormatLocations { get; set; } = new List<string>();
+        public IDictionary<string, IList<string>> FormatLocations { get; set; } = new Dictionary<string, IList<string>>();
     }
 }
